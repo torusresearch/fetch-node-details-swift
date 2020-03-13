@@ -16,7 +16,6 @@ public class NodeDetails {
     private var torusNodePub : Array<Array<String>>;
     private var updated = false;
     
-
     init(_currentEpoch : String, _nodeListAddress : String, _torusNodeEndpoints : Array<String>,  _torusIndexes : Array<BigInt>, _torusNodePub : Array<Array<String>>, _updated : Bool) {
         self.currentEpoch = _currentEpoch;
         self.nodeListAddress = _nodeListAddress;
@@ -70,7 +69,7 @@ public class NodeDetails {
         return torusNodePub;
     }
 
-    public func setTorusNodePub(torusNodePub : Array<torusNodePub>) {
+    public func setTorusNodePub(torusNodePub : Array<Array<String>>) {
         self.torusNodePub = torusNodePub;
     }
 }
