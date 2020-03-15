@@ -1,4 +1,5 @@
 import XCTest
+import SipHash
 @testable import fetch_node_details
 
 final class fetch_node_detailsTests: XCTestCase {
@@ -6,9 +7,9 @@ final class fetch_node_detailsTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        var fnd = FetchNodeDetails()
-        let res = fnd.getCurrentEpoch()
-        print(res)
+         var fnd = FetchNodeDetails()
+        //let res = fnd.getCurrentEpoch()
+        //print(res)
         //        XCTAssertEqual(fetch_node_details().text, "Hello, World!")
     }
 

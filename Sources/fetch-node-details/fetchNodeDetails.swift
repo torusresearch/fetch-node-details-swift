@@ -1,62 +1,36 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Shubham on 13/3/20.
 //
 
 import Foundation
-import Web3
-import Web3ContractABI
-import Web3PromiseKit
+import web3swift
 
 public class FetchNodeDetails {
-    
-    private var web3 : Web3!;
+
+    // private var web3 : Web3
     private var network : EthereumNetwork = EthereumNetwork.MAINNET;
     private var proxyAddress : String = "0x638646503746d5456209e33a2ff5e3226d698bea";
-    private var proxyContract : DynamicContract!;
+    //private var proxyContract : DynamicContract!;
     //private var  nodeDetails : NodeDetails;
-    
-    
+
+
 //    init(network : EthereumNetwork, proxyAddress: String) {
 //        self.network = network;
 //        self.proxyAddress = proxyAddress;
 //        //self.nodeDetails = NodeDetails();
 //        self.setupWeb3();
 //    }
-    
+
     public init(){
         self.setupWeb3()
         //self.getCurrentEpoch()
     }
-    
+
     public func getCurrentEpoch() {
-        
-        let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: "0x5bbbef76458bf30511c9ee6ed56783644eb339258d02656755c68098c4809130")
-        guard let call = self.proxyContract["currentEpoch"]!().createCall() else {
-               print("Could not generate call")
-               return
-           }
-        
-        //firstly
-        self.web3!.eth.call(call: call, block: .latest) { response in print(response)}
-        print(call)
-        
-        
-//        // Get balance of some address
-//        var transaction = self.proxyContract!["currentEpoch"]!().call()
-//        firstly {
-//            //print("ASDF")
-//            try transaction
-//            //print("ASDF")
-//        }.done { outputs in
-//            print(outputs)
-//        }.catch { error in
-//            print(error)
-//        }
-        
-        // return self.proxyContract["currentEpoch"]!().call()
+
     }
 //
 //        public CompletableFuture<EpochInfo> getEpochInfo(BigInteger epoch) {
@@ -114,16 +88,17 @@ public class FetchNodeDetails {
 //                return CompletableFuture.supplyAsync(() -> this.nodeDetails);
 //            });
 //        }
-    
+
     private func setupWeb3() {
-        self.web3 = Web3(rpcURL: self.getProxyUrl());
-        let contractAddress = try! EthereumAddress(hex: self.proxyAddress, eip55: false)
-        self.proxyContract = try! self.web3.eth.Contract(json: Data(contractABIString.utf8), abiKey: nil, address: contractAddress)
+        let web3 = Web3.InfuraMainnetWeb3()
+
+        //let contractAddress = try! EthereumAddress(hex: self.proxyAddress, eip55: false)
+        //self.proxyContract = try! self.web3.eth.Contract(json: Data(contractABIString.utf8), abiKey: nil, address: contractAddress)
         //print(self.proxyContract.methods.count)
         //self.getCurrentEpoch()
         // print(self.proxyContract)
     }
-    
+
     private func getProxyUrl() -> String{
         return "https://api.infura.io/v1/jsonrpc/" + self.network.rawValue;
     }
