@@ -8,12 +8,13 @@ final class fetch_node_detailsTests: XCTestCase {
         // results.
         let fnd = FetchNodeDetails();
         let currentEpoch = fnd.getCurrentEpoch()
-        let epochInfo = fnd.getEpochInfo(epoch: currentEpoch)
-        //let res = fnd.getCurrentEpoch()
-        //print(res)
-        //        XCTAssertEqual(fetch_node_details().text, "Hello, World!")
+        print("currentEpochValue", currentEpoch)
+        // let epochInfo = fnd.getEpochInfo(epoch: currentEpoch)
+        // let nodeDetails = fnd.getNodeEndpoint(nodeEthAddress: "0x40e8f0D606281b0a1d9D8Ac9030AaaE9D51229D1")
+        
+        //let details = fnd.getNodeDetails()
     }
-
+    
     static var allTests = [
         ("testExample", testExample),
     ]
