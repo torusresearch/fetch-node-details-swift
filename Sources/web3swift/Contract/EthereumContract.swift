@@ -211,10 +211,11 @@ public struct EthereumContract:ContractProtocol {
         let foundMethod = self.methods.filter { (key, value) -> Bool in
             return key == method
         }
-        guard foundMethod.count == 1 else {return nil}
+        guard foundMethod.count == 1 else {print("returning nil");return nil}
         let abiMethod = foundMethod[method]
         guard let encodedData = abiMethod?.encodeParameters(parameters) else {return nil}
         let transaction = EthereumTransaction(gasPrice: BigUInt(0), gasLimit: BigUInt(0), to: to, value: BigUInt(0), data: encodedData)
+        //print("transaction", transaction)
         return transaction
     }
     
