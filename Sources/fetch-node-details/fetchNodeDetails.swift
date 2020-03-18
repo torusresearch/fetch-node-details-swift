@@ -47,11 +47,10 @@ public class FetchNodeDetails {
             extraData: extraData,
             transactionOptions: options)!
         
-        let result = try! tx.call()
-            
-        let value = String(describing: result["0"] as Any).split(separator: "(") // Seems necessary due to internal conversion issues
-        print(value)
-        return 18
+        let result : [String:Any] = try! tx.call()
+        //print("result is", type(of: result.first?.value), result)
+        let epoch = result.first?.value
+        return Int("\(newEpoch)")!
     }
     
     public func getEpochInfo(epoch : Int) -> EpochInfo{
