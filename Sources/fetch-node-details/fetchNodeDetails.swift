@@ -16,18 +16,12 @@ public class FetchNodeDetails {
     private var proxyAddress : EthereumAddress = EthereumAddress("0x638646503746d5456209e33a2ff5e3226d698bea")!
     private var walletAddress : EthereumAddress = EthereumAddress("0x5F7A02a42bF621da3211aCE9c120a47AA5229fBA")!
     private let yourContractABI: String = contractABIString
-    private var nodeDetails : NodeDetails!
+    private var nodeDetails : NodeDetails
     
-    
-    //    init(network : EthereumNetwork, proxyAddress: String) {
-    //        self.network = network;
-    //        self.proxyAddress = proxyAddress;
-    //        //self.nodeDetails = NodeDetails();
-    //        self.setupWeb3();
-    //    }
     
     public init(){
         self.web3 = Web3.InfuraMainnetWeb3()
+        self.nodeDetails = NodeDetails()
     }
     
     public func getCurrentEpoch() -> Int{
@@ -50,10 +44,12 @@ public class FetchNodeDetails {
         let result : [String:Any] = try! tx.call()
         //print("result is", type(of: result.first?.value), result)
         let epoch = result.first?.value
+        guard let newEpoch = epoch else { return 0}
+        //print(epoch, newEpoch)
         return Int("\(newEpoch)")!
     }
     
-    public func getEpochInfo(epoch : Int) -> EpochInfo{
+    public func getEpochInfo(epoch : Int) throws -> EpochInfo{
         let contractMethod = "getEpochInfo"
         let parameters: [AnyObject] = [18 as AnyObject] // Parameters for contract method
         let extraData: Data = Data() // Extra data for contract method
@@ -82,18 +78,18 @@ public class FetchNodeDetails {
         }
         print(nodeList)
         
-        let id = String(describing: result["id"] as Any)
-        let n = String(describing: result["n"] as Any)
-        let k = String(describing: result["k"] as Any)
-        let t = String(describing: result["t"] as Any)
-        let prevEpoch = String(describing: result["prevEpoch"] as Any)
-        let nextEpoch = String(describing: result["nextEpoch"] as Any)
+        guard let id = result["id"] else { throw "asdf"}
+        guard let n = result["n"] else { throw "asdf"}
+        guard let k = result["k"] else { throw "asdf"}
+        guard let t = result["t"] else { throw "asdf"}
+        guard let prevEpoch = result["prevEpoch"] else { throw "asdf"}
+        guard let nextEpoch = result["nextEpoch"] else { throw "asdf"}
         
-        let object = EpochInfo(_id: id, _n: n, _k: k, _t: t, _nodeList: nodeList as! Array<String>, _prevEpoch: prevEpoch, _nextEpoch: nextEpoch)
+        let object = EpochInfo(_id: "\(id)", _n: "\(n)", _k: "\(k)", _t: "\(t)", _nodeList: nodeList as! Array<String>, _prevEpoch: "\(prevEpoch)", _nextEpoch: "\(nextEpoch)")
         return object
     }
     
-    public func getNodeEndpoint(nodeEthAddress: String) -> NodeInfo{
+    public func getNodeEndpoint(nodeEthAddress: String) throws -> NodeInfo {
         let contractMethod = "getNodeDetails"
         let parameters: [AnyObject] = [nodeEthAddress as AnyObject] // Parameters for contract method
         let extraData: Data = Data() // Extra data for contract method
@@ -115,23 +111,40 @@ public class FetchNodeDetails {
         print(result.keys)
         print(result.values)
         
-        let declaredIp = String(describing: result["declaredIp"] as Any)
-        let position = String(describing: result["position"] as Any)
-        let pubKx = String(describing: result["pubKx"] as Any)
-        let pubKy = String(describing: result["pubKy"] as Any)
-        let tmP2PListenAddress = String(describing: result["tmP2PListenAddress"] as Any)
-        let p2pListenAddress = String(describing: result["p2pListenAddress"] as Any)
-        
-        let object = NodeInfo(_declaredIp: declaredIp, _position: position, _pubKx: pubKx, _pubKy: pubKy, _tmP2PListenAddress: tmP2PListenAddress, _p2pListenAddress: p2pListenAddress)
+        // Unwraping Any? -> Any
+        guard let declaredIp = result["declaredIp"] else { throw "some error" }
+        guard let position = result["position"] else { throw "some error" }
+        guard let pubKx = result["pubKx"] else { throw "some error" }
+        guard let pubKy = result["pubKy"] else { throw "some error" }
+        guard let tmP2PListenAddress = result["tmP2PListenAddress"] else { throw "some error" }
+        guard let p2pListenAddress = result["p2pListenAddress"] else { throw "some error" }
+
+        let object = NodeInfo(_declaredIp: "\(declaredIp)", _position: "\(position)", _pubKx: "\(pubKx)", _pubKy: "\(pubKy)", _tmP2PListenAddress: "\(tmP2PListenAddress)", _p2pListenAddress: "\(p2pListenAddress)")
         return object
     }
     
     public func getNodeDetails(){
         //if(self.nodeDetails.getUpdated()) return this.nodeDetails
         let currentEpoch = self.getCurrentEpoch();
-        self.nodeDetails.setNodeListAddress(nodeListAddress: String(describing: self.proxyAddress.address));
+        print(self.proxyAddress.address)
+//        let newNodeDetails = NodeDetails()
+        
+        self.nodeDetails.setNodeListAddress(nodeListAddress: self.proxyAddress.address);
         self.nodeDetails.setCurrentEpoch(currentEpoch: String(currentEpoch));
-
+         // self.nodeDetails.setTorusNodeIndexes()
+        
+        
+        let epochInfo = try! getEpochInfo(epoch: currentEpoch);
+        let nodelist = epochInfo.getNodeList();
+        
+        var torusIndexes:[BigInt] = Array()
+        var nodeEndPoints:[NodeInfo] = Array()
+        
+        for i in 0..<nodelist.count{
+            torusIndexes.append(BigInt(i+1))
+            nodeEndPoints.append(try! getNodeEndpoint(nodeEthAddress: nodelist[i]))
+        }
+        
         
     }
     
@@ -146,4 +159,8 @@ public class FetchNodeDetails {
     private func getProxyUrl() -> String{
         return "https://api.infura.io/v1/jsonrpc/" + self.network.rawValue;
     }
+}
+
+extension String: LocalizedError {
+    public var errorDescription: String? { return self }
 }

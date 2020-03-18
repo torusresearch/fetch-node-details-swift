@@ -86,6 +86,14 @@
                BlueprintName = "fetch-node-detailsTests"
                ReferencedContainer = "container:">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "fetch_node_detailsTests/testExample()">
+               </Test>
+               <Test
+                  Identifier = "fetch_node_detailsTests/testGetNodeEndpoints()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

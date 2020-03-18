@@ -9,12 +9,16 @@ import Foundation
 import BigInt
 
 public class NodeDetails {
-    private var currentEpoch : String;
-    private var nodeListAddress : String;
-    private var torusNodeEndpoints : Array<String>;
-    private var torusIndexes : Array<BigInt>;
-    private var torusNodePub : Array<Array<String>>;
+    private var currentEpoch : String?;
+    private var nodeListAddress : String?;
+    private var torusNodeEndpoints : Array<String>?;
+    private var torusIndexes : Array<BigInt>?;
+    private var torusNodePub : Array<Array<String>>?;
     private var updated = false;
+    
+    init() {
+        
+    }
     
     init(_currentEpoch : String, _nodeListAddress : String, _torusNodeEndpoints : Array<String>,  _torusIndexes : Array<BigInt>, _torusNodePub : Array<Array<String>>, _updated : Bool) {
         self.currentEpoch = _currentEpoch;
@@ -26,7 +30,7 @@ public class NodeDetails {
     }
 
     public func getTorusIndexes() -> Array<BigInt> {
-        return self.torusIndexes;
+        return self.torusIndexes!;
     }
 
     public func setTorusIndexes(torusIndexes : Array<BigInt>){
@@ -42,7 +46,7 @@ public class NodeDetails {
     }
 
     public func getCurrentEpoch() -> String{
-        return currentEpoch;
+        return currentEpoch!;
     }
 
     public func setCurrentEpoch( currentEpoch : String) {
@@ -50,7 +54,7 @@ public class NodeDetails {
     }
 
     public func getNodeListAddress() -> String {
-        return nodeListAddress;
+        return nodeListAddress!;
     }
 
     public func setNodeListAddress(nodeListAddress : String) {
@@ -58,7 +62,7 @@ public class NodeDetails {
     }
 
     public func getTorusNodeEndpoints() ->  Array<String> {
-        return torusNodeEndpoints;
+        return torusNodeEndpoints!;
     }
 
     public func setTorusNodeEndpoints(torusNodeEndpoints : Array<String>) {
@@ -66,7 +70,7 @@ public class NodeDetails {
     }
 
     public func getTorusNodePub() -> Array<Array<String>> {
-        return torusNodePub;
+        return torusNodePub!;
     }
 
     public func setTorusNodePub(torusNodePub : Array<Array<String>>) {
