@@ -16,18 +16,17 @@ public class FetchNodeDetails {
     private var proxyAddress : EthereumAddress = EthereumAddress("0x638646503746d5456209e33a2ff5e3226d698bea")!
     private var walletAddress : EthereumAddress = EthereumAddress("0x5F7A02a42bF621da3211aCE9c120a47AA5229fBA")!
     private let yourContractABI: String = contractABIString
+    private var contract : web3.web3contract
     private var nodeDetails : NodeDetails
     
     
     public init(){
         self.web3 = Web3.InfuraMainnetWeb3()
-        self.nodeDetails = NodeDetails()
+        self.contract = web3.contract(yourContractABI, at: proxyAddress, abiVersion: 2)!
+        self.nodeDetails = NodeDetails() //Initialize with default values
     }
     
     public func getCurrentEpoch() -> Int{
-        
-        //let abiVersion: Int = 2
-        let contract = web3.contract(yourContractABI, at: proxyAddress, abiVersion: 2)!
         let contractMethod = "currentEpoch" // Contract method you want to call
         let parameters: [AnyObject] = [] // Parameters for contract method
         let extraData: Data = Data() // Extra data for contract method
@@ -35,17 +34,17 @@ public class FetchNodeDetails {
         options.from = walletAddress
         options.gasPrice = .automatic
         options.gasLimit = .automatic
-        let tx = contract.read(
+        let tx = self.contract.read(
             contractMethod,
             parameters: parameters,
             extraData: extraData,
             transactionOptions: options)!
         
-        let result : [String:Any] = try! tx.call()
-        //print("result is", type(of: result.first?.value), result)
+        let result : [String:Any] = try! tx.call() // Explicit Conversion from Any? -> Any -> String -> Int
         let epoch = result.first?.value
+        
+        // Explicit Conversion from Any? -> Any -> String -> Int
         guard let newEpoch = epoch else { return 0}
-        //print(epoch, newEpoch)
         return Int("\(newEpoch)")!
     }
     
@@ -53,22 +52,19 @@ public class FetchNodeDetails {
         let contractMethod = "getEpochInfo"
         let parameters: [AnyObject] = [18 as AnyObject] // Parameters for contract method
         let extraData: Data = Data() // Extra data for contract method
-        let contract = web3.contract(yourContractABI, at: proxyAddress, abiVersion: 2)!
         var options = TransactionOptions.defaultOptions
         options.from = walletAddress
         options.gasPrice = .automatic
         options.gasLimit = .automatic
-        //print(extraData)
         
-        let tx = contract.read(
+        let tx = self.contract.read(
             contractMethod,
             parameters: parameters,
             extraData: extraData,
             transactionOptions: options)!
-        //print(tx)
         
         let result = try! tx.call()
-        print(result.keys)
+        //print(result.keys)
         //print(result["prevEpoch"])
         
         var nodeList = result["nodeList"] as! Array<Encodable> //Unable to convert to Array<String>
@@ -76,14 +72,14 @@ public class FetchNodeDetails {
             let address = el as! EthereumAddress
             return String(describing: address.address)
         }
-        print(nodeList)
+        //print(nodeList)
         
-        guard let id = result["id"] else { throw "asdf"}
-        guard let n = result["n"] else { throw "asdf"}
-        guard let k = result["k"] else { throw "asdf"}
-        guard let t = result["t"] else { throw "asdf"}
-        guard let prevEpoch = result["prevEpoch"] else { throw "asdf"}
-        guard let nextEpoch = result["nextEpoch"] else { throw "asdf"}
+        guard let id = result["id"] else { throw "Casting for id from Any? -> Any failed"}
+        guard let n = result["n"] else { throw "Casting for n from Any? -> Any failed"}
+        guard let k = result["k"] else { throw "Casting for k from Any? -> Any failed"}
+        guard let t = result["t"] else { throw "Casting for t from Any? -> Any failed"}
+        guard let prevEpoch = result["prevEpoch"] else { throw "Casting for prevEpoch from Any? -> Any failed"}
+        guard let nextEpoch = result["nextEpoch"] else { throw "Casting for nextEpoch from Any? -> Any failed"}
         
         let object = EpochInfo(_id: "\(id)", _n: "\(n)", _k: "\(k)", _t: "\(t)", _nodeList: nodeList as! Array<String>, _prevEpoch: "\(prevEpoch)", _nextEpoch: "\(nextEpoch)")
         return object
@@ -93,14 +89,13 @@ public class FetchNodeDetails {
         let contractMethod = "getNodeDetails"
         let parameters: [AnyObject] = [nodeEthAddress as AnyObject] // Parameters for contract method
         let extraData: Data = Data() // Extra data for contract method
-        let contract = web3.contract(yourContractABI, at: proxyAddress, abiVersion: 2)!
         var options = TransactionOptions.defaultOptions
         options.from = walletAddress
         options.gasPrice = .automatic
         options.gasLimit = .automatic
         //print(extraData)
         
-        let tx = contract.read(
+        let tx = self.contract.read(
             contractMethod,
             parameters: parameters,
             extraData: extraData,
@@ -108,32 +103,25 @@ public class FetchNodeDetails {
         //print(tx)
         
         let result = try! tx.call()
-        print(result.keys)
-        print(result.values)
+        //print(result.keys)
+        //print(result.values)
         
         // Unwraping Any? -> Any
-        guard let declaredIp = result["declaredIp"] else { throw "some error" }
-        guard let position = result["position"] else { throw "some error" }
-        guard let pubKx = result["pubKx"] else { throw "some error" }
-        guard let pubKy = result["pubKy"] else { throw "some error" }
-        guard let tmP2PListenAddress = result["tmP2PListenAddress"] else { throw "some error" }
-        guard let p2pListenAddress = result["p2pListenAddress"] else { throw "some error" }
+        guard let declaredIp = result["declaredIp"] else { throw "Casting for declaredIp from Any? to Any failed" }
+        guard let position = result["position"] else { throw "Casting for position from Any? to Any failed" }
+        guard let pubKx = result["pubKx"] else { throw "Casting for pubKx from Any? to Any failed" }
+        guard let pubKy = result["pubKy"] else { throw "Casting for pubKy from Any? to Any failed" }
+        guard let tmP2PListenAddress = result["tmP2PListenAddress"] else { throw "Casting for tmP2PListenAddress from Any? to Any failed" }
+        guard let p2pListenAddress = result["p2pListenAddress"] else { throw "Casting for p2pListenAddress from Any? to Any failed" }
 
         let object = NodeInfo(_declaredIp: "\(declaredIp)", _position: "\(position)", _pubKx: "\(pubKx)", _pubKy: "\(pubKy)", _tmP2PListenAddress: "\(tmP2PListenAddress)", _p2pListenAddress: "\(p2pListenAddress)")
         return object
     }
     
-    public func getNodeDetails(){
-        //if(self.nodeDetails.getUpdated()) return this.nodeDetails
+    public func getNodeDetails() -> NodeDetails{
+        if(self.nodeDetails.getUpdated()) { return self.nodeDetails }
+        
         let currentEpoch = self.getCurrentEpoch();
-        print(self.proxyAddress.address)
-//        let newNodeDetails = NodeDetails()
-        
-        self.nodeDetails.setNodeListAddress(nodeListAddress: self.proxyAddress.address);
-        self.nodeDetails.setCurrentEpoch(currentEpoch: String(currentEpoch));
-         // self.nodeDetails.setTorusNodeIndexes()
-        
-        
         let epochInfo = try! getEpochInfo(epoch: currentEpoch);
         let nodelist = epochInfo.getNodeList();
         
@@ -144,23 +132,33 @@ public class FetchNodeDetails {
             torusIndexes.append(BigInt(i+1))
             nodeEndPoints.append(try! getNodeEndpoint(nodeEthAddress: nodelist[i]))
         }
+        // print(torusIndexes, nodeEndPoints)
         
+        var updatedEndpoints: Array<String> = Array()
+        var updatedNodePub:Array<TorusNodePub> = Array()
         
-    }
-    
-    private func setupWeb3() {
-        //let contractAddress = try! EthereumAddress(hex: self.proxyAddress, eip55: false)
-        //self.proxyContract = try! self.web3.eth.Contract(json: Data(contractABIString.utf8), abiKey: nil, address: contractAddress)
-        //print(self.proxyContract.methods.count)
-        //self.getCurrentEpoch()
-        // print(self.proxyContract)
+        for i in 0..<nodeEndPoints.count{
+            let endPointElement:NodeInfo = nodeEndPoints[i];
+            let endpoint = "https://" + endPointElement.getDeclaredIp().split(separator: ":")[0] + "/jrpc";
+            updatedEndpoints.append(endpoint)
+            
+            let hexPubX = String(BigInt(endPointElement.getPubKx(), radix:10)!, radix:16, uppercase: true)
+            let hexPubY = String(BigInt(endPointElement.getPubKy(), radix:10)!, radix:16, uppercase: true)
+            updatedNodePub.append(TorusNodePub(_X: hexPubX, _Y: hexPubY))
+            //print(hexPubX,hexPubY)
+        }
+        
+        // print(updatedNodePub, updatedEndpoints)
+        
+        self.nodeDetails.setNodeListAddress(nodeListAddress: self.proxyAddress.address);
+        self.nodeDetails.setCurrentEpoch(currentEpoch: String(currentEpoch));
+        self.nodeDetails.setTorusNodeEndpoints(torusNodeEndpoints: updatedEndpoints);
+        self.nodeDetails.setTorusNodePub(torusNodePub: updatedNodePub);
+        self.nodeDetails.setUpdated(updated: true);
+        return self.nodeDetails
     }
     
     private func getProxyUrl() -> String{
         return "https://api.infura.io/v1/jsonrpc/" + self.network.rawValue;
     }
-}
-
-extension String: LocalizedError {
-    public var errorDescription: String? { return self }
 }

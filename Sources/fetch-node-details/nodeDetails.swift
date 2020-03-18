@@ -13,14 +13,15 @@ public class NodeDetails {
     private var nodeListAddress : String?;
     private var torusNodeEndpoints : Array<String>?;
     private var torusIndexes : Array<BigInt>?;
-    private var torusNodePub : Array<Array<String>>?;
+    private var torusNodePub : Array<TorusNodePub>?;
     private var updated = false;
     
     init() {
         
     }
     
-    init(_currentEpoch : String, _nodeListAddress : String, _torusNodeEndpoints : Array<String>,  _torusIndexes : Array<BigInt>, _torusNodePub : Array<Array<String>>, _updated : Bool) {
+    // Not currently in use
+    init(_currentEpoch : String, _nodeListAddress : String, _torusNodeEndpoints : Array<String>,  _torusIndexes : Array<BigInt>, _torusNodePub : Array<TorusNodePub>, _updated : Bool) {
         self.currentEpoch = _currentEpoch;
         self.nodeListAddress = _nodeListAddress;
         self.torusNodeEndpoints = _torusNodeEndpoints;
@@ -69,11 +70,11 @@ public class NodeDetails {
         self.torusNodeEndpoints = torusNodeEndpoints;
     }
 
-    public func getTorusNodePub() -> Array<Array<String>> {
+    public func getTorusNodePub() -> Array<TorusNodePub> {
         return torusNodePub!;
     }
 
-    public func setTorusNodePub(torusNodePub : Array<Array<String>>) {
+    public func setTorusNodePub(torusNodePub : Array<TorusNodePub>) {
         self.torusNodePub = torusNodePub;
     }
 }

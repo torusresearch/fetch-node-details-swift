@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 public class NodeInfo {
     private var declaredIp: String;
     private var position: String;

@@ -88,6 +88,9 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "fetch_node_detailsTests/testBigIntCapabilities()">
+               </Test>
+               <Test
                   Identifier = "fetch_node_detailsTests/testExample()">
                </Test>
                <Test
