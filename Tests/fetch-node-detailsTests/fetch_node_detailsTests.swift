@@ -42,10 +42,10 @@ final class fetch_node_detailsTestsAsync: XCTestCase{
     
     func test_async_getCurrentEpoch(){
         let fnd = FetchNodeDetails();
-        let test = try! fnd.getEpochInfoPromise(epoch: 18)
+        let test = try! fnd.getCurrentEpochPromise()
         print(test)
         test.done{ result in
-            print(result)
+            print("result", result)
         }
         do{
             sleep(5)
@@ -55,14 +55,17 @@ final class fetch_node_detailsTestsAsync: XCTestCase{
     
     func test_getNodeDetailsPromise(){
         let fnd = FetchNodeDetails();
-        let test = try! fnd.getNodeDetailsPromise()
+        let expectation = self.expectation(description: "getting node details")
+        var results = false;
+        try! fnd.getNodeDetailsPromise().done{ response in
+            print("response", response);
+            results = response
+            expectation.fulfill()
+        }.catch{err in print(err)}
         
-        test.done{ results in
-            print(results)
-        }
-        do{
-            sleep(5)
-        }
+        waitForExpectations(timeout: 20)
+        XCTAssertEqual(results, true)
+
     }
     
     static var allTests = [

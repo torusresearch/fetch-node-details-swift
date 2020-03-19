@@ -12,7 +12,7 @@ import PromiseKit
 
 extension FetchNodeDetails {
     
-    public func getCurrentEpochPromise() -> Promise<Int>{
+    public func getCurrentEpochPromise() throws -> Promise<Int>{
         let contractMethod = "currentEpoch" // Contract method you want to call
         let parameters: [AnyObject] = [] // Parameters for contract method
         let extraData: Data = Data() // Extra data for contract method
@@ -25,24 +25,18 @@ extension FetchNodeDetails {
             parameters: parameters,
             extraData: extraData,
             transactionOptions: options)!
-        //
-        //        let temp = try! tx.callPromise().wait()
-        //        print(temp)
         
-        let returnPromise = Promise<Int> { seal in
-            let txPromise = try tx.callPromise()
-            print("txPromise", txPromise)
-            
-            txPromise.done{ data in
-                //print(data)
-                let epoch = data.first?.value
-                guard let newEpoch = epoch else { return seal.reject("some error")}
-                //                print(newEpoch)
-                seal.fulfill(Int("\(newEpoch)")!)
-            }.catch{err in seal.reject(err)}
-            
+        let txPromise = tx.callPromise()
+        let rp = Promise<Int>.pending()
+        
+        txPromise.done{ data in
+            let epoch = data.first?.value
+            guard let newEpoch = epoch else { throw "some error"}
+            print(newEpoch)
+            rp.resolver.fulfill(Int("\(newEpoch)")!)
         }
-        return returnPromise
+        
+        return rp.promise
     }
     
     public func getEpochInfoPromise(epoch : Int) throws -> Promise<EpochInfo>{
@@ -126,31 +120,61 @@ extension FetchNodeDetails {
         return returnPromise
     }
     
-    public func getNodeDetailsPromise() -> Promise<Int>{
+    public func getNodeDetailsPromise() throws -> Promise<Bool>{
         //if(self.nodeDetails.getUpdated()) { return self.nodeDetails }
         //let (promise, resolver) = Promise<Int>.pending()
         print("ASDF")
+        var currentEpoch: Int = -1;
         
-        let returnPromise = Promise<Int> { seal in
-            let currentEpoch = try self.getCurrentEpochPromise();
-            currentEpoch.then{currentEpoch -> Promise<EpochInfo> in
-                print(currentEpoch)
-                return try self.getEpochInfoPromise(epoch: currentEpoch)
+        let returnPromise = Promise<Bool> { seal in
+            let currentEpochPromise = try self.getCurrentEpochPromise();
+            currentEpochPromise.then{ response -> Promise<EpochInfo> in
+                print("currentEpoch is", response)
+                currentEpoch = response
+                return try self.getEpochInfoPromise(epoch: response)
             }.then{epochInfo -> Guarantee<[Result<NodeInfo>]> in
                 let nodelist = epochInfo.getNodeList();
-                
+                print("nodeList is", nodelist)
                 var torusIndexes:[BigInt] = Array()
                 var nodeEndPoints:[NodeInfo] = Array()
                 var getNodeInfoPromisesArray:[Promise<NodeInfo>] = Array()
                 for i in 0..<nodelist.count{
                     torusIndexes.append(BigInt(i+1))
-                    print(BigInt(i+1))
+                    //print(BigInt(i+1))
                     getNodeInfoPromisesArray.append(try self.getNodeEndpointPromise(nodeEthAddress: nodelist[i]))
                 }
                 return when(resolved: getNodeInfoPromisesArray)
             }.done{ results in
-                print(results)
-                seal.fulfill(10)
+                //print(results)
+                var updatedEndpoints: Array<String> = Array()
+                var updatedNodePub:Array<TorusNodePub> = Array()
+                
+                for result in results{
+                    switch result {
+                    case .fulfilled(let value):
+                        // print(value)
+                        let endPointElement:NodeInfo = value;
+                        let endpoint = "https://" + endPointElement.getDeclaredIp().split(separator: ":")[0] + "/jrpc";
+                        updatedEndpoints.append(endpoint)
+                        
+                        let hexPubX = String(BigInt(endPointElement.getPubKx(), radix:10)!, radix:16, uppercase: true)
+                        let hexPubY = String(BigInt(endPointElement.getPubKy(), radix:10)!, radix:16, uppercase: true)
+                        updatedNodePub.append(TorusNodePub(_X: hexPubX, _Y: hexPubY))
+                    default:
+                        seal.reject("error with node info")
+                    }
+                    
+                }
+                print(updatedNodePub, updatedEndpoints)
+                
+                
+                self.nodeDetails.setNodeListAddress(nodeListAddress: self.proxyAddress.address);
+                self.nodeDetails.setCurrentEpoch(currentEpoch: String(currentEpoch));
+                self.nodeDetails.setTorusNodeEndpoints(torusNodeEndpoints: updatedEndpoints);
+                self.nodeDetails.setTorusNodePub(torusNodePub: updatedNodePub);
+                self.nodeDetails.setUpdated(updated: true);
+                
+                seal.fulfill(true)
             }.catch { error in
                 print(error)
                 seal.reject("get epoch info failed")
@@ -158,40 +182,6 @@ extension FetchNodeDetails {
         }
         
         return returnPromise
-        //
-        //        let epochInfo = try! getEpochInfo(epoch: currentEpoch);
-        //        let nodelist = epochInfo.getNodeList();
-        //
-        //        var torusIndexes:[BigInt] = Array()
-        //        var nodeEndPoints:[NodeInfo] = Array()
-        //
-        //        for i in 0..<nodelist.count{
-        //            torusIndexes.append(BigInt(i+1))
-        //            nodeEndPoints.append(try! getNodeEndpoint(nodeEthAddress: nodelist[i]))
-        //        }
-        //        // print(torusIndexes, nodeEndPoints)
-        //
-        //        var updatedEndpoints: Array<String> = Array()
-        //        var updatedNodePub:Array<TorusNodePub> = Array()
-        //
-        //        for i in 0..<nodeEndPoints.count{
-        //            let endPointElement:NodeInfo = nodeEndPoints[i];
-        //            let endpoint = "https://" + endPointElement.getDeclaredIp().split(separator: ":")[0] + "/jrpc";
-        //            updatedEndpoints.append(endpoint)
-        //
-        //            let hexPubX = String(BigInt(endPointElement.getPubKx(), radix:10)!, radix:16, uppercase: true)
-        //            let hexPubY = String(BigInt(endPointElement.getPubKy(), radix:10)!, radix:16, uppercase: true)
-        //            updatedNodePub.append(TorusNodePub(_X: hexPubX, _Y: hexPubY))
-        //            //print(hexPubX,hexPubY)
-        //        }
-        //
-        //        // print(updatedNodePub, updatedEndpoints)
-        //
-        //        self.nodeDetails.setNodeListAddress(nodeListAddress: self.proxyAddress.address);
-        //        self.nodeDetails.setCurrentEpoch(currentEpoch: String(currentEpoch));
-        //        self.nodeDetails.setTorusNodeEndpoints(torusNodeEndpoints: updatedEndpoints);
-        //        self.nodeDetails.setTorusNodePub(torusNodePub: updatedNodePub);
-        //        self.nodeDetails.setUpdated(updated: true);
     }
     
 }
