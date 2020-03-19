@@ -1,9 +1,15 @@
 import XCTest
 import BigInt
+import PromiseKit
 @testable import fetch_node_details
 
-final class fetch_node_detailsTests: XCTestCase {
+final class fetch_node_detailsTestsSync: XCTestCase {
     
+    func testgetCurrentEpoch(){
+        let fnd = FetchNodeDetails();
+        let test = fnd.getCurrentEpoch();
+        print(test)
+    }
     func testGetNodeEndpoints(){
         let fnd = FetchNodeDetails();
         let details = try! fnd.getNodeEndpoint(nodeEthAddress: "0x40e8f0D606281b0a1d9D8Ac9030AaaE9D51229D1")
@@ -25,8 +31,43 @@ final class fetch_node_detailsTests: XCTestCase {
     }
     
     static var allTests = [
+        ("testgetCurrentEpoch", testgetCurrentEpoch),
         ("testGetNodeEndpoints", testGetNodeEndpoints),
         ("testGetNodeDetails", testGetNodeDetails),
         ("testBigIntCapabilities", testBigIntCapabilities)
+    ]
+}
+
+final class fetch_node_detailsTestsAsync: XCTestCase{
+    
+    func test_async_getCurrentEpoch(){
+        let fnd = FetchNodeDetails();
+        let test = try! fnd.getEpochInfoPromise(epoch: 18)
+        print(test)
+        test.done{ result in
+            print(result)
+        }
+        do{
+            sleep(5)
+        }
+        //print(test)
+    }
+    
+    func test_getNodeDetailsPromise(){
+        let fnd = FetchNodeDetails();
+        let test = try! fnd.getNodeDetailsPromise()
+        
+        test.done{ results in
+            print(results)
+        }
+        do{
+            sleep(5)
+        }
+    }
+    
+    static var allTests = [
+        ("test_async_getCurrentEpoch", test_async_getCurrentEpoch),
+        ("test_getNodeDetailsPromise", test_getNodeDetailsPromise)
+
     ]
 }
