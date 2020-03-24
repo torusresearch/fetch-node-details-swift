@@ -1,9 +1,15 @@
 import XCTest
 import BigInt
+import PromiseKit
 @testable import fetch_node_details
 
-final class fetch_node_detailsTests: XCTestCase {
+final class fetch_node_detailsTestsSync: XCTestCase {
     
+    func testgetCurrentEpoch(){
+        let fnd = FetchNodeDetails();
+        let test = fnd.getCurrentEpoch();
+        print(test)
+    }
     func testGetNodeEndpoints(){
         let fnd = FetchNodeDetails();
         let details = try! fnd.getNodeEndpoint(nodeEthAddress: "0x40e8f0D606281b0a1d9D8Ac9030AaaE9D51229D1")
@@ -25,8 +31,46 @@ final class fetch_node_detailsTests: XCTestCase {
     }
     
     static var allTests = [
+        ("testgetCurrentEpoch", testgetCurrentEpoch),
         ("testGetNodeEndpoints", testGetNodeEndpoints),
         ("testGetNodeDetails", testGetNodeDetails),
         ("testBigIntCapabilities", testBigIntCapabilities)
+    ]
+}
+
+final class fetch_node_detailsTestsAsync: XCTestCase{
+    
+    func test_async_getCurrentEpoch(){
+        let fnd = FetchNodeDetails();
+        let test = try! fnd.getCurrentEpochPromise()
+        print(test)
+        test.done{ result in
+            print("result", result)
+        }
+        do{
+            sleep(5)
+        }
+        //print(test)
+    }
+    
+    func test_getNodeDetailsPromise(){
+        let fnd = FetchNodeDetails();
+        let expectation = self.expectation(description: "getting node details")
+        var results = false;
+        try! fnd.getNodeDetailsPromise().done{ response in
+            print("response", response);
+            results = response
+            expectation.fulfill()
+        }.catch{err in print(err)}
+        
+        waitForExpectations(timeout: 20)
+        XCTAssertEqual(results, true)
+
+    }
+    
+    static var allTests = [
+        ("test_async_getCurrentEpoch", test_async_getCurrentEpoch),
+        ("test_getNodeDetailsPromise", test_getNodeDetailsPromise)
+
     ]
 }

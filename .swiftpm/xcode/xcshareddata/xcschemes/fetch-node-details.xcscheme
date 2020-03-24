@@ -96,6 +96,12 @@
                <Test
                   Identifier = "fetch_node_detailsTests/testGetNodeEndpoints()">
                </Test>
+               <Test
+                  Identifier = "fetch_node_detailsTestsAsync/test_async_getCurrentEpoch()">
+               </Test>
+               <Test
+                  Identifier = "fetch_node_detailsTestsSync">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>

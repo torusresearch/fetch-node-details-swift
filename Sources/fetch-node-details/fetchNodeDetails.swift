@@ -11,13 +11,13 @@ import BigInt
 
 public class FetchNodeDetails {
     
-    private var web3 : web3
-    private var network : EthereumNetwork = EthereumNetwork.MAINNET;
-    private var proxyAddress : EthereumAddress = EthereumAddress("0x638646503746d5456209e33a2ff5e3226d698bea")!
-    private var walletAddress : EthereumAddress = EthereumAddress("0x5F7A02a42bF621da3211aCE9c120a47AA5229fBA")!
-    private let yourContractABI: String = contractABIString
-    private var contract : web3.web3contract
-    private var nodeDetails : NodeDetails
+     var web3 : web3
+     var network : EthereumNetwork = EthereumNetwork.MAINNET;
+     var proxyAddress : EthereumAddress = EthereumAddress("0x638646503746d5456209e33a2ff5e3226d698bea")!
+     var walletAddress : EthereumAddress = EthereumAddress("0x5F7A02a42bF621da3211aCE9c120a47AA5229fBA")!
+     let yourContractABI: String = contractABIString
+     var contract : web3.web3contract
+     var nodeDetails : NodeDetails
     
     
     public init(){
