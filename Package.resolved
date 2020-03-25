@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/attaswift/BigInt.git",
         "state": {
           "branch": null,
-          "revision": "19f5e8a48be155e34abb98a2bcf4a343316f0343",
-          "version": "5.0.0"
+          "revision": "2bbb8a7addeb79ceccf45acac9f6e2a07cbe9680",
+          "version": "5.1.0"
         }
       },
       {
@@ -44,6 +44,15 @@
           "branch": null,
           "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
           "version": "1.0.0"
+        }
+      },
+      {
+        "package": "Web3swift",
+        "repositoryURL": "https://github.com/rathishubham7/web3swift",
+        "state": {
+          "branch": null,
+          "revision": "95c8cb18bc8a664963f55e095318c1a180c3f5ec",
+          "version": "2.2.2"
         }
       }
     ]
