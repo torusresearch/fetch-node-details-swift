@@ -11,7 +11,7 @@ public class TorusNodePub {
     private let X : String;
     private let Y : String;
     
-    init(_X : String, _Y : String) {
+    public init(_X : String, _Y : String) {
         self.X = _X;
         self.Y = _Y;
     }

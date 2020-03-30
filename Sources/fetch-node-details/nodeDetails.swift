@@ -21,7 +21,7 @@ public class NodeDetails {
     }
     
     // Not currently in use
-    init(_currentEpoch : String, _nodeListAddress : String, _torusNodeEndpoints : Array<String>,  _torusIndexes : Array<BigInt>, _torusNodePub : Array<TorusNodePub>, _updated : Bool) {
+    public init(_currentEpoch : String, _nodeListAddress : String, _torusNodeEndpoints : Array<String>,  _torusIndexes : Array<BigInt>, _torusNodePub : Array<TorusNodePub>, _updated : Bool) {
         self.currentEpoch = _currentEpoch;
         self.nodeListAddress = _nodeListAddress;
         self.torusNodeEndpoints = _torusNodeEndpoints;

@@ -15,7 +15,7 @@ public class NodeInfo {
     private var tmP2PListenAddress: String;
     private var p2pListenAddress: String;
 
-    init(_declaredIp : String, _position : String, _pubKx : String, _pubKy : String, _tmP2PListenAddress : String, _p2pListenAddress : String) {
+    public init(_declaredIp : String, _position : String, _pubKx : String, _pubKy : String, _tmP2PListenAddress : String, _p2pListenAddress : String) {
         self.declaredIp = _declaredIp;
         self.position = _position;
         self.pubKx = _pubKx;
