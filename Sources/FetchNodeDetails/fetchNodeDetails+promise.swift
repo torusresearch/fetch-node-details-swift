@@ -27,16 +27,15 @@ extension FetchNodeDetails {
             transactionOptions: options)!
         
         let txPromise = tx.callPromise()
-        let rp = Promise<Int>.pending()
+        let (tempPromise, seal) = Promise<Int>.pending()
         
         txPromise.done{ data in
             let epoch = data.first?.value
             guard let newEpoch = epoch else { throw "some error"}
-            print(newEpoch)
-            rp.resolver.fulfill(Int("\(newEpoch)")!)
+            seal.fulfill(Int("\(newEpoch)")!)
         }
         
-        return rp.promise
+        return tempPromise
     }
     
     public func getEpochInfoPromise(epoch : Int) throws -> Promise<EpochInfo>{
@@ -53,10 +52,7 @@ extension FetchNodeDetails {
             parameters: parameters,
             extraData: extraData,
             transactionOptions: options)!
-        //
-        //        let result = tx.callPromise()
-        //        let (promise, resolver) = Promise<EpochInfo>.pending()
-        
+
         let returnPromise = Promise<EpochInfo>{ seal in
             let txPromise = tx.callPromise()
             txPromise.done{ response in
@@ -86,7 +82,7 @@ extension FetchNodeDetails {
         return returnPromise
     }
     
-    public func getNodeEndpointPromise(nodeEthAddress: String) throws -> Promise<NodeInfo> {
+    public func getNodeEndpointPromise(nodeEthAddress: String) -> Promise<NodeInfo> {
         let contractMethod = "getNodeDetails"
         let parameters: [AnyObject] = [nodeEthAddress as AnyObject] // Parameters for contract method
         let extraData: Data = Data() // Extra data for contract method
@@ -108,10 +104,14 @@ extension FetchNodeDetails {
                 // Unwraping Any? -> Any
                 guard let declaredIp = response["declaredIp"] else { throw "Casting for declaredIp from Any? to Any failed" }
                 guard let position = response["position"] else { throw "Casting for position from Any? to Any failed" }
-                guard let pubKx = response["pubKx"] else { throw "Casting for pubKx from Any? to Any failed" }
-                guard let pubKy = response["pubKy"] else { throw "Casting for pubKy from Any? to Any failed" }
+                guard var pubKx = response["pubKx"] else { throw "Casting for pubKx from Any? to Any failed" }
+                guard var pubKy = response["pubKy"] else { throw "Casting for pubKy from Any? to Any failed" }
                 guard let tmP2PListenAddress = response["tmP2PListenAddress"] else { throw "Casting for tmP2PListenAddress from Any? to Any failed" }
                 guard let p2pListenAddress = response["p2pListenAddress"] else { throw "Casting for p2pListenAddress from Any? to Any failed" }
+                
+                //Change to hex
+                pubKx = String(BigInt("\(pubKx)", radix:10)!, radix:16, uppercase: true)
+                pubKy = String(BigInt("\(pubKy)", radix:10)!, radix:16, uppercase: true)
                 
                 let object = NodeInfo(_declaredIp: "\(declaredIp)", _position: "\(position)", _pubKx: "\(pubKx)", _pubKy: "\(pubKy)", _tmP2PListenAddress: "\(tmP2PListenAddress)", _p2pListenAddress: "\(p2pListenAddress)")
                 seal.fulfill(object)
@@ -121,52 +121,42 @@ extension FetchNodeDetails {
     }
     
     public func getNodeDetailsPromise() throws -> Promise<Bool>{
-        //if(self.nodeDetails.getUpdated()) { return self.nodeDetails }
-        //let (promise, resolver) = Promise<Int>.pending()
-        print("ASDF")
         var currentEpoch: Int = -1;
         
         let returnPromise = Promise<Bool> { seal in
             let currentEpochPromise = try self.getCurrentEpochPromise();
             currentEpochPromise.then{ response -> Promise<EpochInfo> in
-                print("currentEpoch is", response)
                 currentEpoch = response
                 return try self.getEpochInfoPromise(epoch: response)
             }.then{epochInfo -> Guarantee<[Result<NodeInfo>]> in
                 let nodelist = epochInfo.getNodeList();
-                print("nodeList is", nodelist)
                 var torusIndexes:[BigInt] = Array()
                 var nodeEndPoints:[NodeInfo] = Array()
                 var getNodeInfoPromisesArray:[Promise<NodeInfo>] = Array()
                 for i in 0..<nodelist.count{
                     torusIndexes.append(BigInt(i+1))
-                    //print(BigInt(i+1))
                     getNodeInfoPromisesArray.append(try self.getNodeEndpointPromise(nodeEthAddress: nodelist[i]))
                 }
                 return when(resolved: getNodeInfoPromisesArray)
             }.done{ results in
-                //print(results)
                 var updatedEndpoints: Array<String> = Array()
                 var updatedNodePub:Array<TorusNodePub> = Array()
                 
                 for result in results{
                     switch result {
                     case .fulfilled(let value):
-                        // print(value)
                         let endPointElement:NodeInfo = value;
                         let endpoint = "https://" + endPointElement.getDeclaredIp().split(separator: ":")[0] + "/jrpc";
                         updatedEndpoints.append(endpoint)
                         
-                        let hexPubX = String(BigInt(endPointElement.getPubKx(), radix:10)!, radix:16, uppercase: true)
-                        let hexPubY = String(BigInt(endPointElement.getPubKy(), radix:10)!, radix:16, uppercase: true)
+                        let hexPubX = endPointElement.getPubKx()
+                        let hexPubY = endPointElement.getPubKy()
                         updatedNodePub.append(TorusNodePub(_X: hexPubX, _Y: hexPubY))
                     default:
                         seal.reject("error with node info")
                     }
                     
                 }
-                print(updatedNodePub, updatedEndpoints)
-                
                 
                 self.nodeDetails.setNodeListAddress(nodeListAddress: self.proxyAddress.address);
                 self.nodeDetails.setCurrentEpoch(currentEpoch: String(currentEpoch));

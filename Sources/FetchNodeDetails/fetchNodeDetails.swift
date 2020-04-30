@@ -5,6 +5,10 @@
 //  Created by Shubham on 13/3/20.
 //
 
+
+/// todo
+/// Fix getpubkeyX and getpubkeyY
+
 import Foundation
 import web3swift
 import BigInt
@@ -12,7 +16,7 @@ import BigInt
 public class FetchNodeDetails {
     
      var web3 : web3
-     var network : EthereumNetwork = EthereumNetwork.MAINNET;
+     var network : EthereumNetwork = EthereumNetwork.ROPSTEN;
      var proxyAddress : EthereumAddress = EthereumAddress("0x638646503746d5456209e33a2ff5e3226d698bea")!
      var walletAddress : EthereumAddress = EthereumAddress("0x5F7A02a42bF621da3211aCE9c120a47AA5229fBA")!
      let yourContractABI: String = contractABIString
@@ -103,17 +107,19 @@ public class FetchNodeDetails {
         //print(tx)
         
         let result = try! tx.call()
-        //print(result.keys)
-        //print(result.values)
         
         // Unwraping Any? -> Any
         guard let declaredIp = result["declaredIp"] else { throw "Casting for declaredIp from Any? to Any failed" }
         guard let position = result["position"] else { throw "Casting for position from Any? to Any failed" }
-        guard let pubKx = result["pubKx"] else { throw "Casting for pubKx from Any? to Any failed" }
-        guard let pubKy = result["pubKy"] else { throw "Casting for pubKy from Any? to Any failed" }
+        guard var pubKx = result["pubKx"] else { throw "Casting for pubKx from Any? to Any failed" }
+        guard var pubKy = result["pubKy"] else { throw "Casting for pubKy from Any? to Any failed" }
         guard let tmP2PListenAddress = result["tmP2PListenAddress"] else { throw "Casting for tmP2PListenAddress from Any? to Any failed" }
         guard let p2pListenAddress = result["p2pListenAddress"] else { throw "Casting for p2pListenAddress from Any? to Any failed" }
-
+        
+        //Change to hex
+        pubKx = String(BigInt("\(pubKx)", radix:10)!, radix:16, uppercase: true)
+        pubKy = String(BigInt("\(pubKy)", radix:10)!, radix:16, uppercase: true)
+        
         let object = NodeInfo(_declaredIp: "\(declaredIp)", _position: "\(position)", _pubKx: "\(pubKx)", _pubKy: "\(pubKy)", _tmP2PListenAddress: "\(tmP2PListenAddress)", _p2pListenAddress: "\(p2pListenAddress)")
         return object
     }
@@ -132,7 +138,6 @@ public class FetchNodeDetails {
             torusIndexes.append(BigInt(i+1))
             nodeEndPoints.append(try! getNodeEndpoint(nodeEthAddress: nodelist[i]))
         }
-        // print(torusIndexes, nodeEndPoints)
         
         var updatedEndpoints: Array<String> = Array()
         var updatedNodePub:Array<TorusNodePub> = Array()
@@ -142,13 +147,10 @@ public class FetchNodeDetails {
             let endpoint = "https://" + endPointElement.getDeclaredIp().split(separator: ":")[0] + "/jrpc";
             updatedEndpoints.append(endpoint)
             
-            let hexPubX = String(BigInt(endPointElement.getPubKx(), radix:10)!, radix:16, uppercase: true)
-            let hexPubY = String(BigInt(endPointElement.getPubKy(), radix:10)!, radix:16, uppercase: true)
+            let hexPubX = endPointElement.getPubKx()
+            let hexPubY = endPointElement.getPubKy()
             updatedNodePub.append(TorusNodePub(_X: hexPubX, _Y: hexPubY))
-            //print(hexPubX,hexPubY)
         }
-        
-        // print(updatedNodePub, updatedEndpoints)
         
         self.nodeDetails.setNodeListAddress(nodeListAddress: self.proxyAddress.address);
         self.nodeDetails.setCurrentEpoch(currentEpoch: String(currentEpoch));
