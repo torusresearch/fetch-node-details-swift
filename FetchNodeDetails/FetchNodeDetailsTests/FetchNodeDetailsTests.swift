@@ -7,7 +7,6 @@
 //
 
 import XCTest
-@testable import FetchNodeDetails
 
 class FetchNodeDetailsTests: XCTestCase {
 
