@@ -13,7 +13,7 @@ import Foundation
 import web3swift
 import BigInt
 
-public class FetchNodeDetails {
+public final class FetchNodeDetails {
     
      var web3 : web3
      var network : EthereumNetwork = EthereumNetwork.ROPSTEN;
