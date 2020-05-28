@@ -9,5 +9,6 @@ Pod::Spec.new do |spec|
   spec.author       = { "Torus Labs" => "rathishubham017@gmail.com" }
   spec.source       = { :git => "https://github.com/torusresearch/fetch-node-details-swift.git", :tag => "0.0.8" }
   spec.source_files = "Sources/FetchNodeDetails/*.{swift,json}","Sources/FetchNodeDetails/**/*.{swift,json}"
+  spec.module_name = "FetchNodeDetails"
   spec.dependency 'web3swift', '~> 2.2.0'
 end

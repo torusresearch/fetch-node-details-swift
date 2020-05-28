@@ -39,9 +39,6 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "fetch_node_detailsTestsSync">
-               </Test>
-               <Test
                   Identifier = "fetch_node_detailsTestsSync/testBigIntCapabilities()">
                </Test>
                <Test
