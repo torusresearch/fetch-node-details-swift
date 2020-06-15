@@ -11,4 +11,5 @@ Pod::Spec.new do |spec|
   spec.source_files = "Sources/FetchNodeDetails/*.{swift,json}","Sources/FetchNodeDetails/**/*.{swift,json}"
   spec.module_name = "FetchNodeDetails"
   spec.dependency 'Torus-web3swift', '~> 3.0.2'
+  spec.dependency 'BestLogger', '~> 0.0.1'
 end
