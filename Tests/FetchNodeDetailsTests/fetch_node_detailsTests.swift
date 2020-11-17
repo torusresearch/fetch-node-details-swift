@@ -1,6 +1,8 @@
 import XCTest
 import BigInt
 import PromiseKit
+import web3swift
+import CryptoSwift
 @testable import FetchNodeDetails
 
 final class fetch_node_detailsTestsSync: XCTestCase {
@@ -22,11 +24,13 @@ final class fetch_node_detailsTestsSync: XCTestCase {
     func testGetNodeEndpoints(){
         let fnd = FetchNodeDetails(proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183", network: EthereumNetwork.ROPSTEN);
         let details = try! fnd.getNodeEndpoint(nodeEthAddress: "0x40e8f0d606281b0a1d9d8ac9030aaae9d51229d1")
+        
     }
     
     func testGetNodeDetails(){
         let fnd = FetchNodeDetails(proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183", network: EthereumNetwork.ROPSTEN);
         let details = fnd.getNodeDetails()
+        print(details.getTorusNodeEndpoints())
     }
     
     static var allTests = [
