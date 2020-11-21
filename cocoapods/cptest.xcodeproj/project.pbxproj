@@ -13,6 +13,7 @@
 		51CF48C42493A34D0000D501 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51CF48C32493A34D0000D501 /* Assets.xcassets */; };
 		51CF48C72493A34D0000D501 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51CF48C62493A34D0000D501 /* Preview Assets.xcassets */; };
 		51CF48CA2493A34D0000D501 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51CF48C82493A34D0000D501 /* LaunchScreen.storyboard */; };
+		5581DF1F76ADFC269436CE7C /* Pods_cptest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A58BB3C4742404BB62A3B20 /* Pods_cptest.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5581DF1F76ADFC269436CE7C /* Pods_cptest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
