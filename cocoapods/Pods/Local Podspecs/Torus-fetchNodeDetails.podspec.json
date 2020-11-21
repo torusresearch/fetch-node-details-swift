@@ -1,6 +1,6 @@
 {
   "name": "Torus-fetchNodeDetails",
-  "version": "0.0.15",
+  "version": "0.0.19",
   "platforms": {
     "ios": "10.0"
   },
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/torusresearch/fetch-node-details-swift.git",
-    "tag": "0.0.15"
+    "tag": "0.0.19"
   },
   "source_files": [
     "Sources/FetchNodeDetails/*.{swift,json}",
@@ -24,14 +24,17 @@
   ],
   "module_name": "FetchNodeDetails",
   "dependencies": {
-    "Torus-web3swift": [
-      "~> 3.0.2"
-    ],
     "BestLogger": [
       "~> 0.0.1"
+    ],
+    "web3swift": [
+      "~> 2.3.0"
     ]
   },
   "pod_target_xcconfig": {
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
+  },
+  "user_target_xcconfig": {
     "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
   },
   "swift_version": "5.0"

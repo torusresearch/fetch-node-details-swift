@@ -10,8 +10,8 @@ Pod::Spec.new do |spec|
   spec.source       = { :git => "https://github.com/torusresearch/fetch-node-details-swift.git", :tag => spec.version }
   spec.source_files = "Sources/FetchNodeDetails/*.{swift,json}","Sources/FetchNodeDetails/**/*.{swift,json}"
   spec.module_name = "FetchNodeDetails"
-  spec.dependency 'Torus-web3swift', '~> 3.0.2'
   spec.dependency 'BestLogger', '~> 0.0.1'
+  spec.dependency 'web3swift', '~> 2.3.0'
   spec.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
   spec.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
 end
