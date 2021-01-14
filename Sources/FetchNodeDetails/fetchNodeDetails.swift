@@ -169,6 +169,6 @@ public final class FetchNodeDetails {
     }
     
     private func getProxyUrl() -> String{
-        return "https://api.infura.io/v1/jsonrpc/" + self.network.rawValue;
+        return "https://api.infura.io/v3/b8cdb0e4cff24599a286bf8e87ff1c96/";
     }
 }

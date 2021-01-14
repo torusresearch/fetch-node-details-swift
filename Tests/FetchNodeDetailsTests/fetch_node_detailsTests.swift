@@ -13,18 +13,19 @@ final class fetch_node_detailsTestsSync: XCTestCase {
         let fnd = FetchNodeDetails(proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183", network: EthereumNetwork.ROPSTEN, logLevel: .info);
         self.currentEpoch = fnd.getCurrentEpoch();
         print(self.currentEpoch)
-//        XCTAssertTrue(type(of: self.currentEpoch) == Int.self)
+        XCTAssertTrue(type(of: self.currentEpoch) == Int.self)
     }
     
     func testGetEpochInfo(){
         let fnd = FetchNodeDetails(proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183", network: EthereumNetwork.ROPSTEN);
         let test = try! fnd.getEpochInfo(epoch: 15)
+        print(test)
     }
     
     func testGetNodeEndpoints(){
         let fnd = FetchNodeDetails(proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183", network: EthereumNetwork.ROPSTEN);
         let details = try! fnd.getNodeEndpoint(nodeEthAddress: "0x40e8f0d606281b0a1d9d8ac9030aaae9d51229d1")
-        
+        print(details)
     }
     
     func testGetNodeDetails(){
@@ -59,8 +60,6 @@ final class fetch_node_detailsTestsAsync: XCTestCase{
         let exp = self.expectation(description: "getting node details")
         
         try! fnd.getNodeDetailsPromise().done{ response in
-//            XCTAssertTrue(response.getCurrentEpoch())
-            
             exp.fulfill()
         }.catch{err in print(err)}
         
