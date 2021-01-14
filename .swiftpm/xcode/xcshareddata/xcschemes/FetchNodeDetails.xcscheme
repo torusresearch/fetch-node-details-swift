@@ -29,7 +29,8 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "NO"
+            parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FetchNodeDetailsTests"
@@ -38,6 +39,9 @@
                ReferencedContainer = "container:">
             </BuildableReference>
             <SkippedTests>
+               <Test
+                  Identifier = "fetch_node_detailsTestsAsync/test_getNodeDetailsPromise()">
+               </Test>
                <Test
                   Identifier = "fetch_node_detailsTestsSync/testBigIntCapabilities()">
                </Test>

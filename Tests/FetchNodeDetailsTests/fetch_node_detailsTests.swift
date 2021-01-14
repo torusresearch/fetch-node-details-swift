@@ -10,16 +10,15 @@ final class fetch_node_detailsTestsSync: XCTestCase {
     var currentEpoch = 0
     
     func testGetCurrentEpoch(){
-        let fnd = FetchNodeDetails(proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183", network: EthereumNetwork.ROPSTEN, logLevel: .info);
-        self.currentEpoch = fnd.getCurrentEpoch();
-        print(self.currentEpoch)
-        XCTAssertTrue(type(of: self.currentEpoch) == Int.self)
+        let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: EthereumNetwork.MAINNET);
+        let foundEpoch = fnd.getCurrentEpoch();
+        let expectedEpoch = 19
+        XCTAssertEqual(foundEpoch, expectedEpoch, "same epoch")
     }
     
     func testGetEpochInfo(){
-        let fnd = FetchNodeDetails(proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183", network: EthereumNetwork.ROPSTEN);
-        let test = try! fnd.getEpochInfo(epoch: 15)
-        print(test)
+        let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: EthereumNetwork.MAINNET);
+        let test = try! fnd.getEpochInfo(epoch: 18)
     }
     
     func testGetNodeEndpoints(){
