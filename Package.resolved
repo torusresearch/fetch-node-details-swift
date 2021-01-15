@@ -57,11 +57,11 @@
       },
       {
         "package": "Web3swift",
-        "repositoryURL": "https://github.com/matter-labs/web3swift",
+        "repositoryURL": "https://github.com/rathishubham7/web3swift",
         "state": {
-          "branch": "master",
-          "revision": "a4e4985c9ef97892ba56d78e9249f2485b262d1b",
-          "version": null
+          "branch": null,
+          "revision": "95c8cb18bc8a664963f55e095318c1a180c3f5ec",
+          "version": "2.2.2"
         }
       }
     ]
