@@ -65,9 +65,40 @@ final class fetch_node_detailsTestsAsync: XCTestCase{
         waitForExpectations(timeout: 10)
     }
     
+    func test_verifierListContract(){
+        let testnetVerifier = VerifierListContract(network: EthereumNetwork.ROPSTEN)
+        let mainnetVerifier = VerifierListContract(network: EthereumNetwork.MAINNET)
+
+        let exp1 = self.expectation(description: "google verifier")
+        let exp2 = self.expectation(description: "random verifier")
+        let exp3 = self.expectation(description: "google verifier mainnet")
+
+        testnetVerifier.verifierExists(verifier: "google").then{data -> Promise<Bool> in
+            XCTAssertTrue(data)
+            exp1.fulfill()
+            return testnetVerifier.verifierExists(verifier: "hope-this-doesnt-exist")
+        }.done{data in
+            XCTAssertFalse(data)
+            exp2.fulfill()
+        }.catch{ err in
+            print(err)
+        }
+        
+        mainnetVerifier.verifierExists(verifier: "google").done{data in
+            XCTAssertTrue(data)
+            exp3.fulfill()
+        }.catch{ err in
+            print(err)
+        }
+        
+        wait(for: [exp1, exp2, exp3], timeout: 10, enforceOrder: false)
+    }
+    
+    
     static var allTests = [
         ("test_async_getCurrentEpoch", test_async_getCurrentEpoch),
         ("test_getNodeDetailsPromise", test_getNodeDetailsPromise),
+        ("test_verifierListContract", test_verifierListContract),
 //        ("test_getNodeEndpointPromise", test_getNodeEndpointPromise)
 
     ]
