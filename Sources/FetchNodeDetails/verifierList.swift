@@ -37,7 +37,7 @@ public class VerifierListContract {
         self.logger = BestLogger(label: "verifierList: ", level: logLevel)
     }
     
-    public func verifierExists(verifier: String) -> Promise<Bool>{
+    public func getVerfierDetails(verifier: String) -> Promise<[String:Any]>{
         let contractMethod = "verifiers" // Contract method you want to call
         let parameters: [AnyObject] = [verifier as AnyObject] // Parameters for contract method
         let extraData: Data = Data() // Extra data for contract method
@@ -50,12 +50,14 @@ public class VerifierListContract {
             parameters: parameters,
             extraData: extraData,
             transactionOptions: options)!
-            
-        
-        let txPromise = tx.callPromise()
+        return tx.callPromise()
+    }
+    
+    public func verifierExists(verifier: String) -> Promise<Bool>{
         let (tempPromise, seal) = Promise<Bool>.pending()
-        
-        txPromise.done{ data in
+
+        getVerfierDetails(verifier: verifier).done{ data in
+            print(data)
             let isCreated = data["isCreated"] as? Int
             let returnValue = isCreated == 1
             seal.fulfill(returnValue)

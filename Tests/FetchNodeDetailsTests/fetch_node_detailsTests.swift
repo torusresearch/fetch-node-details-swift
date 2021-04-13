@@ -73,7 +73,7 @@ final class fetch_node_detailsTestsAsync: XCTestCase{
         let exp2 = self.expectation(description: "random verifier")
         let exp3 = self.expectation(description: "google verifier mainnet")
 
-        testnetVerifier.verifierExists(verifier: "google").then{data -> Promise<Bool> in
+        testnetVerifier.verifierExists(verifier: "multigoogle-torus").then{data -> Promise<Bool> in
             XCTAssertTrue(data)
             exp1.fulfill()
             return testnetVerifier.verifierExists(verifier: "hope-this-doesnt-exist")
