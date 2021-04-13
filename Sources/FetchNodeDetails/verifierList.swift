@@ -37,7 +37,7 @@ public class VerifierListContract {
         self.logger = BestLogger(label: "verifierList: ", level: logLevel)
     }
     
-    func verifierExists(verifier: String) -> Promise<Bool>{
+    public func verifierExists(verifier: String) -> Promise<Bool>{
         let contractMethod = "verifiers" // Contract method you want to call
         let parameters: [AnyObject] = [verifier as AnyObject] // Parameters for contract method
         let extraData: Data = Data() // Extra data for contract method
