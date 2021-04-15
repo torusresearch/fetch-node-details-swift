@@ -3,4 +3,198 @@
    uuid = "F11E7A9B-0F4D-4A44-B120-0886E4AB461D"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "758B0BCB-D719-4118-9F37-6811F840C53A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3swift/Sources/web3swift/Web3/Web3+ReadingTransaction.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "callPromise(transactionOptions:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "758B0BCB-D719-4118-9F37-6811F840C53A - 5db3a686e3d831f1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (PromiseKit.Resolver&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;) -&gt; () in web3swift.ReadTransaction.callPromise(transactionOptions: Swift.Optional&lt;web3swift.TransactionOptions&gt;) -&gt; PromiseKit.Promise&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;"
+                  moduleName = "FetchNodeDetailsTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shubham/Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3swift/Sources/web3swift/Web3/Web3+ReadingTransaction.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "3181">
+               </Location>
+               <Location
+                  uuid = "758B0BCB-D719-4118-9F37-6811F840C53A - 900c3a5fa737ce2b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.Data) throws -&gt; () in closure #1 (PromiseKit.Resolver&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;) -&gt; () in web3swift.ReadTransaction.callPromise(transactionOptions: Swift.Optional&lt;web3swift.TransactionOptions&gt;) -&gt; PromiseKit.Promise&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;"
+                  moduleName = "FetchNodeDetailsTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shubham/Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3swift/Sources/web3swift/Web3/Web3+ReadingTransaction.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "293">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E8421A65-6686-4856-9C9B-3BE7B2DC3744"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3swift/Sources/web3swift/Web3/Web3+ReadingTransaction.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "callPromise(transactionOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B65ACEF1-344D-422B-ADFC-3792C503EA99"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3swift/Sources/web3swift/Web3/Web3+ReadingTransaction.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "callPromise(transactionOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "903BE547-32BC-42AE-9D10-CA7C51C08A44"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3swift/Sources/web3swift/Promises/Promise+Batching.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "addToQueue(request:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DCCB17E4-8B12-4E18-9197-ED1676F4BA7B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3swift/Sources/web3swift/Promises/Promise+Batching.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "addToQueue(request:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6A83800E-9DBE-4755-9303-74BA7A24FC88"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3swift/Sources/web3swift/Promises/Promise+Batching.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "add(_:maxWaitTime:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C3773ED1-47A3-4714-9D15-EC098BA3192C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/PromiseKit/Sources/Catchable.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "catch(on:flags:policy:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E803A78B-B229-4286-B764-75D32D8A0159"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3swift/Sources/web3swift/Promises/Promise+Batching.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "trigger()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3266E177-6401-4421-AF39-0A47CDE5D210"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3swift/Sources/web3swift/Promises/Promise+Batching.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "trigger()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7A065910-C39F-4F7E-B918-A2C7016DFEC8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sources/FetchNodeDetails/veriferList.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "verifierExists(verifier:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
