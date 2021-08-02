@@ -13,13 +13,14 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/rathishubham7/swift-logger", from:"0.0.1"),
-        .package(url: "https://github.com/rathishubham7/web3swift", from:"2.0.0")
+        .package(url: "https://github.com/argentlabs/web3.swift", from:"0.7.0"),
+        .package(url: "https://github.com/mxcl/PromiseKit", from: "6.0.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
-            name: "FetchNodeDetails", dependencies: ["web3swift", "BestLogger"], path: "Sources"),
+            name: "FetchNodeDetails", dependencies: ["web3.swift", "PromiseKit", "BestLogger"], path: "Sources"),
         .testTarget(
             name: "FetchNodeDetailsTests",
             dependencies: ["FetchNodeDetails"]),
