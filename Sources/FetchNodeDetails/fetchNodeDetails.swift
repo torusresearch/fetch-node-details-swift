@@ -54,7 +54,7 @@ public final class FetchNodeDetails {
             transactionOptions: options)!
         
         let result:[String:Any] = try! tx.call() // Explicit Conversion from Any? -> Any -> String -> Int
-        let epoch = result.first?.value
+        let epoch = result["0"]
         
         // Explicit Conversion from Any? -> Any -> String -> Int
         guard let newEpoch = epoch else { return 0}

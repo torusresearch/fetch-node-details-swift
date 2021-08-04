@@ -30,7 +30,7 @@ extension FetchNodeDetails {
         let (tempPromise, seal) = Promise<Int>.pending()
         
         txPromise.done{ data in
-            let epoch = data.first?.value
+            let epoch = data["0"]
             guard let newEpoch = epoch else { throw "some error"}
             seal.fulfill(Int("\(newEpoch)")!)
         }.catch{ err in
