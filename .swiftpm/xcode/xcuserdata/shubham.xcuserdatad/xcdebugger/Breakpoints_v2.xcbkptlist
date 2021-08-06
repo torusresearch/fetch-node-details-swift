@@ -7,160 +7,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9C41DE2D-2B46-4981-8ED8-DC4B9F0515E6"
+            uuid = "EF1AE181-E48E-4F2C-992F-B3512E9EC0E9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3.swift/web3swift/src/Contract/Statically Typed/ABIDecoder+Static.swift"
+            filePath = "Tests/FetchNodeDetailsTests/fetch_node_detailsTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "decodeData(_:types:asArray:)"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "test_GivenTupleWithDynamicArray_EncodesCorrectly()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C7DDA2A2-3550-4287-943B-EB7D7E410EA3"
+            uuid = "FCB095C6-02C7-4F16-92B5-C85849EA666F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Sources/FetchNodeDetails/fetchNodeDetails+promise.swift"
+            filePath = "Tests/FetchNodeDetailsTests/fetch_node_detailsTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "getEpochInfoPromise(epoch:)"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "test_getEpochInfo()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BAFECED9-9FF8-4DFF-809F-FB2F26E1F938"
+            uuid = "6EF387C5-B2BB-49D1-BC57-1A3900346F4B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3.swift/web3swift/src/Contract/ABIDecoder.swift"
+            filePath = "Tests/FetchNodeDetailsTests/fetch_node_detailsTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "decodeData(_:types:asArray:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "08D30870-8D3A-47BD-83D7-699EE86BD56F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3.swift/web3swift/src/Contract/ABIDecoder.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "decodeData(_:types:asArray:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F11A1D22-1133-4FB4-8589-0BD25BBD952B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3.swift/web3swift/src/Contract/ABIDecoder.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "decode(_:forType:offset:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D4AB5B86-C9BC-4D86-804B-FE5F3C65FEE0"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3.swift/web3swift/src/Contract/ABIDecoder.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "decode(_:forType:offset:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B9B5308C-6970-4710-9E3E-C83DE032C8B5"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3.swift/web3swift/src/Contract/ABIRawType.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "init(rawValue:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "518C0A01-5DF9-429B-9E8D-60898280BC8E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3.swift/web3swift/src/Contract/ABIDecoder.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "decode(_:forType:offset:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7FA21103-2349-4C10-8CBA-18D6FB683461"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3.swift/web3swift/src/Contract/ABIDecoder.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "decode(_:forType:offset:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F7630A7C-3B59-4BA4-B3D2-F11B4308CE36"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../../Library/Developer/Xcode/DerivedData/fetch-node-details-swift-blzrmkdddanavtdhwzvrzdjhlpsq/SourcePackages/checkouts/web3.swift/web3swift/src/Contract/ABIDecoder.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "decode(_:forType:offset:)"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "test_getEpochInfo()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

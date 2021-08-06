@@ -10,61 +10,6 @@ import web3
 import BigInt
 import PromiseKit
 
-struct SimpleTuple: ABITuple{
-    
-    static var types: [ABIType.Type] { [BigUInt.self, BigUInt.self, BigUInt.self, BigUInt.self, ABIArray<EthereumAddress>.self, BigUInt.self, BigUInt.self] }
-    
-    var id: BigUInt
-    var n: BigUInt
-    var k: BigUInt
-    var t: BigUInt
-    var nodeList: ABIArray<EthereumAddress>
-    var prevEpoch: BigUInt
-    var nextEpoch: BigUInt
-    
-    init(id: BigUInt,
-    n: BigUInt,
-    k: BigUInt,
-    t: BigUInt,
-    nodeList: ABIArray<EthereumAddress>,
-    prevEpoch: BigUInt,
-    nextEpoch: BigUInt) {
-        self.id =  id
-        self.n =      n
-        self.k =      k
-        self.t =      t
-        self.nodeList =      nodeList
-        self.prevEpoch =      prevEpoch
-        self.nextEpoch =      nextEpoch
-    }
-    
-    init?(values: [ABIDecoder.DecodedValue]) throws {
-        self.id = try values[0].decoded()
-        self.n =     try values[1].decoded()
-        self.k =     try values[2].decoded()
-        self.t =     try values[3].decoded()
-        self.nodeList =     try values[4].decoded()
-        self.prevEpoch =     try values[5].decoded()
-        self.nextEpoch =     try values[6].decoded()
-    }
-    
-    init?(values: [ABIDecoder.DecodedValue]) throws {
-        self.owners = try values.map { try $0.decoded() }
-    }
-    
-    func encode(to encoder: ABIFunctionEncoder) throws {
-        try encoder.encode(id)
-        try encoder.encode(    n)
-        try encoder.encode(    k)
-        try encoder.encode(    t)
-        try encoder.encode(    nodeList)
-        try encoder.encode(    prevEpoch)
-        try encoder.encode(    nextEpoch)
-    }
-    
-    var encodableValues: [ABIType] { [id, n, k, t, nodeList, prevEpoch, nextEpoch] }
-}
-
 extension FetchNodeDetails {
     
     public func getCurrentEpochPromise() throws -> Promise<Int>{
@@ -81,78 +26,21 @@ extension FetchNodeDetails {
         return tempPromise
     }
     
-    public func getEpochInfoPromise(epoch : Int) throws -> Promise<Int>{
-        
-        
-        let keyStorage = EthereumKeyLocalStorage()
-        let account = try? EthereumAccount.create(keyStorage: keyStorage, keystorePassword: "MY_PASSWORD")
-
-        
-        let function = NodeListProxyContract.getEpochInfo(contract: self.proxyAddress, epoch: 19)
+    public func getEpochInfoPromise(epoch: Int) throws -> Promise<EpochInfo>{
+        let function = NodeListProxyContract.getEpochInfo(contract: self.proxyAddress, epoch: epoch)
         let transaction = try! function.transaction()
-        let (tempPromise, seal) = Promise<Int>.pending()
-//
+        let (tempPromise, seal) = Promise<EpochInfo>.pending()
+
         client.eth_call(transaction, block: .Latest) { (error, epoch) in
-            print("Epoch is: ", epoch)
+            let a = epoch!.components(separatedBy: "0x")
+            let b = "0x0000000000000000000000000000000000000000000000000000000000000020" + a[1]
             
-            let el = try? ABIDecoder.decodeData(epoch!, types: [SimpleTuple.self], asArray: true)
-            
-            let b = Int(hex: epoch!) ?? -1
-            seal.fulfill(b)
+            let el = try! ABIDecoder.decodeData(b, types: [EpochInfo.self])
+            let decodedTuple: EpochInfo = try! el[0].decoded()
+            seal.fulfill(decodedTuple)
         }
         
-        
-//        client.eth_sendRawTransaction(transaction, withAccount: account!) { (error, epoch) in
-//            print("Epoch is: ", epoch)
-//
-//
-//            let b = Int(hex: epoch!) ?? -1
-//            seal.fulfill(b)
-//        }
-        
         return tempPromise
-        
-//        let contractMethod = "getEpochInfo"
-//        let parameters: [AnyObject] = [epoch as AnyObject] // Parameters for contract method
-//        let extraData: Data = Data() // Extra data for contract method
-//        var options = TransactionOptions.defaultOptions
-//        options.from = walletAddress
-//        options.gasPrice = .automatic
-//        options.gasLimit = .automatic
-//
-//        let tx = self.contract.read(
-//            contractMethod,
-//            parameters: parameters,
-//            extraData: extraData,
-//            transactionOptions: options)!
-//
-//        let returnPromise = Promise<EpochInfo>{ seal in
-//            let txPromise = tx.callPromise()
-//            txPromise.done{ response in
-//                var nodeList = response["nodeList"] as! Array<Encodable> //Unable to convert to Array<String>
-//                nodeList = nodeList.map{ (el) -> String in
-//                    let address = el as! EthereumAddress
-//                    return String(describing: address.address)
-//                }
-//                //print(nodeList)
-//
-//                guard let id = response["id"] else { throw "Casting for id from Any? -> Any failed"}
-//                guard let n = response["n"] else { throw "Casting for n from Any? -> Any failed"}
-//                guard let k = response["k"] else { throw "Casting for k from Any? -> Any failed"}
-//                guard let t = response["t"] else { throw "Casting for t from Any? -> Any failed"}
-//                guard let prevEpoch = response["prevEpoch"] else { throw "Casting for prevEpoch from Any? -> Any failed"}
-//                guard let nextEpoch = response["nextEpoch"] else { throw "Casting for nextEpoch from Any? -> Any failed"}
-//
-//                let object = EpochInfo(_id: "\(id)", _n: "\(n)", _k: "\(k)", _t: "\(t)", _nodeList: nodeList as! Array<String>, _prevEpoch: "\(prevEpoch)", _nextEpoch: "\(nextEpoch)")
-//                //print()
-//                seal.fulfill(object)
-//
-//            }.catch{error in
-//                seal.reject(error)
-//            }
-//
-//        }
-//        return returnPromise
     }
 
 //    public func getNodeEndpointPromise(nodeEthAddress: String) -> Promise<NodeInfo> {
