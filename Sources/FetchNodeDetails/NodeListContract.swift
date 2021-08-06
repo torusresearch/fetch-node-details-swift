@@ -44,17 +44,38 @@ public enum NodeListProxyContract{
         
         public var from: EthereumAddress?
         
-        public var epoch: Int
+        public var epoch: BigInt
         
-        public init(contract: EthereumAddress, epoch: Int) {
+        public init(contract: EthereumAddress, epoch: BigInt) {
             self.contract = contract
             self.epoch = epoch
         }
         
         public func encode(to encoder: ABIFunctionEncoder) throws {
-            try encoder.encode(BigUInt(19))
+            try encoder.encode(BigUInt(epoch))
+        }
+    }
+    
+    public struct getNodeDetails: ABIFunction {
+        public static var name: String = "getNodeDetails"
+        
+        public var gasPrice: BigUInt?
+        
+        public var gasLimit: BigUInt?
+        
+        public var contract: EthereumAddress
+        
+        public var from: EthereumAddress?
+        
+        public var address: EthereumAddress
+        
+        public init(contract: EthereumAddress, address: EthereumAddress) {
+            self.contract = contract
+            self.address = address
         }
         
-        
+        public func encode(to encoder: ABIFunctionEncoder) throws {
+            try encoder.encode(address)
+        }
     }
 }

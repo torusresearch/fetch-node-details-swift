@@ -61,33 +61,33 @@ public struct EpochInfo: ABITuple {
     
     public var encodableValues: [ABIType] { [id, n, k, t, ABIArray(values: nodeList), prevEpoch, nextEpoch] }
     
-//    public func getId() -> String {
-//        return self.id;
-//    }
-//
-//    public func getK() -> String{
-//        return self.k;
-//    }
-//
-//    public func getN() -> String{
-//        return self.n;
-//    }
-//
-//    public func getNextEpoch() -> String{
-//        return self.nextEpoch;
-//    }
-//
-//    public func getPrevEpoch() -> String{
-//        return self.prevEpoch;
-//    }
-//
-//    public func getT() -> String{
-//        return self.t;
-//    }
-//
-//    public func getNodeList() -> Array<String> {
-//        return self.nodeList;
-//    }
+    public func getId() -> BigInt {
+        return self.id;
+    }
+
+    public func getK() -> BigInt{
+        return self.k;
+    }
+
+    public func getN() -> BigInt{
+        return self.n;
+    }
+
+    public func getNextEpoch() -> BigInt{
+        return self.nextEpoch;
+    }
+
+    public func getPrevEpoch() -> BigInt{
+        return self.prevEpoch;
+    }
+
+    public func getT() -> BigInt{
+        return self.t;
+    }
+
+    public func getNodeList() -> [EthereumAddress] {
+        return self.nodeList;
+    }
 }
 
 
