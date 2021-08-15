@@ -79,3 +79,25 @@ public enum NodeListProxyContract{
         }
     }
 }
+
+enum FNDError: Error{
+    case currentEpochFailed
+    case epochInfoFailed
+    case nodeDetailsFailed
+    case allNodeDetailsFailed
+}
+
+extension FNDError: CustomDebugStringConvertible{
+    public var debugDescription: String{
+        switch self{
+            case .currentEpochFailed:
+                return "current epoch failed"
+            case .epochInfoFailed:
+                return "epoch info failed"
+            case .nodeDetailsFailed:
+                return "node details failed"
+            case .allNodeDetailsFailed:
+                return "unable to get node details for all nodes"
+        }
+    }
+}

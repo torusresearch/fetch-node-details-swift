@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "80127C8C-E232-4E3D-915B-FD9BC7736FE0"
+            uuid = "3C3B1548-F43D-4F28-A97C-87066276BC0B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Sources/FetchNodeDetails/fetchNodeDetails+promise.swift"
+            filePath = "cocoapods/Pods/web3.swift/web3swift/src/Client/EthereumClient.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "getAllNodeDetails()"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
+            landmarkName = "eth_call(_:block:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A6E37108-7644-4109-BA31-6313BA751ADA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cocoapods/Pods/web3.swift/web3swift/src/Client/EthereumClient.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
+            landmarkName = "eth_call(_:block:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

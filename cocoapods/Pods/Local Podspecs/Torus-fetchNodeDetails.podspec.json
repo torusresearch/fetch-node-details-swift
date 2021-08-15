@@ -1,8 +1,8 @@
 {
   "name": "Torus-fetchNodeDetails",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "platforms": {
-    "ios": "10.0"
+    "ios": "11.0"
   },
   "summary": "Fetches the node details from torus nodelist smart contract",
   "homepage": "https://github.com/torusresearch/fetch-node-details-swift",
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/torusresearch/fetch-node-details-swift.git",
-    "tag": "0.1.0"
+    "tag": "0.1.1"
   },
   "source_files": [
     "Sources/FetchNodeDetails/*.{swift,json}",
@@ -27,8 +27,11 @@
     "BestLogger": [
       "~> 0.0.1"
     ],
-    "web3swift": [
-      "~> 2.3.0"
+    "web3.swift": [
+      "~> 0.7.0"
+    ],
+    "PromiseKit/Foundation": [
+      "~> 6.0"
     ]
   },
   "pod_target_xcconfig": {

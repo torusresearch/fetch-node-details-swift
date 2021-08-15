@@ -18,8 +18,12 @@ extension FetchNodeDetails {
         let (tempPromise, seal) = Promise<Int>.pending()
         
         client.eth_call(transaction, block: .Latest) { (error, epoch) in
-            let b = Int(hex: epoch!) ?? -1
-            seal.fulfill(b)
+            if let epoch = epoch {
+                let b = Int(hex: epoch) ?? -1
+                seal.fulfill(b)
+            } else{
+                seal.reject(FNDError.currentEpochFailed)
+            }
         }
         
         return tempPromise
@@ -31,13 +35,16 @@ extension FetchNodeDetails {
         let (tempPromise, seal) = Promise<EpochInfo>.pending()
         
         client.eth_call(transaction, block: .Latest) { (error, epoch) in
-            //            print("epoch is, ", epoch!)
-            let a = epoch!.components(separatedBy: "0x")
-            let b = "0x0000000000000000000000000000000000000000000000000000000000000020" + a[1]
-            
-            let el = try! ABIDecoder.decodeData(b, types: [EpochInfo.self])
-            let decodedTuple: EpochInfo = try! el[0].decoded()
-            seal.fulfill(decodedTuple)
+            if let epoch = epoch {
+                let a = epoch.components(separatedBy: "0x")
+                let b = "0x0000000000000000000000000000000000000000000000000000000000000020" + a[1]
+                
+                let el = try! ABIDecoder.decodeData(b, types: [EpochInfo.self])
+                let decodedTuple: EpochInfo = try! el[0].decoded()
+                seal.fulfill(decodedTuple)
+            }else{
+                seal.reject(FNDError.epochInfoFailed)
+            }
         }
         
         return tempPromise
@@ -49,13 +56,16 @@ extension FetchNodeDetails {
         let (tempPromise, seal) = Promise<NodeDetails>.pending()
         
         client.eth_call(transaction, block: .Latest) { (error, info) in
-            //            print("NodeInfo is, ", info!)
-            let a = info!.components(separatedBy: "0x")
-            let b = "0x0000000000000000000000000000000000000000000000000000000000000020" + a[1]
-            
-            let el = try! ABIDecoder.decodeData(b, types: [EpochInfo.self])
-            let decodedTuple: NodeDetails = try! el[0].decoded()
-            seal.fulfill(decodedTuple)
+            if let info = info {
+                let a = info.components(separatedBy: "0x")
+                let b = "0x0000000000000000000000000000000000000000000000000000000000000020" + a[1]
+                
+                let el = try! ABIDecoder.decodeData(b, types: [EpochInfo.self])
+                let decodedTuple: NodeDetails = try! el[0].decoded()
+                seal.fulfill(decodedTuple)
+            }else{
+                seal.reject(FNDError.nodeDetailsFailed)
+            }
         }
         
         return tempPromise
@@ -65,10 +75,9 @@ extension FetchNodeDetails {
     public func getAllNodeDetails() -> Promise<AllNodeDetails>{
         let (tempPromise, seal) = Promise<AllNodeDetails>.pending()
         var torusIndexes:[BigInt] = Array()
-        var currentEpoch: Int = -1;
+        let currentEpoch: Int = -1;
         
-        
-        try! self.getCurrentEpochPromise().then{ epoch in
+        self.getCurrentEpochPromise().then{ epoch in
             return self.getEpochInfoPromise(epoch: BigInt(epoch))
         }.then{ epochInfo -> Guarantee<[Result<NodeDetails>]> in
             let nodeList = epochInfo.nodeList
@@ -80,8 +89,6 @@ extension FetchNodeDetails {
             }
             return when(resolved: getNodeDetailsPromiseArray)
         }.done{results in
-            //            print()
-            
             var updatedEndpoints: Array<String> = Array()
             var updatedNodePub:Array<TorusNodePub> = Array()
             
@@ -106,57 +113,9 @@ extension FetchNodeDetails {
             seal.fulfill(allNodeDetails)
         }.catch{error in
             print(error)
+            seal.reject(FNDError.allNodeDetailsFailed)
         }
         
         return tempPromise
     }
-    //
-    //    public func getNodeDetailsPromise() throws -> Promise<NodeDetails>{
-    //        var currentEpoch: Int = -1;
-    //
-    //        let returnPromise = Promise<NodeDetails> { seal in
-    //            let currentEpochPromise = try self.getCurrentEpochPromise();
-    //            currentEpochPromise.then{ response -> Promise<EpochInfo> in
-    //                currentEpoch = response
-    //                return try self.getEpochInfoPromise(epoch: response)
-    //            }.then{epochInfo -> Guarantee<[Result<NodeInfo>]> in
-    //                let nodelist = epochInfo.getNodeList();
-    //                var getNodeInfoPromisesArray:[Promise<NodeInfo>] = Array()
-    //                for i in 0..<nodelist.count{
-    //                    torusIndexes.append(BigInt(i+1))
-    //                    getNodeInfoPromisesArray.append(self.getNodeEndpointPromise(nodeEthAddress: nodelist[i]))
-    //                }
-    //                return when(resolved: getNodeInfoPromisesArray)
-    //            }.done{ results in
-    //                var updatedEndpoints: Array<String> = Array()
-    //                var updatedNodePub:Array<TorusNodePub> = Array()
-    //
-    //                for result in results{
-    //                    switch result {
-    //                    case .fulfilled(let value):
-    //                        let endPointElement:NodeInfo = value;
-    //                        let endpoint = "https://" + endPointElement.getDeclaredIp().split(separator: ":")[0] + "/jrpc";
-    //                        updatedEndpoints.append(endpoint)
-    //
-    //                        let hexPubX = endPointElement.getPubKx()
-    //                        let hexPubY = endPointElement.getPubKy()
-    //                        updatedNodePub.append(TorusNodePub(_X: hexPubX, _Y: hexPubY))
-    //                    default:
-    //                        seal.reject("error with node info")
-    //                    }
-    //
-    //                }
-    //
-    //                self.nodeDetails = NodeDetails(_currentEpoch: "\(currentEpoch)", _nodeListAddress: self.proxyAddress.address, _torusNodeEndpoints: updatedEndpoints, _torusIndexes: torusIndexes, _torusNodePub: updatedNodePub, _updated: true)
-    //
-    //                seal.fulfill(self.nodeDetails!)
-    //            }.catch { error in
-    //                //print(error)
-    //                seal.reject("get epoch info failed")
-    //            }
-    //        }
-    //
-    //        return returnPromise
-    //    }
-    //
 }
