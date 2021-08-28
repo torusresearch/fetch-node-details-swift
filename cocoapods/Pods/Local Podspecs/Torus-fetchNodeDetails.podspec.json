@@ -1,6 +1,6 @@
 {
   "name": "Torus-fetchNodeDetails",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "platforms": {
     "ios": "11.0"
   },
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/torusresearch/fetch-node-details-swift.git",
-    "tag": "0.1.1"
+    "tag": "1.0.0"
   },
   "source_files": [
     "Sources/FetchNodeDetails/*.{swift,json}",
@@ -28,7 +28,7 @@
       "~> 0.0.1"
     ],
     "web3.swift": [
-      "~> 0.7.0"
+      "~> 0.8.0"
     ],
     "PromiseKit/Foundation": [
       "~> 6.0"

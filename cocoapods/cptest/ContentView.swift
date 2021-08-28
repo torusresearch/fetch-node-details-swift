@@ -8,8 +8,6 @@
 
 import SwiftUI
 import FetchNodeDetails
-import PromiseKit
-import BigInt
 
 struct ContentView: View {
     @State private var showingAlert = false
@@ -21,13 +19,13 @@ struct ContentView: View {
                     Group{
                         Button(action: {
                             let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET)
-                            fnd.getEpochInfoPromise(epoch: BigInt(19)).done{ data in
-                                self.currentEpoch = 10
+                            fnd.getCurrentEpochPromise().done{ data in
+                                self.currentEpoch = data
                                 self.showingAlert = true
                                 print(self.currentEpoch)
-                            };
-                            
-                        
+                            }.catch{error in
+                                print(error)
+                            }
                         }, label: {
                             Text("Get current epoch")
                         }).alert(isPresented: $showingAlert) {

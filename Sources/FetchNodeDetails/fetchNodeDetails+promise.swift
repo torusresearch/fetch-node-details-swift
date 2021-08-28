@@ -11,7 +11,6 @@ import BigInt
 import PromiseKit
 
 extension FetchNodeDetails {
-    
     public func getCurrentEpochPromise() -> Promise<Int>{
         let function = NodeListProxyContract.CurrentEpoch(contract: self.proxyAddress)
         let transaction = try! function.transaction()

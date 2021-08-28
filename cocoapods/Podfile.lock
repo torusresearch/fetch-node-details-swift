@@ -6,11 +6,11 @@ PODS:
   - PromiseKit/Foundation (6.15.3):
     - PromiseKit/CorePromise
   - secp256k1.swift (0.1.4)
-  - Torus-fetchNodeDetails (0.1.1):
+  - Torus-fetchNodeDetails (1.0.0):
     - BestLogger (~> 0.0.1)
     - PromiseKit/Foundation (~> 6.0)
-    - web3.swift (~> 0.7.0)
-  - web3.swift (0.7.2):
+    - web3.swift (~> 0.8.0)
+  - web3.swift (0.8.1):
     - BigInt (~> 5.0.0)
     - GenericJSON (~> 2.0)
     - secp256k1.swift (~> 0.1)
@@ -37,8 +37,8 @@ SPEC CHECKSUMS:
   GenericJSON: a6e74e2c457f8693caab08e0eafde7d97e6666de
   PromiseKit: 3b2b6995e51a954c46dbc550ce3da44fbfb563c5
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
-  Torus-fetchNodeDetails: ab0010f11656cf1bad384869f689698e4d4027e8
-  web3.swift: 480dd988a93763213b4446da11cd73c39081505b
+  Torus-fetchNodeDetails: 03827b5d6481ffd52bfae26cce97fcb7964bd23e
+  web3.swift: ce00a5e6e39fb184e33e3622e8be22ae53205e57
 
 PODFILE CHECKSUM: ae115860d812085e4fb442de1977a1a1e8bd0c93
 
