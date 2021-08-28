@@ -18,10 +18,14 @@ struct ContentView: View {
                 Section(header: Text("APIs")) {
                     Group{
                         Button(action: {
-                            let fnd = FetchNodeDetails(proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183", network: EthereumNetwork.ROPSTEN, logLevel: .info);
-                            self.currentEpoch = fnd.getCurrentEpoch();
-                            self.showingAlert = true
-                            print(self.currentEpoch)
+                            let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET)
+                            fnd.getCurrentEpochPromise().done{ data in
+                                self.currentEpoch = data
+                                self.showingAlert = true
+                                print(self.currentEpoch)
+                            }.catch{error in
+                                print(error)
+                            }
                         }, label: {
                             Text("Get current epoch")
                         }).alert(isPresented: $showingAlert) {

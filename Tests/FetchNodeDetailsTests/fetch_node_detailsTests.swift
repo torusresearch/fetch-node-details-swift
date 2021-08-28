@@ -1,74 +1,68 @@
 import XCTest
 import BigInt
-import PromiseKit
-import web3swift
-import CryptoSwift
+import web3
 @testable import FetchNodeDetails
-
-final class fetch_node_detailsTestsSync: XCTestCase {
-    // Mainnet - 0x638646503746d5456209e33a2ff5e3226d698bea
-    var currentEpoch = 0
-    
-    func testGetCurrentEpoch(){
-        let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: EthereumNetwork.MAINNET);
-        let foundEpoch = fnd.getCurrentEpoch();
-        let expectedEpoch = 19
-        XCTAssertEqual(foundEpoch, expectedEpoch, "same epoch")
-    }
-    
-    func testGetEpochInfo(){
-        let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: EthereumNetwork.MAINNET);
-        let test = try! fnd.getEpochInfo(epoch: 18)
-    }
-    
-    func testGetNodeEndpoints(){
-        let fnd = FetchNodeDetails(proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183", network: EthereumNetwork.ROPSTEN);
-        let details = try! fnd.getNodeEndpoint(nodeEthAddress: "0x40e8f0d606281b0a1d9d8ac9030aaae9d51229d1")
-        print(details)
-    }
-    
-    func testGetNodeDetails(){
-        let fnd = FetchNodeDetails(proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183", network: EthereumNetwork.ROPSTEN);
-        let details = fnd.getNodeDetails()
-        print(details.getTorusNodeEndpoints())
-    }
-    
-    static var allTests = [
-        ("testGetCurrentEpoch", testGetCurrentEpoch),
-        ("testGetNodeEndpoints", testGetNodeEndpoints),
-        ("testGetNodeDetails", testGetNodeDetails),
-        ("testGetEpochInfo", testGetEpochInfo)
-    ]
-}
+@testable import web3
 
 final class fetch_node_detailsTestsAsync: XCTestCase{
-
-    func test_async_getCurrentEpoch(){
-        let fnd = FetchNodeDetails(proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183", network: EthereumNetwork.ROPSTEN);
-        let exp = self.expectation(description: "Current epoch Async")
-        let test = try! fnd.getCurrentEpochPromise()
-        test.done{ data in
-            XCTAssertTrue(type(of: data) == Int.self)
+    
+    let encoder = ABIFunctionEncoder("test")
+    
+    
+    func test_getCurrentEpoch(){
+        let exp = expectation(description: "sample")
+        let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET)
+        
+//        let EpochInfo = EpochInfo(id: BigInt("19", radix: 10)!, n: BigInt("9", radix: 10)!, k: BigInt("5", radix: 10)!, t: BigInt("2", radix: 10)!, nodeList: [], prevEpoch: BigInt("17", radix: 10)!, nextEpoch: BigInt("19", radix: 10)!)
+//        let epochToCheck = BigInt(10)
+        
+        fnd.getCurrentEpochPromise().done{ data in
+            XCTAssertNotNil(data)
             exp.fulfill()
+        }.catch{ error in
+            XCTFail()
         }
-        waitForExpectations(timeout: 5)
+        wait(for: [exp], timeout: 5)
     }
     
-    func test_getNodeDetailsPromise(){
-        let fnd = FetchNodeDetails(proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183", network: EthereumNetwork.ROPSTEN);
-        let exp = self.expectation(description: "getting node details")
+    
+    func test_getEpochInfo(){
+        let exp = expectation(description: "sample")
+        let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET)
         
-        try! fnd.getNodeDetailsPromise().done{ response in
+        let EpochInfo = EpochInfo(id: BigInt("19", radix: 10)!, n: BigInt("9", radix: 10)!, k: BigInt("5", radix: 10)!, t: BigInt("2", radix: 10)!, nodeList: [], prevEpoch: BigInt("17", radix: 10)!, nextEpoch: BigInt("19", radix: 10)!)
+        let epochToCheck = BigInt(19)
+        
+        fnd.getEpochInfoPromise(epoch: epochToCheck).done{ data in
+            XCTAssertEqual(data.id, EpochInfo.id)
             exp.fulfill()
-        }.catch{err in print(err)}
-        
-        waitForExpectations(timeout: 10)
+        }.catch{ error in
+            XCTFail()
+        }
+        wait(for: [exp], timeout: 5)
     }
     
-    static var allTests = [
-        ("test_async_getCurrentEpoch", test_async_getCurrentEpoch),
-        ("test_getNodeDetailsPromise", test_getNodeDetailsPromise),
-//        ("test_getNodeEndpointPromise", test_getNodeEndpointPromise)
-
-    ]
+    func test_getNodeDetails(){
+        let exp = expectation(description: "Should be ablt to get node info")
+        let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET)
+        
+        fnd.getNodeDetails(nodeEthAddress: "0x58DF12150e765cFa08d3d7027FFeFe3EBC6a977d").done{ data in
+            exp.fulfill()
+        }.catch{ error in
+            XCTFail()
+        }
+        wait(for: [exp], timeout: 5)
+    }
+    
+    func test_getAllNodeDetails(){
+        let exp = expectation(description: "Should be able to get node info")
+        let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET)
+        
+        fnd.getAllNodeDetails().done{ data in
+            exp.fulfill()
+        }.catch{ error in
+            XCTFail()
+        }
+        wait(for: [exp], timeout: 10)
+    }
 }
