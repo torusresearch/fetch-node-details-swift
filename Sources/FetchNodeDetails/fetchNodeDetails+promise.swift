@@ -59,7 +59,7 @@ extension FetchNodeDetails {
                 let a = info.components(separatedBy: "0x")
                 let b = "0x0000000000000000000000000000000000000000000000000000000000000020" + a[1]
                 
-                let el = try! ABIDecoder.decodeData(b, types: [EpochInfo.self])
+                let el = try! ABIDecoder.decodeData(b, types: [NodeDetails.self])
                 let decodedTuple: NodeDetails = try! el[0].decoded()
                 seal.fulfill(decodedTuple)
             }else{
