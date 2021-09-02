@@ -10,16 +10,15 @@ import web3
 import BigInt
 import BestLogger
 
-public final class FetchNodeDetails {
+open class FetchNodeDetails {
     
     var client: EthereumClientProtocol
     var network : EthereumNetwork = EthereumNetwork.ROPSTEN;
     var proxyAddress : EthereumAddress
     var walletAddress : EthereumAddress = EthereumAddress("0x5F7A02a42bF621da3211aCE9c120a47AA5229fBA")
     let yourContractABI: String = contractABIString
-//    var contract : web3.web3contract
-    var nodeDetails : NodeDetails?
-    let logger: BestLogger?
+    public var nodeDetails : NodeDetails?
+    public let logger: BestLogger?
     
     public init(proxyAddress: String, network: EthereumNetwork, logLevel: BestLogger.Level = .none){
         

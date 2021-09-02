@@ -4,7 +4,7 @@ import web3
 @testable import FetchNodeDetails
 @testable import web3
 
-final class fetch_node_detailsTestsAsync: XCTestCase{
+class fetchNodeDetailsTests: XCTestCase{
     
     let encoder = ABIFunctionEncoder("test")
     

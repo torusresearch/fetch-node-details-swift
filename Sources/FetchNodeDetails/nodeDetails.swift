@@ -9,6 +9,8 @@ import Foundation
 import web3
 import BigInt
 
+/// NodeDetails are information about individual node. Each node has a public key, IP and listener addresses.
+/// This stuct is used for decoding purpoes. 
 public struct NodeDetails: ABITuple {
     public var encodableValues: [ABIType] {[declaredIp, position, pubKx, pubKy, tmP2PListenAddress, p2pListenAddress]}
     public static var types: [ABIType.Type] { [String.self, BigInt.self, BigInt.self, BigInt.self, String.self, String.self] }

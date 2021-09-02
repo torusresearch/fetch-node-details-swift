@@ -85,6 +85,8 @@ enum FNDError: Error{
     case epochInfoFailed
     case nodeDetailsFailed
     case allNodeDetailsFailed
+    case transactionEncodingFailed
+    case decodingFailed
 }
 
 extension FNDError: CustomDebugStringConvertible{
@@ -98,6 +100,10 @@ extension FNDError: CustomDebugStringConvertible{
                 return "node details failed"
             case .allNodeDetailsFailed:
                 return "unable to get node details for all nodes"
+            case .transactionEncodingFailed:
+                return "unabel to encode transaction"
+            case .decodingFailed:
+                return "decoding failed"
         }
     }
 }
