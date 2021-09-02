@@ -11,10 +11,14 @@ import BigInt
 import PromiseKit
 
 extension FetchNodeDetails {
-    public func getCurrentEpochPromise() -> Promise<Int>{
-        let function = NodeListProxyContract.CurrentEpoch(contract: self.proxyAddress)
-        let transaction = try! function.transaction()
+    open func getCurrentEpochPromise() -> Promise<Int>{
         let (tempPromise, seal) = Promise<Int>.pending()
+
+        let function = NodeListProxyContract.CurrentEpoch(contract: self.proxyAddress)
+        guard let transaction = try? function.transaction() else{
+            seal.reject(FNDError.transactionEncodingFailed);
+            return tempPromise
+        }
         
         client.eth_call(transaction, block: .Latest) { (error, epoch) in
             if let epoch = epoch {
@@ -28,18 +32,26 @@ extension FetchNodeDetails {
         return tempPromise
     }
     
-    public func getEpochInfoPromise(epoch: BigInt) -> Promise<EpochInfo>{
-        let function = NodeListProxyContract.getEpochInfo(contract: self.proxyAddress, epoch: epoch)
-        let transaction = try! function.transaction()
+    open func getEpochInfoPromise(epoch: BigInt) -> Promise<EpochInfo>{
         let (tempPromise, seal) = Promise<EpochInfo>.pending()
+
+        let function = NodeListProxyContract.getEpochInfo(contract: self.proxyAddress, epoch: epoch)
+        guard let transaction = try? function.transaction() else{
+            seal.reject(FNDError.transactionEncodingFailed);
+            return tempPromise
+        }
         
         client.eth_call(transaction, block: .Latest) { (error, epoch) in
             if let epoch = epoch {
                 let a = epoch.components(separatedBy: "0x")
                 let b = "0x0000000000000000000000000000000000000000000000000000000000000020" + a[1]
                 
-                let el = try! ABIDecoder.decodeData(b, types: [EpochInfo.self])
-                let decodedTuple: EpochInfo = try! el[0].decoded()
+                guard let decodedArray = try? ABIDecoder.decodeData(b, types: [EpochInfo.self]),
+                      let decodedTuple: EpochInfo = try? decodedArray[0].decoded() else{
+                    seal.reject(FNDError.decodingFailed)
+                    return
+                }
+                
                 seal.fulfill(decodedTuple)
             }else{
                 seal.reject(FNDError.epochInfoFailed)
@@ -49,18 +61,26 @@ extension FetchNodeDetails {
         return tempPromise
     }
     
-    public func getNodeDetails(nodeEthAddress: String) -> Promise<NodeDetails> {
-        let function = NodeListProxyContract.getNodeDetails(contract: self.proxyAddress, address: EthereumAddress(nodeEthAddress))
-        let transaction = try! function.transaction()
+    open func getNodeDetails(nodeEthAddress: String) -> Promise<NodeDetails> {
         let (tempPromise, seal) = Promise<NodeDetails>.pending()
+
+        let function = NodeListProxyContract.getNodeDetails(contract: self.proxyAddress, address: EthereumAddress(nodeEthAddress))
+        guard let transaction = try? function.transaction() else{
+            seal.reject(FNDError.transactionEncodingFailed);
+            return tempPromise
+        }
         
         client.eth_call(transaction, block: .Latest) { (error, info) in
             if let info = info {
                 let a = info.components(separatedBy: "0x")
                 let b = "0x0000000000000000000000000000000000000000000000000000000000000020" + a[1]
                 
-                let el = try! ABIDecoder.decodeData(b, types: [NodeDetails.self])
-                let decodedTuple: NodeDetails = try! el[0].decoded()
+                guard let el = try? ABIDecoder.decodeData(b, types: [NodeDetails.self]),
+                      let decodedTuple: NodeDetails = try? el[0].decoded() else {
+                    seal.reject(FNDError.decodingFailed)
+                    return
+                }
+                
                 seal.fulfill(decodedTuple)
             }else{
                 seal.reject(FNDError.nodeDetailsFailed)
@@ -71,7 +91,7 @@ extension FetchNodeDetails {
     }
     
     
-    public func getAllNodeDetails() -> Promise<AllNodeDetails>{
+    open func getAllNodeDetails() -> Promise<AllNodeDetails>{
         let (tempPromise, seal) = Promise<AllNodeDetails>.pending()
         var torusIndexes:[BigInt] = Array()
         let currentEpoch: Int = -1;
