@@ -10,9 +10,6 @@ class fetchNodeDetailsTests: XCTestCase{
     
     
     func test_getCurrentEpoch(){
-            
-        
-        
         let exp = expectation(description: "sample")
         let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET)
         

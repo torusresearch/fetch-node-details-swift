@@ -9,7 +9,7 @@ import os.log
 //}
 
 
-private let subsystem = "Torus-fetchNodeDetails"
+public let subsystem = "com.torus.fetchNodeDetails"
 
 struct Log {
     static let nodeDetails = OSLog(subsystem: subsystem, category: "getNodeDetails")
