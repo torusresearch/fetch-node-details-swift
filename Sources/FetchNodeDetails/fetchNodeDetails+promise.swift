@@ -17,7 +17,7 @@ extension FetchNodeDetails {
 
         let function = NodeListProxyContract.CurrentEpoch(contract: self.proxyAddress)
         guard let transaction = try? function.transaction() else{
-            os_log("%s", log: Log.nodeDetails, type: .error, FNDError.transactionEncodingFailed.debugDescription)
+            log("%s", log: FNDLogger.core, type: .error, FNDError.transactionEncodingFailed.debugDescription)
             seal.reject(FNDError.transactionEncodingFailed);
             return tempPromise
         }
@@ -25,9 +25,10 @@ extension FetchNodeDetails {
         client.eth_call(transaction, block: .Latest) { (error, epoch) in
             if let epoch = epoch {
                 let b = Int(hex: epoch) ?? -1
+                log("currentEpoch is: %{public}@", log: FNDLogger.core, type: .info, b)
                 seal.fulfill(b)
             } else{
-                os_log("%s", log: Log.nodeDetails, type: .error, FNDError.currentEpochFailed.debugDescription)
+                log("%s", log: FNDLogger.core, type: .error, FNDError.currentEpochFailed.debugDescription)
                 seal.reject(FNDError.currentEpochFailed)
             }
         }
@@ -40,7 +41,7 @@ extension FetchNodeDetails {
 
         let function = NodeListProxyContract.getEpochInfo(contract: self.proxyAddress, epoch: epoch)
         guard let transaction = try? function.transaction() else{
-            os_log("%s", log: Log.nodeDetails, type: .error, FNDError.transactionEncodingFailed.debugDescription)
+            log("%s", log: FNDLogger.core, type: .error, FNDError.transactionEncodingFailed.debugDescription)
             seal.reject(FNDError.transactionEncodingFailed);
             return tempPromise
         }
@@ -52,14 +53,15 @@ extension FetchNodeDetails {
                 
                 guard let decodedArray = try? ABIDecoder.decodeData(b, types: [EpochInfo.self]),
                       let decodedTuple: EpochInfo = try? decodedArray[0].decoded() else{
-                    os_log("%s", log: Log.nodeDetails, type: .error, FNDError.decodingFailed.debugDescription)
+                    log("%s", log: FNDLogger.core, type: .error, FNDError.decodingFailed.debugDescription)
                     seal.reject(FNDError.decodingFailed)
                     return
                 }
                 
+                log("epochInfo is: %{public}@", log: FNDLogger.core, type: .info, "\(decodedTuple)")
                 seal.fulfill(decodedTuple)
             }else{
-                os_log("%s", log: Log.nodeDetails, type: .error, FNDError.epochInfoFailed.debugDescription)
+                log("%s", log: FNDLogger.core, type: .error, FNDError.epochInfoFailed.debugDescription)
                 seal.reject(FNDError.epochInfoFailed)
             }
         }
@@ -72,7 +74,7 @@ extension FetchNodeDetails {
 
         let function = NodeListProxyContract.getNodeDetails(contract: self.proxyAddress, address: EthereumAddress(nodeEthAddress))
         guard let transaction = try? function.transaction() else{
-            os_log("%s", log: Log.nodeDetails, type: .error, FNDError.transactionEncodingFailed.debugDescription)
+            log("%s", log: FNDLogger.core, type: .error, FNDError.transactionEncodingFailed.debugDescription)
             seal.reject(FNDError.transactionEncodingFailed);
             return tempPromise
         }
@@ -84,14 +86,15 @@ extension FetchNodeDetails {
                 
                 guard let el = try? ABIDecoder.decodeData(b, types: [NodeDetails.self]),
                       let decodedTuple: NodeDetails = try? el[0].decoded() else {
-                    os_log("%s", log: Log.nodeDetails, type: .error, FNDError.decodingFailed.debugDescription)
+                    log("%s", log: FNDLogger.core, type: .error, FNDError.decodingFailed.debugDescription)
                     seal.reject(FNDError.decodingFailed)
                     return
                 }
                 
+                log("nodeDetails is: %{public}@", log: FNDLogger.core, type: .info, "\(decodedTuple)")
                 seal.fulfill(decodedTuple)
             }else{
-                os_log("%s", log: Log.nodeDetails, type: .error, FNDError.nodeDetailsFailed.debugDescription)
+                log("%s", log: FNDLogger.core, type: .error, FNDError.nodeDetailsFailed.debugDescription)
                 seal.reject(FNDError.nodeDetailsFailed)
             }
         }
@@ -138,9 +141,10 @@ extension FetchNodeDetails {
             
             let allNodeDetails = AllNodeDetails(_currentEpoch: "\(currentEpoch)", _nodeListAddress: self.proxyAddress.value, _torusNodeEndpoints: updatedEndpoints, _torusIndexes: torusIndexes, _torusNodePub: updatedNodePub, _updated: true)
             
+            log("allNodeDetails is: %{public}@", log: FNDLogger.core, type: .info, "\(allNodeDetails)")
             seal.fulfill(allNodeDetails)
         }.catch{error in
-            os_log("%s", log: Log.nodeDetails, type: .error, FNDError.allNodeDetailsFailed.debugDescription)
+            log("%s", log: FNDLogger.core, type: .error, FNDError.allNodeDetailsFailed.debugDescription)
             seal.reject(FNDError.allNodeDetailsFailed)
         }
         

@@ -1,4 +1,5 @@
 import os.log
+import Foundation
 
 //@available(macOS 10.12, iOS 12, *)
 //extension OSLog {
@@ -9,8 +10,16 @@ import os.log
 //}
 
 
-public let subsystem = "com.torus.fetchNodeDetails"
+public let subsystem = Bundle.main.bundleIdentifier ?? "com.torus.fetchNodeDetails"
 
-struct Log {
-    static let nodeDetails = OSLog(subsystem: subsystem, category: "getNodeDetails")
+public struct FNDLogger {
+    static let inactiveLog = OSLog.disabled
+    static let core = OSLog(subsystem: subsystem, category: "core")
+    static let network = OSLog(subsystem: subsystem, category: "network")
+}
+
+@available(macOS 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+func log(_ message: StaticString, dso: UnsafeRawPointer? = #dsohandle, log: OSLog = .default, type: OSLogType = .default, _ args: CVarArg...){
+    var logCheck: OSLog { fndEnableLogging ? log : FNDLogger.inactiveLog}
+    os_log(message, dso: dso, log: logCheck, type: type, args)
 }

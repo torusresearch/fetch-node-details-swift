@@ -10,6 +10,9 @@ import web3
 import BigInt
 import BestLogger
 
+// Global variable
+var fndEnableLogging = false
+
 open class FetchNodeDetails {
     
     var client: EthereumClientProtocol
@@ -19,7 +22,8 @@ open class FetchNodeDetails {
     let yourContractABI: String = contractABIString
     public var nodeDetails : NodeDetails?
     
-    public init(proxyAddress: String, network: EthereumNetwork){
+    public init(proxyAddress: String, network: EthereumNetwork, enableLogging: Bool = false){
+        fndEnableLogging = enableLogging // to be used across application
         
         // mainnet proxy contract address - 0x638646503746d5456209e33a2ff5e3226d698bea
         // testnet proxt contract address - 0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183
