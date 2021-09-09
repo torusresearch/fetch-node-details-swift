@@ -11,7 +11,7 @@ class fetchNodeDetailsTests: XCTestCase{
     
     func test_getCurrentEpoch(){
         let exp = expectation(description: "sample")
-        let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET, enableLogging: true)
+        let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET, logLevel: .default)
         
 //        let EpochInfo = EpochInfo(id: BigInt("19", radix: 10)!, n: BigInt("9", radix: 10)!, k: BigInt("5", radix: 10)!, t: BigInt("2", radix: 10)!, nodeList: [], prevEpoch: BigInt("17", radix: 10)!, nextEpoch: BigInt("19", radix: 10)!)
 //        let epochToCheck = BigInt(10)
@@ -28,7 +28,7 @@ class fetchNodeDetailsTests: XCTestCase{
     
     func test_getEpochInfo(){
         let exp = expectation(description: "sample")
-        let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET)
+        let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET, logLevel: .info)
         
         let EpochInfo = EpochInfo(id: BigInt("19", radix: 10)!, n: BigInt("9", radix: 10)!, k: BigInt("5", radix: 10)!, t: BigInt("2", radix: 10)!, nodeList: [], prevEpoch: BigInt("17", radix: 10)!, nextEpoch: BigInt("19", radix: 10)!)
         let epochToCheck = BigInt(19)

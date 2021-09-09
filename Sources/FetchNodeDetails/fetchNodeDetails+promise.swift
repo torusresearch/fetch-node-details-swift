@@ -25,7 +25,7 @@ extension FetchNodeDetails {
         client.eth_call(transaction, block: .Latest) { (error, epoch) in
             if let epoch = epoch {
                 let b = Int(hex: epoch) ?? -1
-                log("currentEpoch is: %{public}@", log: FNDLogger.core, type: .info, b)
+                log("currentEpoch is: %@", log: FNDLogger.core, type: .info, b)
                 seal.fulfill(b)
             } else{
                 log("%s", log: FNDLogger.core, type: .error, FNDError.currentEpochFailed.debugDescription)
@@ -58,7 +58,7 @@ extension FetchNodeDetails {
                     return
                 }
                 
-                log("epochInfo is: %{public}@", log: FNDLogger.core, type: .info, "\(decodedTuple)")
+                log("epochInfo is: %@", log: FNDLogger.core, type: .info, "\(decodedTuple)")
                 seal.fulfill(decodedTuple)
             }else{
                 log("%s", log: FNDLogger.core, type: .error, FNDError.epochInfoFailed.debugDescription)
@@ -91,7 +91,7 @@ extension FetchNodeDetails {
                     return
                 }
                 
-                log("nodeDetails is: %{public}@", log: FNDLogger.core, type: .info, "\(decodedTuple)")
+                log("nodeDetails is: %@", log: FNDLogger.core, type: .info, "\(decodedTuple)")
                 seal.fulfill(decodedTuple)
             }else{
                 log("%s", log: FNDLogger.core, type: .error, FNDError.nodeDetailsFailed.debugDescription)
@@ -141,7 +141,7 @@ extension FetchNodeDetails {
             
             let allNodeDetails = AllNodeDetails(_currentEpoch: "\(currentEpoch)", _nodeListAddress: self.proxyAddress.value, _torusNodeEndpoints: updatedEndpoints, _torusIndexes: torusIndexes, _torusNodePub: updatedNodePub, _updated: true)
             
-            log("allNodeDetails is: %{public}@", log: FNDLogger.core, type: .info, "\(allNodeDetails)")
+            log("allNodeDetails is: %@", log: FNDLogger.core, type: .info, "\(allNodeDetails)")
             seal.fulfill(allNodeDetails)
         }.catch{error in
             log("%s", log: FNDLogger.core, type: .error, FNDError.allNodeDetailsFailed.debugDescription)

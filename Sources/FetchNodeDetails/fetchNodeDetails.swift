@@ -9,9 +9,10 @@ import Foundation
 import web3
 import BigInt
 import BestLogger
+import OSLog
 
 // Global variable
-var fndEnableLogging = false
+var fndLogType = OSLogType.default
 
 open class FetchNodeDetails {
     
@@ -22,8 +23,8 @@ open class FetchNodeDetails {
     let yourContractABI: String = contractABIString
     public var nodeDetails : NodeDetails?
     
-    public init(proxyAddress: String, network: EthereumNetwork, enableLogging: Bool = false){
-        fndEnableLogging = enableLogging // to be used across application
+    public init(proxyAddress: String, network: EthereumNetwork, logLevel: OSLogType = .default){
+        fndLogType = logLevel // to be used across application
         
         // mainnet proxy contract address - 0x638646503746d5456209e33a2ff5e3226d698bea
         // testnet proxt contract address - 0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183
