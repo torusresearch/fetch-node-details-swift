@@ -12,14 +12,13 @@ import BigInt
 /// torusNodeEndpoints are used in torus-utils to retrieveShares.
 
 open class AllNodeDetails {
-    private var currentEpoch : String?;
-    private var nodeListAddress : String?;
-    private var torusNodeEndpoints : Array<String>?;
-    private var torusIndexes : Array<BigInt>?;
-    private var torusNodePub : Array<TorusNodePub>?;
+    private var currentEpoch : String;
+    private var nodeListAddress : String;
+    private var torusNodeEndpoints : Array<String>;
+    private var torusIndexes : Array<BigInt>;
+    private var torusNodePub : Array<TorusNodePub>;
     private var updated = false;
-    
-    // Not currently in use
+
     public init(_currentEpoch : String, _nodeListAddress : String, _torusNodeEndpoints : Array<String>,  _torusIndexes : Array<BigInt>, _torusNodePub : Array<TorusNodePub>, _updated : Bool) {
         self.currentEpoch = _currentEpoch;
         self.nodeListAddress = _nodeListAddress;
@@ -30,7 +29,7 @@ open class AllNodeDetails {
     }
 
     public func getTorusIndexes() -> Array<BigInt> {
-        return self.torusIndexes!;
+        return self.torusIndexes;
     }
 
     public func setTorusIndexes(torusIndexes : Array<BigInt>){
@@ -46,7 +45,7 @@ open class AllNodeDetails {
     }
 
     public func getCurrentEpoch() -> String{
-        return currentEpoch!;
+        return currentEpoch;
     }
 
     public func setCurrentEpoch( currentEpoch : String) {
@@ -54,7 +53,7 @@ open class AllNodeDetails {
     }
 
     public func getNodeListAddress() -> String {
-        return nodeListAddress!;
+        return nodeListAddress;
     }
 
     public func setNodeListAddress(nodeListAddress : String) {
@@ -62,7 +61,7 @@ open class AllNodeDetails {
     }
 
     public func getTorusNodeEndpoints() ->  Array<String> {
-        return torusNodeEndpoints!;
+        return torusNodeEndpoints;
     }
 
     public func setTorusNodeEndpoints(torusNodeEndpoints : Array<String>) {
@@ -70,7 +69,7 @@ open class AllNodeDetails {
     }
 
     public func getTorusNodePub() -> Array<TorusNodePub> {
-        return torusNodePub!;
+        return torusNodePub;
     }
 
     public func setTorusNodePub(torusNodePub : Array<TorusNodePub>) {
