@@ -8,7 +8,6 @@
 import Foundation
 import web3
 import BigInt
-import BestLogger
 import OSLog
 
 // Global variable
