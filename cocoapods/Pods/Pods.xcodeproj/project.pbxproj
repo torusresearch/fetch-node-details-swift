@@ -1707,7 +1707,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/secp256k1.swift/secp256k1.swift.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_MODULE_NAME = secp256k1;
 				PRODUCT_NAME = secp256k1;
 				SDKROOT = iphoneos;
@@ -1742,7 +1742,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/BigInt/BigInt.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_MODULE_NAME = BigInt;
 				PRODUCT_NAME = BigInt;
 				SDKROOT = iphoneos;
@@ -1780,7 +1780,7 @@
 				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-cptest/Pods-cptest.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -1817,7 +1817,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/BigInt/BigInt.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_MODULE_NAME = BigInt;
 				PRODUCT_NAME = BigInt;
 				SDKROOT = iphoneos;
@@ -1854,7 +1854,7 @@
 				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-cptest/Pods-cptest.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -1891,7 +1891,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/Torus-fetchNodeDetails/Torus-fetchNodeDetails.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_MODULE_NAME = FetchNodeDetails;
 				PRODUCT_NAME = FetchNodeDetails;
 				SDKROOT = iphoneos;
@@ -1927,7 +1927,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/secp256k1.swift/secp256k1.swift.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_MODULE_NAME = secp256k1;
 				PRODUCT_NAME = secp256k1;
 				SDKROOT = iphoneos;
@@ -1964,7 +1964,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/Torus-fetchNodeDetails/Torus-fetchNodeDetails.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_MODULE_NAME = FetchNodeDetails;
 				PRODUCT_NAME = FetchNodeDetails;
 				SDKROOT = iphoneos;
@@ -1999,7 +1999,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/PromiseKit/PromiseKit.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_MODULE_NAME = PromiseKit;
 				PRODUCT_NAME = PromiseKit;
 				SDKROOT = iphoneos;
@@ -2034,7 +2034,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/PromiseKit/PromiseKit.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_MODULE_NAME = PromiseKit;
 				PRODUCT_NAME = PromiseKit;
 				SDKROOT = iphoneos;
@@ -2133,7 +2133,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/GenericJSON/GenericJSON.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_MODULE_NAME = GenericJSON;
 				PRODUCT_NAME = GenericJSON;
 				SDKROOT = iphoneos;
@@ -2169,7 +2169,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/web3.swift/web3.swift.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_MODULE_NAME = web3;
 				PRODUCT_NAME = web3;
 				SDKROOT = iphoneos;
@@ -2205,7 +2205,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/GenericJSON/GenericJSON.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_MODULE_NAME = GenericJSON;
 				PRODUCT_NAME = GenericJSON;
 				SDKROOT = iphoneos;
@@ -2308,7 +2308,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/web3.swift/web3.swift.modulemap";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_MODULE_NAME = web3;
 				PRODUCT_NAME = web3;
 				SDKROOT = iphoneos;
