@@ -31,7 +31,7 @@ struct ContentView: View {
                         }).alert(isPresented: $showingAlert) {
                             Alert(title: Text("Current Epoch"), message: Text(self.currentEpoch.description), dismissButton: .default(Text("Got it!")))
                         }
-                    }
+                    }temp
                     
                 }
                 

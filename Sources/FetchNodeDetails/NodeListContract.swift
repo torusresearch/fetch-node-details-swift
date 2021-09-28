@@ -101,7 +101,7 @@ extension FNDError: CustomDebugStringConvertible{
             case .allNodeDetailsFailed:
                 return "unable to get node details for all nodes"
             case .transactionEncodingFailed:
-                return "unabel to encode transaction"
+                return "unable to encode transaction"
             case .decodingFailed:
                 return "decoding failed"
         }
