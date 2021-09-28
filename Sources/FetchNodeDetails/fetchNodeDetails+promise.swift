@@ -9,7 +9,6 @@ import Foundation
 import web3
 import BigInt
 import PromiseKit
-import os
 import OSLog
 
 extension FetchNodeDetails {
@@ -26,7 +25,7 @@ extension FetchNodeDetails {
         client.eth_call(transaction, block: .Latest) { (error, epoch) in
             if let epoch = epoch {
                 let b = Int(hex: epoch) ?? -1
-                os_log("currentEpoch is: %@", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, b)
+                os_log("currentEpoch is: %d", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, b)
                 seal.fulfill(b)
             } else{
                 os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.currentEpochFailed.debugDescription)
