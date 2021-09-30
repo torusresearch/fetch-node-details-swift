@@ -19,7 +19,6 @@ open class AllNodeDetails {
     private var torusNodePub : Array<TorusNodePub>?;
     private var updated = false;
     
-    // Not currently in use
     public init(_currentEpoch : String, _nodeListAddress : String, _torusNodeEndpoints : Array<String>,  _torusIndexes : Array<BigInt>, _torusNodePub : Array<TorusNodePub>, _updated : Bool) {
         self.currentEpoch = _currentEpoch;
         self.nodeListAddress = _nodeListAddress;

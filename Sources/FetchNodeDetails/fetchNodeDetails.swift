@@ -13,6 +13,7 @@ import OSLog
 // Global variable
 var fndLogType = OSLogType.default
 
+/// Provides ability to fetch information about torus nodes from a etherum contract.
 open class FetchNodeDetails {
     
     var client: EthereumClientProtocol
@@ -22,6 +23,11 @@ open class FetchNodeDetails {
     let yourContractABI: String = contractABIString
     public var nodeDetails : NodeDetails?
     
+    /// Initiate a `FetchNodeDetails` instance.
+    /// - Parameters:
+    ///   - proxyAddress: Address to the etherum contract.
+    ///   - network: Etherum network to be used.
+    ///   - logLevel: Log level to be used. All logs that is below this level will be ignored.
     public init(proxyAddress: String, network: EthereumNetwork, logLevel: OSLogType = .default){
         fndLogType = logLevel // to be used across application
         

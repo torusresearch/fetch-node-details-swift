@@ -12,6 +12,8 @@ import PromiseKit
 import OSLog
 
 extension FetchNodeDetails {
+    /// Retrive the current epoch.
+    /// - Returns: Current epoch that should be passed to `getEpochInfo`.
     open func getCurrentEpochPromise() -> Promise<Int>{
         let (tempPromise, seal) = Promise<Int>.pending()
 
@@ -36,6 +38,9 @@ extension FetchNodeDetails {
         return tempPromise
     }
     
+    /// Retrieve `EpochInfo` given the epoch.
+    /// - Parameter epoch: Epoch retrieved from `getCurrentEpoch`.
+    /// - Returns: `EpochInfo` given the epoch. The `EpochInfo` contains a list of etherum address to the nodes which is used for `getNodeDetails`.
     open func getEpochInfoPromise(epoch: BigInt) -> Promise<EpochInfo>{
         let (tempPromise, seal) = Promise<EpochInfo>.pending()
 
@@ -69,6 +74,9 @@ extension FetchNodeDetails {
         return tempPromise
     }
     
+    /// Retrive the detail of a node given its address.
+    /// - Parameter nodeEthAddress: Address to the node.
+    /// - Returns: Detials of the node.
     open func getNodeDetails(nodeEthAddress: String) -> Promise<NodeDetails> {
         let (tempPromise, seal) = Promise<NodeDetails>.pending()
 
@@ -103,6 +111,8 @@ extension FetchNodeDetails {
     }
     
     
+    /// Retrieve details of all torus nodes.
+    /// - Returns: Information on all torus nodes.
     open func getAllNodeDetails() -> Promise<AllNodeDetails>{
         let (tempPromise, seal) = Promise<AllNodeDetails>.pending()
         var torusIndexes:[BigInt] = Array()
