@@ -32,10 +32,10 @@ open class FetchNodeDetails {
         
         if(network == EthereumNetwork.MAINNET){
             let clientUrl = URL(string: "https://mainnet.infura.io/v3/b8cdb0e4cff24599a286bf8e87ff1c96")!
-            self.client = EthereumClient(url: clientUrl)
+            self.client = EthereumClient(url: clientUrl, sessionConfig: URLSessionConfiguration.default)
         }else{
             let clientUrl = URL(string: "https://ropsten.infura.io/v3/b8cdb0e4cff24599a286bf8e87ff1c96")!
-            self.client = EthereumClient(url: clientUrl)
+            self.client = EthereumClient(url: clientUrl, sessionConfig: URLSessionConfiguration.default)
         }
     }
     
