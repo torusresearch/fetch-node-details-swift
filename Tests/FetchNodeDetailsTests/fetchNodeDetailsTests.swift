@@ -19,7 +19,7 @@ class fetchNodeDetailsTests: XCTestCase{
         }.catch{ error in
             XCTFail()
         }
-        wait(for: [exp], timeout: 5)
+        wait(for: [exp], timeout: 10)
     }
     
     
@@ -36,7 +36,7 @@ class fetchNodeDetailsTests: XCTestCase{
         }.catch{ error in
             XCTFail()
         }
-        wait(for: [exp], timeout: 5)
+        wait(for: [exp], timeout: 10)
     }
     
     func test_getNodeDetails(){
@@ -48,7 +48,7 @@ class fetchNodeDetailsTests: XCTestCase{
         }.catch{ error in
             XCTFail()
         }
-        wait(for: [exp], timeout: 5)
+        wait(for: [exp], timeout: 10)
     }
     
     func test_getAllNodeDetails(){

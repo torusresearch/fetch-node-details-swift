@@ -142,7 +142,7 @@ extension FetchNodeDetails {
                         
                         let hexPubX = endPointElement.getPubKx()
                         let hexPubY = endPointElement.getPubKy()
-                        updatedNodePub.append(TorusNodePub(_X: hexPubX.description , _Y: hexPubY.description))
+                        updatedNodePub.append(TorusNodePub(_X: String(hexPubX, radix: 16) , _Y: String(hexPubY, radix: 16)))
                     default:
                         seal.reject("error with node info")
                 }

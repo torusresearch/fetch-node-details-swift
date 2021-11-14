@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "Torus-fetchNodeDetails"
-  spec.version      = "1.1.0"
+  spec.version      = "1.2.0"
   spec.platform = :ios, "11.0"
   spec.summary      = "Fetches the node details from torus nodelist smart contract"
   spec.homepage     = "https://github.com/torusresearch/fetch-node-details-swift"
@@ -12,6 +12,4 @@ Pod::Spec.new do |spec|
   spec.module_name = "FetchNodeDetails"
   spec.dependency 'web3.swift', '~> 0.8.0'
   spec.dependency 'PromiseKit/Foundation', '~> 6.0'
-  spec.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
-  spec.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
 end
