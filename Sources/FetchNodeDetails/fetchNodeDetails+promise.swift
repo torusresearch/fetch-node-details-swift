@@ -36,7 +36,7 @@ extension FetchNodeDetails {
         return tempPromise
     }
     
-    open func getEpochInfoPromise(epoch: BigInt) -> Promise<EpochInfo>{
+    open func getEpochInfoPromise(epoch: BigUInt) -> Promise<EpochInfo>{
         let (tempPromise, seal) = Promise<EpochInfo>.pending()
 
         let function = NodeListProxyContract.getEpochInfo(contract: self.proxyAddress, epoch: epoch)
@@ -109,7 +109,7 @@ extension FetchNodeDetails {
         let currentEpoch: Int = -1;
         
         self.getCurrentEpochPromise().then{ epoch in
-            return self.getEpochInfoPromise(epoch: BigInt(epoch))
+            return self.getEpochInfoPromise(epoch: BigUInt(epoch))
         }.then{ epochInfo -> Guarantee<[Result<NodeDetails>]> in
             let nodeList = epochInfo.nodeList
             var getNodeDetailsPromiseArray:[Promise<NodeDetails>] = Array()

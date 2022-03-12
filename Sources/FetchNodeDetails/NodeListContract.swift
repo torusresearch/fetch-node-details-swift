@@ -44,9 +44,9 @@ public enum NodeListProxyContract{
         
         public var from: EthereumAddress?
         
-        public var epoch: BigInt
+        public var epoch: BigUInt
         
-        public init(contract: EthereumAddress, epoch: BigInt) {
+        public init(contract: EthereumAddress, epoch: BigUInt) {
             self.contract = contract
             self.epoch = epoch
         }
