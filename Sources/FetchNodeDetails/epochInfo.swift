@@ -11,23 +11,23 @@ import BigInt
 
 public struct EpochInfo: ABITuple {
     
-    public static var types: [ABIType.Type] { [BigInt.self, BigInt.self, BigInt.self, BigInt.self, ABIArray<EthereumAddress>.self, BigInt.self, BigInt.self] }
+    public static var types: [ABIType.Type] { [BigUInt.self, BigUInt.self, BigUInt.self, BigUInt.self, ABIArray<EthereumAddress>.self, BigUInt.self, BigUInt.self] }
     
-    var id: BigInt
-    var n: BigInt
-    var k: BigInt
-    var t: BigInt
+    var id: BigUInt
+    var n: BigUInt
+    var k: BigUInt
+    var t: BigUInt
     var nodeList: [EthereumAddress]
-    var prevEpoch: BigInt
-    var nextEpoch: BigInt
+    var prevEpoch: BigUInt
+    var nextEpoch: BigUInt
     
-    init(id: BigInt,
-         n: BigInt,
-         k: BigInt,
-         t: BigInt,
+    init(id: BigUInt,
+         n: BigUInt,
+         k: BigUInt,
+         t: BigUInt,
          nodeList: [EthereumAddress],
-         prevEpoch: BigInt,
-         nextEpoch: BigInt) {
+         prevEpoch: BigUInt,
+         nextEpoch: BigUInt) {
         self.id =  id
         self.n = n
         self.k = k
@@ -61,27 +61,27 @@ public struct EpochInfo: ABITuple {
     
     public var encodableValues: [ABIType] { [id, n, k, t, ABIArray(values: nodeList), prevEpoch, nextEpoch] }
     
-    public func getId() -> BigInt {
+    public func getId() -> BigUInt {
         return self.id;
     }
 
-    public func getK() -> BigInt{
+    public func getK() -> BigUInt{
         return self.k;
     }
 
-    public func getN() -> BigInt{
+    public func getN() -> BigUInt{
         return self.n;
     }
 
-    public func getNextEpoch() -> BigInt{
+    public func getNextEpoch() -> BigUInt{
         return self.nextEpoch;
     }
 
-    public func getPrevEpoch() -> BigInt{
+    public func getPrevEpoch() -> BigUInt{
         return self.prevEpoch;
     }
 
-    public func getT() -> BigInt{
+    public func getT() -> BigUInt{
         return self.t;
     }
 
