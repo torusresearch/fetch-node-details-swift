@@ -11,7 +11,14 @@ import BigInt
 /// This class is keeps details of all the nodes.
 /// torusNodeEndpoints are used in torus-utils to retrieveShares.
 
-open class AllNodeDetails {
+open class AllNodeDetails:Equatable {
+    public static func == (lhs: AllNodeDetails, rhs: AllNodeDetails) -> Bool {
+        return lhs.torusNodeEndpoints == rhs.torusNodeEndpoints
+    }
+    
+    
+    
+    
     private var currentEpoch : String?;
     private var nodeListAddress : String?;
     private var torusNodeEndpoints : Array<String>?;

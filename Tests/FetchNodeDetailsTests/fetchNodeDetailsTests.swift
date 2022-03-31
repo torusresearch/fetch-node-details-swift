@@ -12,7 +12,6 @@ class fetchNodeDetailsTests: XCTestCase{
     func test_getCurrentEpoch(){
         let exp = expectation(description: "Should be able to get current epoch")
         let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET, logLevel: .default)
-        
         fnd.getCurrentEpochPromise().done{ data in
             XCTAssertNotNil(data)
             exp.fulfill()
@@ -22,14 +21,11 @@ class fetchNodeDetailsTests: XCTestCase{
         wait(for: [exp], timeout: 10)
     }
     
-    
     func test_getEpochInfo(){
         let exp = expectation(description: "should be able to get Epoch info")
         let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET, logLevel: .info)
-        
         let EpochInfo = EpochInfo(id: BigUInt("19", radix: 10)!, n: BigUInt("9", radix: 10)!, k: BigUInt("5", radix: 10)!, t: BigUInt("2", radix: 10)!, nodeList: [], prevEpoch: BigUInt("17", radix: 10)!, nextEpoch: BigUInt("19", radix: 10)!)
         let epochToCheck = BigUInt(19)
-        
         fnd.getEpochInfoPromise(epoch: epochToCheck).done{ data in
             XCTAssertEqual(data.id, EpochInfo.id)
             exp.fulfill()
@@ -66,7 +62,6 @@ class fetchNodeDetailsTests: XCTestCase{
     func test_getAllNodeDetailsTestnet(){
         let exp = expectation(description: "Should be able to get all node details")
         let fnd = FetchNodeDetails(proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183", network: .ROPSTEN, logLevel: .debug)
-        
         fnd.getAllNodeDetails().done{ data in
             exp.fulfill()
         }.catch{ error in
@@ -74,4 +69,16 @@ class fetchNodeDetailsTests: XCTestCase{
         }
         wait(for: [exp], timeout: 10)
     }
+    func test_get_node_set(){
+        let exp = expectation(description: "Should be able to get all node details")
+        let fnd = FetchNodeDetails(proxyAddress: "0x9f072ba19b3370e512aa1b4bfcdaf97283168005", network: .POLYGON, logLevel: .debug)
+        fnd.getAllNodeDetails(verifier: "google", verifierID:"hello@tor.us").done{ data in
+            exp.fulfill()
+        }.catch{ error in
+            XCTFail()
+        }
+        wait(for: [exp], timeout: 10)
+    }
+    
+
 }

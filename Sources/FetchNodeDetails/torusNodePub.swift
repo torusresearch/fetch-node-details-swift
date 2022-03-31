@@ -7,7 +7,11 @@
 
 import Foundation
 
-public class TorusNodePub {
+public class TorusNodePub:Equatable {
+    public static func == (lhs: TorusNodePub, rhs: TorusNodePub) -> Bool {
+        return lhs.X == rhs.X && lhs.Y == rhs.Y
+    }
+    
     private let X : String;
     private let Y : String;
     

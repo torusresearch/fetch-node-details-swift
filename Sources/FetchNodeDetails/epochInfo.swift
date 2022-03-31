@@ -9,7 +9,7 @@ import Foundation
 import web3
 import BigInt
 
-public struct EpochInfo: ABITuple {
+public struct EpochInfo: ABITuple,Hashable {
     
     public static var types: [ABIType.Type] { [BigUInt.self, BigUInt.self, BigUInt.self, BigUInt.self, ABIArray<EthereumAddress>.self, BigUInt.self, BigUInt.self] }
     

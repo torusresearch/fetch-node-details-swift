@@ -9,8 +9,6 @@ import Foundation
 
 public enum EthereumNetwork : String{
     case MAINNET = "mainnet"
-    case RINKEBY = "rinkeby"
+    case POLYGON = "polygon-mainnet"
     case ROPSTEN = "ropsten"
-    case KOVAN = "kovan"
-    case GOERLI = "goerli"
 }

@@ -12,9 +12,33 @@ import PromiseKit
 import OSLog
 
 extension FetchNodeDetails {
+    
+
+    open func getCurrentEpochPromise(proxyAddress:EthereumAddress) -> Promise<Int>{
+        let (tempPromise, seal) = Promise<Int>.pending()
+        let function = NodeListProxyContract.CurrentEpoch(contract: proxyAddress)
+        guard let transaction = try? function.transaction() else{
+            os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.transactionEncodingFailed.debugDescription)
+            seal.reject(FNDError.transactionEncodingFailed);
+            return tempPromise
+        }
+        
+        client.eth_call(transaction, block: .Latest) { (error, epoch) in
+            if let epoch = epoch {
+                let b = Int(hex: epoch) ?? -1
+                os_log("currentEpoch is: %d", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, b)
+                seal.fulfill(b)
+            } else{
+                os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.currentEpochFailed.debugDescription)
+                seal.reject(FNDError.currentEpochFailed)
+            }
+        }
+        
+        return tempPromise
+    }
+    
     open func getCurrentEpochPromise() -> Promise<Int>{
         let (tempPromise, seal) = Promise<Int>.pending()
-
         let function = NodeListProxyContract.CurrentEpoch(contract: self.proxyAddress)
         guard let transaction = try? function.transaction() else{
             os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.transactionEncodingFailed.debugDescription)
@@ -45,7 +69,6 @@ extension FetchNodeDetails {
             seal.reject(FNDError.transactionEncodingFailed);
             return tempPromise
         }
-        
         client.eth_call(transaction, block: .Latest) { (error, epoch) in
             if let epoch = epoch {
                 let a = epoch.components(separatedBy: "0x")
@@ -101,19 +124,40 @@ extension FetchNodeDetails {
         
         return tempPromise
     }
+
+    
+    
+   open func getAllNodeDetails(skip:Bool = false,verifier:String,verifierID:String) -> Promise<getNodeSetStruct>{
+       let (tempPromise, seal) = Promise<getNodeSetStruct>.pending()
+       var torusIndexes:[BigInt] = Array()
+       var currentEpoch: Int = -1;
+        if skip == true && self.network == .MAINNET{
+        //    seal.fulfill(defaultNodeDetails)
+            return tempPromise
+        }
+       let hashVerifiedId = verifier.data(using: .utf8)?.web3.keccak256 ?? Data()
+       //0x8f2f90d8304f6eb382d037c47a041d8c8b4d18bdd8b082fa32828e016a584ca7
+       let hashStr = hashVerifiedId.web3.hexString
+       self.getNodeSet(verifier: verifier, hashedVerifeir: "8f2f90d8304f6eb382d037c47a041d8c8b4d18bdd8b082fa32828e016a584ca7").done { result in
+           print(result)
+           seal.fulfill(result)
+       }
+       
+       return tempPromise
+   }
+
+ 
     
     
     open func getAllNodeDetails() -> Promise<AllNodeDetails>{
         let (tempPromise, seal) = Promise<AllNodeDetails>.pending()
         var torusIndexes:[BigInt] = Array()
         let currentEpoch: Int = -1;
-        
         self.getCurrentEpochPromise().then{ epoch in
             return self.getEpochInfoPromise(epoch: BigUInt(epoch))
         }.then{ epochInfo -> Guarantee<[Result<NodeDetails>]> in
             let nodeList = epochInfo.nodeList
             var getNodeDetailsPromiseArray:[Promise<NodeDetails>] = Array()
-            
             for i in 0..<nodeList.count{
                 torusIndexes.append(BigInt(i+1))
                 getNodeDetailsPromiseArray.append(self.getNodeDetails(nodeEthAddress: nodeList[i].value))
@@ -132,7 +176,7 @@ extension FetchNodeDetails {
                         
                         let hexPubX = endPointElement.getPubKx()
                         let hexPubY = endPointElement.getPubKy()
-                        updatedNodePub.append(TorusNodePub(_X: String(hexPubX, radix: 16) , _Y: String(hexPubY, radix: 16)))
+                    updatedNodePub.append(TorusNodePub(_X: String(hexPubX, radix: 16) , _Y: String(hexPubY, radix: 16)))
                     default:
                         seal.reject("error with node info")
                 }
@@ -143,7 +187,10 @@ extension FetchNodeDetails {
             
             os_log("allNodeDetails is: %@", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, "\(allNodeDetails)")
             seal.fulfill(allNodeDetails)
-        }.catch{error in
+        }.catch{ error in
+            if self.network == .MAINNET{
+                seal.fulfill(self.defaultNodeDetails)
+            }
             os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.allNodeDetailsFailed.debugDescription)
             seal.reject(FNDError.allNodeDetailsFailed)
         }
@@ -151,3 +198,7 @@ extension FetchNodeDetails {
         return tempPromise
     }
 }
+
+
+
+
