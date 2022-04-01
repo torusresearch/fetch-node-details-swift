@@ -8,7 +8,7 @@ import OSLog
 class fetchNodeDetailsTests: XCTestCase{
     
     var timeout:TimeInterval = 10
-    
+    //Test for MainNet
     func test_getNode_MainNet(){
         let exp = expectation(description: "should get node details")
         let fnd = FetchNodeDetails(proxyAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80", network: .POLYGON)
