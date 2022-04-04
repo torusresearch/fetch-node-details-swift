@@ -24,20 +24,23 @@ public enum TorusLookupContract{
         public var from: EthereumAddress?
         
         public var verifier:String
-        public var verfierID:[UInt8]
+        public var hashedVerifierId:Data
         
-        public init(contract:EthereumAddress,verifier:String,veriferID:[UInt8]){
+        public init(contract:EthereumAddress,verifier:String,hashVeriferID:Data){
             self.contract = contract
             self.verifier = verifier
-            self.verfierID = veriferID
+            self.hashedVerifierId = hashVeriferID
         }
         
         public func encode(to encoder: ABIFunctionEncoder) throws {
             try encoder.encode(verifier)
-            try encoder.encode(verfierID)
+            try encoder.encode(hashedVerifierId, staticSize: 32)
         }
         
     }
     
 }
+
+
+
 

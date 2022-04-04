@@ -8,11 +8,12 @@ import OSLog
 class fetchNodeDetailsTests: XCTestCase{
     
     var timeout:TimeInterval = 10
-    //Test for MainNet
+    
     func test_getNode_MainNet(){
         let exp = expectation(description: "should get node details")
-        let fnd = FetchNodeDetails(proxyAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80", network: .POLYGON)
-        fnd.getAllNodes(verifer: "google", veriferID: "hello@tor.us").done { result in
+        let fnd = FetchNodeDetails(proxyAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80", network: .MAINNET)
+        fnd.getAllNodes(verifier: "google", verifierID: "hello@tor.us").done { result in
+            XCTAssertEqual(result.torusNodeEndpoints, SampleOutput(proxyAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80").torusNodeEndpoints)
             exp.fulfill()
         }.catch { error in
             XCTFail()
@@ -24,7 +25,7 @@ class fetchNodeDetailsTests: XCTestCase{
     func test_getNode_Polygon(){
         let exp = expectation(description: "should get node details")
         let fnd = FetchNodeDetails(proxyAddress: "0x9f072ba19b3370e512aa1b4bfcdaf97283168005", network: .POLYGON)
-        fnd.getAllNodes(verifer: "google", veriferID: "hello@tor.us").done { result in
+        fnd.getAllNodes(verifier: "google", verifierID: "hello@tor.us").done { result in
             exp.fulfill()
         }.catch { error in
             XCTFail()
