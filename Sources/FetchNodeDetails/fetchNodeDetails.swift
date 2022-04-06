@@ -21,6 +21,7 @@ open class FetchNodeDetails {
     var projectID:String = "7f287687b3d049e2bea7b64869ee30a3"
     let yourContractABI: String = contractABIString
     var urlSession : URLSession
+    var updated = false
     
     public init(proxyAddress: String, network: EthereumNetwork, logLevel: OSLogType = .default, urlSession : URLSession = URLSession.shared){
         fndLogType = logLevel // to be used across application
@@ -31,6 +32,8 @@ open class FetchNodeDetails {
         self.client = EthereumClient(url: clientUrl, sessionConfig: self.urlSession.configuration)
     }
 }
+
+
 
 enum FNDError: Error{
     case infoFailed

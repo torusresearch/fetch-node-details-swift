@@ -10,22 +10,18 @@ import web3
 import BigInt
 
 
-public struct AllNodeDetailsModel:Equatable {
+open class AllNodeDetailsModel:Equatable {
     public static func == (lhs: AllNodeDetailsModel, rhs: AllNodeDetailsModel) -> Bool {
-        return lhs.torusNodeEndpoints == rhs.torusNodeEndpoints
+        return lhs.currentEpoch == rhs.currentEpoch && lhs.torusNodeEndpoints == rhs.torusNodeEndpoints && lhs.torusNodePub == rhs.torusNodePub && lhs.currentEpoch == rhs.currentEpoch && lhs.torusIndexes == rhs.torusIndexes && lhs.updated == rhs.updated
     }
+
+    private var currentEpoch : BigUInt?
+    private var nodeListAddress : String?
+    private var torusNodeEndpoints : Array<String>?
+    private var torusIndexes : Array<BigUInt>?
+    private var torusNodePub : Array<TorusNodePub>?
+    private var updated = false
     
-    
-    
-    
-     var currentEpoch : BigUInt?
-     var nodeListAddress : String?
-     var torusNodeEndpoints : Array<String>?
-     var torusIndexes : Array<BigUInt>?
-     var torusNodePub : Array<TorusNodePub>?
-     var updated = false
-    
-    // Not currently in use
     public init(_currentEpoch : BigUInt, _nodeListAddress : String, _torusNodeEndpoints : Array<String>,  _torusIndexes : Array<BigUInt>, _torusNodePub : Array<TorusNodePub>, _updated : Bool) {
         self.currentEpoch = _currentEpoch;
         self.nodeListAddress = _nodeListAddress;
@@ -35,51 +31,51 @@ public struct AllNodeDetailsModel:Equatable {
         self.updated = _updated;
     }
 
-//    public func getTorusIndexes() -> Array<BigUInt> {
-//        return self.torusIndexes!;
-//    }
-//
-//    public func setTorusIndexes(torusIndexes : Array<BigUInt>){
-//        self.torusIndexes = torusIndexes;
-//    }
-//
-//    public func getUpdated() -> Bool {
-//        return updated;
-//    }
-//
-//    public func setUpdated(updated : Bool){
-//        self.updated = updated;
-//    }
-//
-//    public func getCurrentEpoch() -> BigUInt{
-//        return currentEpoch!;
-//    }
-//
-//    public func setCurrentEpoch( currentEpoch : BigUInt) {
-//        self.currentEpoch = currentEpoch;
-//    }
-//
-//    public func getNodeListAddress() -> String {
-//        return nodeListAddress!;
-//    }
-//
-//    public func setNodeListAddress(nodeListAddress : String) {
-//        self.nodeListAddress = nodeListAddress;
-//    }
-//
-//    public func getTorusNodeEndpoints() ->  Array<String> {
-//        return torusNodeEndpoints!;
-//    }
-//
-//    public func setTorusNodeEndpoints(torusNodeEndpoints : Array<String>) {
-//        self.torusNodeEndpoints = torusNodeEndpoints;
-//    }
-//
-//    public func getTorusNodePub() -> Array<TorusNodePub> {
-//        return torusNodePub!;
-//    }
-//
-//    public func setTorusNodePub(torusNodePub : Array<TorusNodePub>) {
-//        self.torusNodePub = torusNodePub;
-//    }
+    public func getTorusIndexes() -> Array<BigUInt> {
+        return self.torusIndexes!;
+    }
+
+    public func setTorusIndexes(torusIndexes : Array<BigUInt>){
+        self.torusIndexes = torusIndexes;
+    }
+
+    public func getUpdated() -> Bool {
+        return updated;
+    }
+
+    public func setUpdated(updated : Bool){
+        self.updated = updated;
+    }
+
+    public func getCurrentEpoch() -> BigUInt{
+        return currentEpoch!;
+    }
+
+    public func setCurrentEpoch( currentEpoch : BigUInt) {
+        self.currentEpoch = currentEpoch;
+    }
+
+    public func getNodeListAddress() -> String {
+        return nodeListAddress!;
+    }
+
+    public func setNodeListAddress(nodeListAddress : String) {
+        self.nodeListAddress = nodeListAddress;
+    }
+
+    public func getTorusNodeEndpoints() ->  Array<String> {
+        return torusNodeEndpoints!;
+    }
+
+    public func setTorusNodeEndpoints(torusNodeEndpoints : Array<String>) {
+        self.torusNodeEndpoints = torusNodeEndpoints;
+    }
+
+    public func getTorusNodePub() -> Array<TorusNodePub> {
+        return torusNodePub!;
+    }
+
+    public func setTorusNodePub(torusNodePub : Array<TorusNodePub>) {
+        self.torusNodePub = torusNodePub;
+    }
 }
