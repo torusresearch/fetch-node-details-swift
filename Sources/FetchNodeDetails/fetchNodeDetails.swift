@@ -12,7 +12,7 @@ import OSLog
 
 // Global variable
 var fndLogType = OSLogType.default
-
+//V5
 open class FetchNodeDetails {
     
     var client: EthereumClientProtocol

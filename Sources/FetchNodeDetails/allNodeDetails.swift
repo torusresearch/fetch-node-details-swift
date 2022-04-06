@@ -10,7 +10,6 @@ import BigInt
 
 /// This class is keeps details of all the nodes.
 /// torusNodeEndpoints are used in torus-utils to retrieveShares.
-
 open class AllNodeDetails {
     private var currentEpoch : String?;
     private var nodeListAddress : String?;
