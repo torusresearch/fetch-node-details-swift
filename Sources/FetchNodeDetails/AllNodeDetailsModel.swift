@@ -1,26 +1,28 @@
 //
-//  NodeDetails.swift
+//  File.swift
 //  
 //
-//  Created by Shubham on 13/3/20.
+//  Created by Dhruv Jaiswal on 04/04/22.
 //
 
 import Foundation
+import web3
 import BigInt
 
-/// This class is keeps details of all the nodes.
-/// torusNodeEndpoints are used in torus-utils to retrieveShares.
 
-open class AllNodeDetails {
-    private var currentEpoch : String?;
-    private var nodeListAddress : String?;
-    private var torusNodeEndpoints : Array<String>?;
-    private var torusIndexes : Array<BigInt>?;
-    private var torusNodePub : Array<TorusNodePub>?;
-    private var updated = false;
+open class AllNodeDetailsModel:Equatable {
+    public static func == (lhs: AllNodeDetailsModel, rhs: AllNodeDetailsModel) -> Bool {
+        return lhs.currentEpoch == rhs.currentEpoch && lhs.torusNodeEndpoints == rhs.torusNodeEndpoints && lhs.torusNodePub == rhs.torusNodePub && lhs.currentEpoch == rhs.currentEpoch && lhs.torusIndexes == rhs.torusIndexes && lhs.updated == rhs.updated
+    }
+
+    private var currentEpoch : BigUInt?
+    private var nodeListAddress : String?
+    private var torusNodeEndpoints : Array<String>?
+    private var torusIndexes : Array<BigUInt>?
+    private var torusNodePub : Array<TorusNodePub>?
+    private var updated = false
     
-    // Not currently in use
-    public init(_currentEpoch : String, _nodeListAddress : String, _torusNodeEndpoints : Array<String>,  _torusIndexes : Array<BigInt>, _torusNodePub : Array<TorusNodePub>, _updated : Bool) {
+    public init(_currentEpoch : BigUInt, _nodeListAddress : String, _torusNodeEndpoints : Array<String>,  _torusIndexes : Array<BigUInt>, _torusNodePub : Array<TorusNodePub>, _updated : Bool) {
         self.currentEpoch = _currentEpoch;
         self.nodeListAddress = _nodeListAddress;
         self.torusNodeEndpoints = _torusNodeEndpoints;
@@ -29,11 +31,11 @@ open class AllNodeDetails {
         self.updated = _updated;
     }
 
-    public func getTorusIndexes() -> Array<BigInt> {
+    public func getTorusIndexes() -> Array<BigUInt> {
         return self.torusIndexes!;
     }
 
-    public func setTorusIndexes(torusIndexes : Array<BigInt>){
+    public func setTorusIndexes(torusIndexes : Array<BigUInt>){
         self.torusIndexes = torusIndexes;
     }
 
@@ -45,11 +47,11 @@ open class AllNodeDetails {
         self.updated = updated;
     }
 
-    public func getCurrentEpoch() -> String{
+    public func getCurrentEpoch() -> BigUInt{
         return currentEpoch!;
     }
 
-    public func setCurrentEpoch( currentEpoch : String) {
+    public func setCurrentEpoch( currentEpoch : BigUInt) {
         self.currentEpoch = currentEpoch;
     }
 

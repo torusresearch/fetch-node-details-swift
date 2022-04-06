@@ -10,144 +10,82 @@ import web3
 import BigInt
 import PromiseKit
 import OSLog
+@testable import web3
 
 extension FetchNodeDetails {
-    open func getCurrentEpochPromise() -> Promise<Int>{
-        let (tempPromise, seal) = Promise<Int>.pending()
-
-        let function = NodeListProxyContract.CurrentEpoch(contract: self.proxyAddress)
-        guard let transaction = try? function.transaction() else{
-            os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.transactionEncodingFailed.debugDescription)
-            seal.reject(FNDError.transactionEncodingFailed);
-            return tempPromise
-        }
-        
-        client.eth_call(transaction, block: .Latest) { (error, epoch) in
-            if let epoch = epoch {
-                let b = Int(hex: epoch) ?? -1
-                os_log("currentEpoch is: %d", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, b)
-                seal.fulfill(b)
-            } else{
-                os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.currentEpochFailed.debugDescription)
-                seal.reject(FNDError.currentEpochFailed)
-            }
-        }
-        
-        return tempPromise
-    }
     
-    open func getEpochInfoPromise(epoch: BigUInt) -> Promise<EpochInfo>{
-        let (tempPromise, seal) = Promise<EpochInfo>.pending()
-
-        let function = NodeListProxyContract.getEpochInfo(contract: self.proxyAddress, epoch: epoch)
-        guard let transaction = try? function.transaction() else{
+    public func getAllNodes(skip:Bool = false,verifier:String,verifierID:String) -> Promise<AllNodeDetailsModel>{
+        let (tempPromise,seal) = Promise<AllNodeDetailsModel>.pending()
+     
+        if skip && self.network == .MAINNET{
+            seal.fulfill(SampleOutputMainet.init(proxyAddress: self.proxyAddress.value).val)
+            return tempPromise
+        }
+        if self.updated && self.network == .MAINNET{
+            seal.fulfill(SampleOutputMainet.init(proxyAddress: self.proxyAddress.value).val)
+            return tempPromise
+        }
+        let hashVerifierID = verifierID.web3.keccak256
+        let function = TorusLookupContract.getNodeSet(contract: self.proxyAddress, verifier: verifier, hashVeriferID: hashVerifierID)
+        guard let transcation = try? function.transaction() else{
             os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.transactionEncodingFailed.debugDescription)
-            seal.reject(FNDError.transactionEncodingFailed);
+            seal.reject(FNDError.transactionEncodingFailed)
             return tempPromise
         }
         
-        client.eth_call(transaction, block: .Latest) { (error, epoch) in
-            if let epoch = epoch {
-                let a = epoch.components(separatedBy: "0x")
-                let b = "0x0000000000000000000000000000000000000000000000000000000000000020" + a[1]
-                
-                guard let decodedArray = try? ABIDecoder.decodeData(b, types: [EpochInfo.self]),
-                      let decodedTuple: EpochInfo = try? decodedArray[0].decoded() else{
-                    os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.decodingFailed.debugDescription)
-                    seal.reject(FNDError.decodingFailed)
-                    return
-                }
-                
-                os_log("epochInfo is: %@", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, "\(decodedTuple)")
-                seal.fulfill(decodedTuple)
-            }else{
-                os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.epochInfoFailed.debugDescription)
-                seal.reject(FNDError.epochInfoFailed)
-            }
-        }
-        
-        return tempPromise
-    }
-    
-    open func getNodeDetails(nodeEthAddress: String) -> Promise<NodeDetails> {
-        let (tempPromise, seal) = Promise<NodeDetails>.pending()
-
-        let function = NodeListProxyContract.getNodeDetails(contract: self.proxyAddress, address: EthereumAddress(nodeEthAddress))
-        guard let transaction = try? function.transaction() else{
-            os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.transactionEncodingFailed.debugDescription)
-            seal.reject(FNDError.transactionEncodingFailed);
-            return tempPromise
-        }
-        
-        client.eth_call(transaction, block: .Latest) { (error, info) in
+        client.eth_call(transcation, block: .Latest) {[unowned self] error, info in
+            do{
             if let info = info {
-                let a = info.components(separatedBy: "0x")
-                let b = "0x0000000000000000000000000000000000000000000000000000000000000020" + a[1]
-                
-                guard let el = try? ABIDecoder.decodeData(b, types: [NodeDetails.self]),
-                      let decodedTuple: NodeDetails = try? el[0].decoded() else {
-                    os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.decodingFailed.debugDescription)
+                guard let decodedTuple = try decodeNodeData(info: info)
+                 else {
                     seal.reject(FNDError.decodingFailed)
                     return
                 }
-                
-                os_log("nodeDetails is: %@", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, "\(decodedTuple)")
-                seal.fulfill(decodedTuple)
-            }else{
-                os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.nodeDetailsFailed.debugDescription)
-                seal.reject(FNDError.nodeDetailsFailed)
-            }
-        }
-        
-        return tempPromise
-    }
-    
-    
-    open func getAllNodeDetails() -> Promise<AllNodeDetails>{
-        let (tempPromise, seal) = Promise<AllNodeDetails>.pending()
-        var torusIndexes:[BigInt] = Array()
-        let currentEpoch: Int = -1;
-        
-        self.getCurrentEpochPromise().then{ epoch in
-            return self.getEpochInfoPromise(epoch: BigUInt(epoch))
-        }.then{ epochInfo -> Guarantee<[Result<NodeDetails>]> in
-            let nodeList = epochInfo.nodeList
-            var getNodeDetailsPromiseArray:[Promise<NodeDetails>] = Array()
-            
-            for i in 0..<nodeList.count{
-                torusIndexes.append(BigInt(i+1))
-                getNodeDetailsPromiseArray.append(self.getNodeDetails(nodeEthAddress: nodeList[i].value))
-            }
-            return when(resolved: getNodeDetailsPromiseArray)
-        }.done{results in
-            var updatedEndpoints: Array<String> = Array()
-            var updatedNodePub:Array<TorusNodePub> = Array()
-            
-            for result in results{
-                switch result {
-                    case .fulfilled(let value):
-                        let endPointElement: NodeDetails = value;
-                        let endpoint = "https://" + endPointElement.getDeclaredIp().split(separator: ":")[0] + "/jrpc";
-                        updatedEndpoints.append(endpoint)
-                        
-                        let hexPubX = endPointElement.getPubKx()
-                        let hexPubY = endPointElement.getPubKy()
-                        updatedNodePub.append(TorusNodePub(_X: String(hexPubX, radix: 16) , _Y: String(hexPubY, radix: 16)))
-                    default:
-                        seal.reject("error with node info")
+                let currentEpoch = decodedTuple.currentEpoch
+                var updatedEndPoints = [String]()
+                var updatedNodePub = [TorusNodePub]()
+                for i in 0...decodedTuple.torusIndexes.count - 1{
+                    let pubX = decodedTuple.torusNodePubX[i]
+                    let pubY = decodedTuple.torusNodePubY[i]
+                    let endPointElement = decodedTuple.torusNodeEndpoints[i]
+                    let endPoint = "https://\(endPointElement.split(separator:":")[0])/jrpc"
+                    updatedEndPoints.append(endPoint)
+                    updatedNodePub.append(.init(_X: pubX.web3.hexString.replacingOccurrences(of: "0x", with: ""), _Y: pubY.web3.hexString.replacingOccurrences(of: "0x", with: "")))
                 }
+                self.updated = true
                 
+                let val =  AllNodeDetailsModel(_currentEpoch: currentEpoch, _nodeListAddress: self.proxyAddress.value, _torusNodeEndpoints: updatedEndPoints, _torusIndexes: decodedTuple.torusIndexes, _torusNodePub: updatedNodePub, _updated: self.updated)
+                os_log("nodeDetails is: %@", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, "\(val)")
+                seal.fulfill(val)
             }
-            
-            let allNodeDetails = AllNodeDetails(_currentEpoch: "\(currentEpoch)", _nodeListAddress: self.proxyAddress.value, _torusNodeEndpoints: updatedEndpoints, _torusIndexes: torusIndexes, _torusNodePub: updatedNodePub, _updated: true)
-            
-            os_log("allNodeDetails is: %@", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, "\(allNodeDetails)")
-            seal.fulfill(allNodeDetails)
-        }.catch{error in
-            os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.allNodeDetailsFailed.debugDescription)
-            seal.reject(FNDError.allNodeDetailsFailed)
+            else{
+                os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.infoFailed.debugDescription)
+                seal.reject(FNDError.infoFailed)
+                return
+            }
         }
-        
+        catch{
+            if self.network == .MAINNET{
+                seal.fulfill(SampleOutputMainet(proxyAddress: self.proxyAddress.value).val)
+                }
+                else{
+                    os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.decodingFailed.debugDescription)
+                    seal.reject(FNDError.decodingFailed)
+                }
+            }
+        }
         return tempPromise
     }
-}
+    
+    func decodeNodeData(info:String) throws -> GetNodeSetModel?{
+      let decodedData = try ABIDecoder.decodeData(info, types: [BigInt.self, ABIArray<String>.self,ABIArray<BigUInt>.self,ABIArray<BigUInt>.self,ABIArray<BigUInt>.self])
+        let currentEpoch:BigUInt = try decodedData[0].decoded()
+            let nodeEndpoints:[String] = decodedData[1].entry.map{$0.web3.stringValue}
+            let pubx:[BigUInt] = decodedData[2].entry.compactMap{BigUInt(hex: $0)}
+            let puby:[BigUInt] = decodedData[3].entry.compactMap{BigUInt(hex: $0)}
+            let indexes:[BigUInt] = decodedData[4].entry.compactMap{BigUInt(hex: $0)}
+            let val:GetNodeSetModel = .init(_currentEpoch: currentEpoch, _torusNodeEndpoints: nodeEndpoints, _torusIndexes: indexes, _torusNodePubX: pubx, _torusNodePubY: puby)
+            return val
+        }
+    
+        }
