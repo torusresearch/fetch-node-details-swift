@@ -2,8 +2,7 @@ import XCTest
 import BigInt
 import web3
 import OSLog
-@testable import FetchNodeDetails
-@testable import web3
+import FetchNodeDetails
 
 class fetchNodeDetailsTests: XCTestCase{
     
@@ -13,7 +12,7 @@ class fetchNodeDetailsTests: XCTestCase{
         let exp = expectation(description: "should get node details")
         let fnd = FetchNodeDetails(proxyAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80", network: .MAINNET)
         fnd.getAllNodes(verifier: "google", verifierID: "hello@tor.us").done { result in
-            XCTAssertEqual(result, SampleOutputMainet(proxyAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80").val)
+            XCTAssertEqual(result, SampleOutputMainNet(proxyAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80").val)
             exp.fulfill()
         }.catch { error in
             XCTFail()
@@ -24,11 +23,11 @@ class fetchNodeDetailsTests: XCTestCase{
     }
     
     
-    func test_getNode_Mainet_skip(){
+    func test_getNode_MainNet_skip(){
         let exp = expectation(description: "should get node details")
         let fnd = FetchNodeDetails(proxyAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80", network: .MAINNET)
         fnd.getAllNodes(skip:true,verifier: "google", verifierID: "hello@tor.us").done { result in
-            XCTAssertEqual(result, SampleOutputMainet(proxyAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80").val)
+            XCTAssertEqual(result, SampleOutputMainNetStatic(proxyAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80").val)
             exp.fulfill()
         }.catch { error in
             XCTFail()

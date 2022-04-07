@@ -14,7 +14,9 @@ A description of this package.
 
 ```swift
 
-EthereumNetwork.Mainnet = 0x638646503746d5456209e33a2ff5e3226d698bea // torus mainnet 
-EthereumNetwork.Ropsten = 0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183 // torus testnet
+EthereumNetwork.MAINNET = 0xf20336e16B5182637f09821c27BDe29b0AFcfe80 // torus mainnet 
+EthereumNetwork.ROPSTEN = 0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183 // torus polygon
+EthereumNetwork.POLYGON = 0x6258c9d6c12ed3edda59a1a6527e469517744aa7 // torus ropsten 
+
 
 ```

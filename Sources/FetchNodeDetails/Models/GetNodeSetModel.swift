@@ -25,14 +25,14 @@ public struct GetNodeSetModel {
         self.torusIndexes = _torusIndexes;
         self.torusNodePubX = _torusNodePubX
         self.torusNodePubY = _torusNodePubY
-
+        
     }
     
     
     public static func == (lhs: GetNodeSetModel, rhs: GetNodeSetModel) -> Bool {
         return lhs.torusNodeEndpoints == rhs.torusNodeEndpoints
     }
-
+    
     
 }
 

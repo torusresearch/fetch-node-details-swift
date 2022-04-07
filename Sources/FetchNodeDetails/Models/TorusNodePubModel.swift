@@ -6,8 +6,8 @@
 //
 
 import Foundation
-public class TorusNodePub:Equatable {
-    public static func == (lhs: TorusNodePub, rhs: TorusNodePub) -> Bool {
+public struct TorusNodePubModel:Equatable {
+    public static func == (lhs: TorusNodePubModel, rhs: TorusNodePubModel) -> Bool {
         return lhs.X == rhs.X && lhs.Y == rhs.Y
     }
     
@@ -18,11 +18,11 @@ public class TorusNodePub:Equatable {
         self.X = _X;
         self.Y = _Y;
     }
-
+    
     public func getX() -> String {
         return X;
     }
-
+    
     public func getY() -> String {
         return Y;
     }
