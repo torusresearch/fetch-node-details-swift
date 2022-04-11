@@ -1,10 +1,3 @@
-//
-//  File.swift
-//
-//
-//  Created by Shubham on 13/3/20.
-//
-
 import Foundation
 import web3
 import BigInt
@@ -13,10 +6,8 @@ import OSLog
 @testable import web3
 
 extension FetchNodeDetails {
-    
     public func getAllNodes(skip:Bool = false,verifier:String,verifierID:String) -> Promise<AllNodeDetailsModel>{
         let (tempPromise,seal) = Promise<AllNodeDetailsModel>.pending()
-        
         if skip && self.network == .MAINNET{
             seal.fulfill(self.nodeDetails)
             return tempPromise
@@ -32,7 +23,6 @@ extension FetchNodeDetails {
             seal.reject(FNDError.transactionEncodingFailed)
             return tempPromise
         }
-        
         client.eth_call(transcation, block: .Latest) {[unowned self] error, info in
             do{
                 if let info = info {
@@ -79,11 +69,10 @@ extension FetchNodeDetails {
         }
         return tempPromise
     }
-    
 }
 
 extension FetchNodeDetails{
-   public func decodeNodeData(info:String) throws -> GetNodeSetModel?{
+    public func decodeNodeData(info:String) throws -> GetNodeSetModel?{
         let decodedData = try ABIDecoder.decodeData(info, types: [BigInt.self, ABIArray<String>.self,ABIArray<BigUInt>.self,ABIArray<BigUInt>.self,ABIArray<BigUInt>.self])
         let currentEpoch:BigUInt = try decodedData[0].decoded()
         let nodeEndpoints:[String] = decodedData[1].entry.map{$0.web3.stringValue}

@@ -1,12 +1,6 @@
-//
-//  File.swift
-//  
-//
-//  Created by Dhruv Jaiswal on 04/04/22.
-//
-
 import Foundation
 public struct TorusNodePubModel:Equatable {
+    
     public static func == (lhs: TorusNodePubModel, rhs: TorusNodePubModel) -> Bool {
         return lhs.X == rhs.X && lhs.Y == rhs.Y
     }
@@ -15,15 +9,15 @@ public struct TorusNodePubModel:Equatable {
     private let Y : String;
     
     public init(_X : String, _Y : String) {
-        self.X = _X;
-        self.Y = _Y;
+        self.X = _X
+        self.Y = _Y
     }
     
     public func getX() -> String {
-        return X;
+        return X
     }
     
     public func getY() -> String {
-        return Y;
+        return Y
     }
 }

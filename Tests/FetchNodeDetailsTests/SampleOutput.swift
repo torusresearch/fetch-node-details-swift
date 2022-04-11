@@ -1,19 +1,10 @@
-//
-//  File.swift
-//  
-//
-//  Created by Dhruv Jaiswal on 04/04/22.
-//
-
 import Foundation
 import BigInt
 import web3
 import FetchNodeDetails
 
-
 public struct SampleOutputMainNet{
     var currentEpoch:BigUInt = 19
-    
     var proxyAddress:String
     var torusNodeEndpoints = [
         "https://torus-19.torusnode.com/jrpc",
@@ -26,7 +17,6 @@ public struct SampleOutputMainNet{
         "https://torus-node.binancex.dev/jrpc",
         "https://torusnode.ont.io/jrpc"
     ]
-    
     var torusNodePub: [TorusNodePubModel] = [
         
         .init(_X: "bbe83c64177c3775550e6ba6ac2bc059f6847d644c9e4894e42c60d7974d8c2b", _Y:
@@ -56,19 +46,16 @@ public struct SampleOutputMainNet{
             .init(_X: "39cecb62e863729f572f7dfc46c24867981bf04bb405fed0df39e33984bfade5", _Y:
                     "61c2364434012e68a2be2e9952805037e52629d7762fafc8e10e9fb5bad8f790")
     ]
-    
     var torusIndexes:[BigUInt] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     var val:AllNodeDetailsModel
     init(proxyAddress:String){
         self.proxyAddress = proxyAddress
         val = .init(_currentEpoch: currentEpoch, _nodeListAddress: proxyAddress, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: true)
     }
-    
 }
 
 public struct SampleOutputMainNetStatic{
     var currentEpoch:BigUInt = 19
-    
     var proxyAddress:String
     var torusNodeEndpoints = [
         "https://torus-19.torusnode.com/jrpc",
@@ -81,7 +68,6 @@ public struct SampleOutputMainNetStatic{
         "https://torus-node.binancex.dev/jrpc",
         "https://torusnode.ont.io/jrpc"
     ]
-    
     var torusNodePub: [TorusNodePubModel] = [
         
         .init(_X: "bbe83c64177c3775550e6ba6ac2bc059f6847d644c9e4894e42c60d7974d8c2b", _Y:
@@ -111,20 +97,15 @@ public struct SampleOutputMainNetStatic{
             .init(_X: "39cecb62e863729f572f7dfc46c24867981bf04bb405fed0df39e33984bfade5", _Y:
                     "61c2364434012e68a2be2e9952805037e52629d7762fafc8e10e9fb5bad8f790")
     ]
-    
     var torusIndexes:[BigUInt] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     var val:AllNodeDetailsModel
     init(proxyAddress:String){
         self.proxyAddress = proxyAddress
         val = .init(_currentEpoch: currentEpoch, _nodeListAddress: proxyAddress, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: false)
     }
-    
 }
 
-
-
 public struct SampleOutputPolygon{
-    
     var currentEpoch:BigUInt = 1
     var proxyAddress:String
     var torusNodeEndpoints = [
@@ -134,7 +115,6 @@ public struct SampleOutputPolygon{
         "https://node-4.torus-cluster-1.com/jrpc",
         "https://node-5.torus-cluster-1.com/jrpc"
     ]
-    
     var torusNodePub: [TorusNodePubModel] = [
         .init(_X: "805f81fd2fdc0d207b5a8b6643cd8f885bb761942f31fd6e138fcf8871d44cff", _Y:
                 "10bd6ec1675147256fbc4094c05191975a175d49ae8716ee83409929e6a302e7"),
@@ -151,20 +131,17 @@ public struct SampleOutputPolygon{
             .init(_X: "dcf3b3c5a9e43533b875862b4dcfd5614535e7838d9a916f3f735e28e345cd9d", _Y:
                     "856d980747c1d171972b2ea34831670763d4b493ea7537b295b4be4c25b012fc")
     ]
-    
     var torusIndexes:[BigUInt] = [1, 2, 3, 4, 5]
     var val:AllNodeDetailsModel
     init(proxyAddress:String){
         self.proxyAddress = proxyAddress
         val = .init(_currentEpoch: currentEpoch, _nodeListAddress: proxyAddress, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: true)
     }
-    
 }
 
 
 public struct SampleOutputRopsten{
     var currentEpoch:BigUInt = 15
-    
     var proxyAddress:String
     var torusNodeEndpoints = [
         "https://teal-15-1.torusnode.com/jrpc",
@@ -173,7 +150,6 @@ public struct SampleOutputRopsten{
         "https://teal-15-5.torusnode.com/jrpc",
         "https://teal-15-2.torusnode.com/jrpc"
     ]
-    
     var torusNodePub: [TorusNodePubModel] = [
         .init(_X: "1363aad8868cacd7f8946c590325cd463106fb3731f08811ab4302d2deae35c3", _Y:
                 "d77eebe5cdf466b475ec892d5b4cffbe0c1670525debbd97eee6dae2f87a7cbe"),
@@ -190,14 +166,12 @@ public struct SampleOutputRopsten{
             .init(_X: "d908f41f8e06324a8a7abcf702adb6a273ce3ae63d86a3d22723e1bbf1438c9a", _Y:
                     "f977530b3ec0e525438c72d1e768380cbc5fb3b38a760ee925053b2e169428ce")
     ]
-    
     var torusIndexes:[BigUInt] = [1, 2, 3, 4, 5]
     var val:AllNodeDetailsModel
     init(proxyAddress:String){
         self.proxyAddress = proxyAddress
         val = .init(_currentEpoch: currentEpoch, _nodeListAddress: proxyAddress, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: true)
     }
-    
 }
 
 

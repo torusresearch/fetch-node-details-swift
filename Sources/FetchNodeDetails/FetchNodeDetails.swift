@@ -1,10 +1,3 @@
-//
-//  File.swift
-//
-//
-//  Created by Shubham on 13/3/20.
-//
-
 import Foundation
 import web3
 import BigInt
@@ -14,9 +7,7 @@ import OSLog
 var fndLogType = OSLogType.default
 
 open class FetchNodeDetails {
-
     var currentEpoch:BigUInt = 19
-    
     var torusNodeEndpoints = [
         "https://torus-19.torusnode.com/jrpc",
         "https://torus-node.ens.domains/jrpc",
@@ -28,7 +19,6 @@ open class FetchNodeDetails {
         "https://torus-node.binancex.dev/jrpc",
         "https://torusnode.ont.io/jrpc"
     ]
-    
     var torusNodePub: [TorusNodePubModel] = [
         
         .init(_X: "bbe83c64177c3775550e6ba6ac2bc059f6847d644c9e4894e42c60d7974d8c2b", _Y:
@@ -58,9 +48,7 @@ open class FetchNodeDetails {
             .init(_X: "39cecb62e863729f572f7dfc46c24867981bf04bb405fed0df39e33984bfade5", _Y:
                     "61c2364434012e68a2be2e9952805037e52629d7762fafc8e10e9fb5bad8f790")
     ]
-    
     var torusIndexes:[BigUInt] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    
     var client: EthereumClientProtocol
     var network : EthereumNetwork = EthereumNetwork.MAINNET
     var proxyAddress : EthereumAddress
@@ -71,9 +59,6 @@ open class FetchNodeDetails {
     var nodeDetails:AllNodeDetailsModel{
         return .init(_currentEpoch: self.currentEpoch, _nodeListAddress: self.proxyAddress.value, _torusNodeEndpoints: self.torusNodeEndpoints, _torusIndexes: self.torusIndexes, _torusNodePub: self.torusNodePub, _updated:self.updated)
     }
-    
-    
-    
     
     public init(proxyAddress: String, network: EthereumNetwork, logLevel: OSLogType = .default, urlSession : URLSession = URLSession.shared){
         fndLogType = logLevel // to be used across application

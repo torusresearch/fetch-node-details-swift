@@ -1,10 +1,10 @@
 {
     "abi": [{
         "inputs": [{
-                "internalType": "string",
-                "name": "_verifier",
-                "type": "string"
-            },
+            "internalType": "string",
+            "name": "_verifier",
+            "type": "string"
+        },
             {
                 "internalType": "bytes32",
                 "name": "hashedVerifierId",
@@ -13,10 +13,10 @@
         ],
         "name": "getNodeSet",
         "outputs": [{
-                "internalType": "uint256",
-                "name": "currentEpoch",
-                "type": "uint256"
-            },
+            "internalType": "uint256",
+            "name": "currentEpoch",
+            "type": "uint256"
+        },
             {
                 "internalType": "string[]",
                 "name": "torusNodeEndpoints",

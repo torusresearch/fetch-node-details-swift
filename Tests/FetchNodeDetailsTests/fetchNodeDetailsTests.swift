@@ -5,7 +5,6 @@ import OSLog
 import FetchNodeDetails
 
 class fetchNodeDetailsTests: XCTestCase{
-    
     var timeout:TimeInterval = 10
     
     func test_getNode_MainNet(){
@@ -17,11 +16,8 @@ class fetchNodeDetailsTests: XCTestCase{
         }.catch { error in
             XCTFail()
         }
-       
         wait(for: [exp], timeout: timeout)
-        
     }
-    
     
     func test_getNode_MainNet_skip(){
         let exp = expectation(description: "should get node details")
@@ -34,7 +30,6 @@ class fetchNodeDetailsTests: XCTestCase{
         }
         wait(for: [exp], timeout: timeout)
     }
-
     
     func test_getNode_Polygon(){
         let exp = expectation(description: "should get node details")
@@ -46,7 +41,6 @@ class fetchNodeDetailsTests: XCTestCase{
             XCTFail()
         }
         wait(for: [exp], timeout: timeout)
-        
     }
     
     func test_getNode_Polygon_skip(){
@@ -59,10 +53,7 @@ class fetchNodeDetailsTests: XCTestCase{
             XCTFail()
         }
         wait(for: [exp], timeout: timeout)
-        
     }
-    
-    
     
     func test_getNode_Ropsten(){
         let exp = expectation(description: "should get node details")
@@ -74,7 +65,6 @@ class fetchNodeDetailsTests: XCTestCase{
             XCTFail()
         }
         wait(for: [exp], timeout: timeout)
-        
     }
     
     func test_getNode_Ropsten_skip(){
@@ -87,9 +77,7 @@ class fetchNodeDetailsTests: XCTestCase{
             XCTFail()
         }
         wait(for: [exp], timeout: timeout)
-        
     }
-    
 }
 
 

@@ -1,14 +1,6 @@
-//
-//  File.swift
-//  
-//
-//  Created by Dhruv Jaiswal on 04/04/22.
-//
-
 import Foundation
 import web3
 import BigInt
-
 
 public struct AllNodeDetailsModel:Equatable {
     public static func == (lhs: AllNodeDetailsModel, rhs: AllNodeDetailsModel) -> Bool {
