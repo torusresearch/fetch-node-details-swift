@@ -6,7 +6,7 @@ import OSLog
 @testable import web3
 
 extension FetchNodeDetails {
-    public func getAllNodes(skip:Bool = false,verifier:String,verifierID:String) -> Promise<AllNodeDetailsModel>{
+    public func getNodeDetails(skip:Bool = false,verifier:String,verifierID:String) -> Promise<AllNodeDetailsModel>{
         let (tempPromise,seal) = Promise<AllNodeDetailsModel>.pending()
         if skip && self.network == .MAINNET{
             seal.fulfill(self.nodeDetails)

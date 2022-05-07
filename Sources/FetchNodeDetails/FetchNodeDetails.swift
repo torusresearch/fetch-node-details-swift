@@ -50,7 +50,7 @@ open class FetchNodeDetails {
     ]
     var torusIndexes:[BigUInt] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     var client: EthereumClientProtocol
-    var network : EthereumNetwork = EthereumNetwork.MAINNET
+    var network : EthereumNetworkFND = EthereumNetworkFND.MAINNET
     var proxyAddress : EthereumAddress
     var projectID:String = "7f287687b3d049e2bea7b64869ee30a3"
     let yourContractABI: String = contractABIString
@@ -60,12 +60,12 @@ open class FetchNodeDetails {
         return .init(_currentEpoch: self.currentEpoch, _nodeListAddress: self.proxyAddress.value, _torusNodeEndpoints: self.torusNodeEndpoints, _torusIndexes: self.torusIndexes, _torusNodePub: self.torusNodePub, _updated:self.updated)
     }
     
-    public init(proxyAddress: String, network: EthereumNetwork, logLevel: OSLogType = .default, urlSession : URLSession = URLSession.shared){
+    public init(proxyAddress: String = "0xf20336e16B5182637f09821c27BDe29b0AFcfe80", network: EthereumNetworkFND = .MAINNET, logLevel: OSLogType = .default, urlSession : URLSession = URLSession.shared){
         fndLogType = logLevel // to be used across application
         self.proxyAddress = EthereumAddress(proxyAddress)
         self.network = network
         self.urlSession = urlSession
-        let clientUrl = URL(string: "https://\(network.rawValue).infura.io/v3/\(projectID)")!
+        let clientUrl = network == .CUSTOM(path: network.path) ? URL(string: network.path)! : URL(string: "https://\(network.path).infura.io/v3/\(projectID)")!
         self.client = EthereumClient(url: clientUrl, sessionConfig: self.urlSession.configuration)
     }
 }
