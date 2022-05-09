@@ -1,12 +1,12 @@
 import Foundation
 
-public enum EthereumNetworkFND:Equatable{
+public enum EthereumNetworkFND : Equatable{
     case MAINNET
     case ROPSTEN
     case POLYGON
-    case CUSTOM(path:String)
+    case CUSTOM(path : String)
     
-    var path:String{
+    var path : String{
         switch self {
         case .MAINNET:
             return "mainnet"

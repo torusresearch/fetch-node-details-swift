@@ -6,7 +6,7 @@ import OSLog
 @testable import web3
 
 extension FetchNodeDetails {
-    public func getNodeDetails(skip:Bool = false,verifier:String,verifierID:String) -> Promise<AllNodeDetailsModel>{
+    public func getNodeDetails(skip : Bool = false,verifier : String,verifierID : String) -> Promise<AllNodeDetailsModel>{
         let (tempPromise,seal) = Promise<AllNodeDetailsModel>.pending()
         if skip && self.network == .MAINNET{
             seal.fulfill(self.nodeDetails)
@@ -72,7 +72,7 @@ extension FetchNodeDetails {
 }
 
 extension FetchNodeDetails{
-    public func decodeNodeData(info:String) throws -> GetNodeSetModel?{
+    public func decodeNodeData(info : String) throws -> GetNodeSetModel?{
         let decodedData = try ABIDecoder.decodeData(info, types: [BigInt.self, ABIArray<String>.self,ABIArray<BigUInt>.self,ABIArray<BigUInt>.self,ABIArray<BigUInt>.self])
         let currentEpoch:BigUInt = try decodedData[0].decoded()
         let nodeEndpoints:[String] = decodedData[1].entry.map{$0.web3.stringValue}

@@ -1,14 +1,16 @@
 import Foundation
 
-enum FNDError: Error{
+enum FNDError : Error{
     case infoFailed
     case allNodeDetailsFailed
     case transactionEncodingFailed
     case decodingFailed
+    case ABIFileMissing
+    case ABIJsonSerializationFailed
 }
 
-extension FNDError: CustomDebugStringConvertible{
-    public var debugDescription: String{
+extension FNDError : CustomDebugStringConvertible{
+    public var debugDescription : String{
         switch self{
         case .allNodeDetailsFailed:
             return "unable to get node details for all nodes"
@@ -18,6 +20,10 @@ extension FNDError: CustomDebugStringConvertible{
             return "decoding failed"
         case .infoFailed:
             return "Info failed"
+        case .ABIFileMissing:
+            return "ABI file missing"
+        case .ABIJsonSerializationFailed:
+            return "ABI json cannot be serialized"
         }
     }
 }

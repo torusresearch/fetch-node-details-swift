@@ -3,7 +3,7 @@ import web3
 import BigInt
 
 public struct AllNodeDetailsModel:Equatable {
-    public static func == (lhs: AllNodeDetailsModel, rhs: AllNodeDetailsModel) -> Bool {
+    public static func == (lhs : AllNodeDetailsModel, rhs : AllNodeDetailsModel) -> Bool {
         return lhs.currentEpoch == rhs.currentEpoch && lhs.torusNodeEndpoints == rhs.torusNodeEndpoints && lhs.torusNodePub == rhs.torusNodePub && lhs.currentEpoch == rhs.currentEpoch && lhs.torusIndexes == rhs.torusIndexes && lhs.updated == rhs.updated
     }
     
