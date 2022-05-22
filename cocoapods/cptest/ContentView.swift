@@ -16,22 +16,6 @@ struct ContentView: View {
         NavigationView{
             List {
                 Section(header: Text("APIs")) {
-                    Group{
-                        Button(action: {
-                            let fnd = FetchNodeDetails(proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea", network: .MAINNET)
-                            fnd.getCurrentEpochPromise().done{ data in
-                                self.currentEpoch = data
-                                self.showingAlert = true
-                                print(self.currentEpoch)
-                            }.catch{error in
-                                print(error)
-                            }
-                        }, label: {
-                            Text("Get current epoch")
-                        }).alert(isPresented: $showingAlert) {
-                            Alert(title: Text("Current Epoch"), message: Text(self.currentEpoch.description), dismissButton: .default(Text("Got it!")))
-                        }
-                    }temp
                     
                 }
                 
