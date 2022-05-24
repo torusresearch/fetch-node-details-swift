@@ -21,8 +21,19 @@ struct ContentView: View {
                 
             }.navigationBarTitle(Text("Fetch node details"))
             
+        }.onAppear {
+           // execute()
         }
     }
+    
+    func execute(){
+            let fnd = FetchNodeDetails(proxyAddress : "0xf20336e16B5182637f09821c27BDe29b0AFcfe80", network: .MAINNET)
+            fnd.getNodeDetails(verifier : "google", verifierID : "hello@tor.us").done { result in
+               print(result)
+            }.catch { error in
+                print(error)
+            }
+        }
 }
 
 struct ContentView_Previews: PreviewProvider {
