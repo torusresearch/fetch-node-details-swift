@@ -4,54 +4,6 @@ import OSLog
 import PromiseKit
 import web3
 
-extension ABIDecoder {
-    public struct DecodedValuesTest {
-        public let entry: ABIEntry
-
-        public func decoded<T: ABIType>() throws -> T {
-            let parse = T.parser
-            guard let decoded = try parse(entry) as? T else {
-                throw ABIError.invalidValue
-            }
-            return decoded
-        }
-
-        public func decodedArray<T: ABIType>() throws -> [T] {
-            let parse = T.parser
-            let parsed = try entry.map { try parse([$0]) }.compactMap { $0 as? T }
-
-            guard entry.count == parsed.count else {
-                throw ABIError.invalidValue
-            }
-
-            return parsed
-        }
-
-        public func decodedTupleArray<T: ABITuple>() throws -> [T] {
-            let parse = T.parser
-
-            let tupleElements = T.types.count
-            let size = entry.count / tupleElements
-
-            var parsed = [T]()
-            var leftElements = entry
-            while leftElements.count >= tupleElements {
-                let slice = Array(leftElements[0 ..< tupleElements])
-                if let abc = try parse(slice) as? T {
-                    parsed.append(abc)
-                }
-                leftElements = Array(leftElements.dropFirst(tupleElements))
-            }
-
-            guard parsed.count == size else {
-                throw ABIError.invalidValue
-            }
-
-            return parsed
-        }
-    }
-}
-
 extension FetchNodeDetails {
     public func getNodeDetails(skip: Bool = false, verifier: String, verifierID: String) -> Promise<AllNodeDetailsModel> {
         let (tempPromise, seal) = Promise<AllNodeDetailsModel>.pending()
