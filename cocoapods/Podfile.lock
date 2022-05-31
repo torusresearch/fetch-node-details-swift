@@ -5,7 +5,7 @@ PODS:
   - PromiseKit/Foundation (6.15.3):
     - PromiseKit/CorePromise
   - secp256k1.swift (0.1.4)
-  - Torus-fetchNodeDetails (2.4.0):
+  - Torus-fetchNodeDetails (2.5.1):
     - PromiseKit/Foundation (~> 6.0)
     - web3.swift (~> 0.8.1)
   - web3.swift (0.8.1):
@@ -33,9 +33,9 @@ SPEC CHECKSUMS:
   GenericJSON: a6e74e2c457f8693caab08e0eafde7d97e6666de
   PromiseKit: 3b2b6995e51a954c46dbc550ce3da44fbfb563c5
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
-  Torus-fetchNodeDetails: 3b64e58ecf85ee6d5847e28890472a0c2f4c69f4
+  Torus-fetchNodeDetails: 0e6b5a976bc1e0610d9b2d8c8ab1f744bc389297
   web3.swift: ce00a5e6e39fb184e33e3622e8be22ae53205e57
 
 PODFILE CHECKSUM: 33add72342a492adb43676625c404c97ced731da
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
