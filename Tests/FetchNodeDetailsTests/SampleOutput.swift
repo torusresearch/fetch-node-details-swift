@@ -53,7 +53,6 @@ public struct SampleOutputMainNet {
     }
 }
 
-
 public struct SampleOutputPolygon {
     var currentEpoch: BigUInt = 1
     var proxyAddress: String
