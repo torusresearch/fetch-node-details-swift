@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/argentlabs/web3.swift",
         "state": {
           "branch": null,
-          "revision": "8205d3f671e0248af7d2e0537664d1a85d1ee11e",
-          "version": "0.8.1"
+          "revision": "0474eb5e883bc4800b3909833207a1d35e72b808",
+          "version": "0.9.3"
         }
       }
     ]
