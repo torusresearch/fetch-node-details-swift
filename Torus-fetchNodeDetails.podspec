@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
   spec.source       = { :git => "https://github.com/torusresearch/fetch-node-details-swift.git", :tag => spec.version }
   spec.source_files = "Sources/FetchNodeDetails/*.{swift,json}","Sources/FetchNodeDetails/**/*.{swift,json}"
   spec.module_name = "FetchNodeDetails"
-  spec.dependency 'web3.swift', '~> 0.8.1'
+  spec.dependency 'web3.swift', '~> 0.9.3'
   spec.resource_bundles = { 'Torus-fetchNodeDetails' => ['cocoapods/FND.bundle/*.json'] }
   spec.dependency 'PromiseKit/Foundation', '~> 6.0'
 end
