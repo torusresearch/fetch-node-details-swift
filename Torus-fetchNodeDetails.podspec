@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "Torus-fetchNodeDetails"
-  spec.version      = "2.6.1"
+  spec.version      = "2.6.3"
   spec.platform = :ios, "11.0"
   spec.summary      = "Fetches the node details from torus nodelist smart contract"
   spec.homepage     = "https://github.com/torusresearch/fetch-node-details-swift"
