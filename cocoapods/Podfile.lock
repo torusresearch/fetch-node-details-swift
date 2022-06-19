@@ -5,7 +5,7 @@ PODS:
   - PromiseKit/Foundation (6.15.3):
     - PromiseKit/CorePromise
   - secp256k1.swift (0.1.4)
-  - Torus-fetchNodeDetails (2.6.7):
+  - Torus-fetchNodeDetails (2.6.8):
     - PromiseKit/Foundation (~> 6.0)
     - web3.swift (~> 0.9.3)
   - web3.swift (0.9.3):
