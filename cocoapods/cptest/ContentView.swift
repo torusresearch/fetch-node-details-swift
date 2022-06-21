@@ -24,12 +24,14 @@ struct ContentView: View {
     }
     
     func execute(){
-            let fnd = FetchNodeDetails(proxyAddress : "0x9f072ba19b3370e512aa1b4bfcdaf97283168005", network: .MAINNET)
+        Task{
+            let fnd = FetchNodeDetails(proxyAddress: "0x6258c9d6c12ed3edda59a1a6527e469517744aa7", network: .ROPSTEN)
             fnd.getNodeDetails(verifier : "google", verifierID : "hello@tor.us").done { result in
                print(result)
             }.catch { error in
                 print(error)
             }
+    }
     }
 }
 
