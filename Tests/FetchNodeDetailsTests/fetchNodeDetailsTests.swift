@@ -30,10 +30,12 @@ class fetchNodeDetailsTests: XCTestCase {
         }
         wait(for: [exp], timeout: timeout)
     }
-
-    func test_getNode_Ropsten() {
+    
+    
+    // Ropsten deprecation test
+    func test_getNode_custom_path_Ropsten() {
         let exp = expectation(description: "should get node details")
-        let fnd = FetchNodeDetails(proxyAddress: "0x6258c9d6c12ed3edda59a1a6527e469517744aa7", network: .ROPSTEN)
+        let fnd = FetchNodeDetails(proxyAddress: "0x6258c9d6c12ed3edda59a1a6527e469517744aa7",network: .CUSTOM(path: "https://rpc.ankr.com/eth_ropsten"),urlSession: URLSession.shared)
         fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
             XCTAssertEqual(result, SampleOutputRopsten(proxyAddress: "0x6258c9d6c12ed3edda59a1a6527e469517744aa7").val)
             exp.fulfill()

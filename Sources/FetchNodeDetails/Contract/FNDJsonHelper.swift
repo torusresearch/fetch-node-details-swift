@@ -6,14 +6,12 @@
 //
 
 import Foundation
+import OSLog
 
-class FNDJsonHelper {
+class FNDJsonHelper: NSObject {
     func getJsonFile(name: String) throws -> Any {
-        var bundle = Bundle(identifier: "torus.cptest")
-        var path = bundle?.path(forResource: "FND", ofType: "bundle")
-        path?.append("/abi.json")
+        var path = getPathForPod(name: name)
         #if SWIFT_PACKAGE
-            bundle = nil
             path = nil
             path = Bundle.module.url(forResource: name, withExtension: "json")?.path
         #endif
@@ -24,6 +22,14 @@ class FNDJsonHelper {
         } else {
             throw FNDError.ABIFileMissing
         }
+    }
+
+    func getPathForPod(name:String) -> String? {
+        let podBundle = Bundle(for: classForCoder)
+        guard let bundleURL = podBundle.url(forResource: "MyCustomPod", withExtension: "bundle"),
+              let bundle = Bundle(url: bundleURL),
+              let filePath = bundle.resourcePath?.appending("/\(name).json") else { return nil }
+        return filePath
     }
 
     func jsonToString(json: Any) throws -> String {
@@ -39,11 +45,9 @@ class FNDJsonHelper {
         do {
             let file = try getJsonFile(name: "abi")
             let str = try jsonToString(json: file)
-            print(str)
             return str
         } catch let err {
-            print(err.localizedDescription)
-            //need to fix 
+            os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, err.localizedDescription)
             return "{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_verifier\",\"type\":\"string\"},{\"internalType\":\"bytes32\",\"name\":\"hashedVerifierId\",\"type\":\"bytes32\"}],\"name\":\"getNodeSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"currentEpoch\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"torusNodeEndpoints\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"torusNodePubX\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"torusNodePubY\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"torusIndexes\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]}"
         }
     }
