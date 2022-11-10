@@ -9,6 +9,8 @@ import Foundation
 import OSLog
 
 class FNDJsonHelper: NSObject {
+    private let bundleName = "FNDBundle"
+    private let abiJsonFileName = "abi"
     func getJsonFile(name: String) throws -> Any {
         var path = getPathForPod(name: name)
         #if SWIFT_PACKAGE
@@ -24,9 +26,9 @@ class FNDJsonHelper: NSObject {
         }
     }
 
-    func getPathForPod(name:String) -> String? {
+    func getPathForPod(name: String) -> String? {
         let podBundle = Bundle(for: classForCoder)
-        guard let bundleURL = podBundle.url(forResource: "MyCustomPod", withExtension: "bundle"),
+        guard let bundleURL = podBundle.url(forResource: bundleName, withExtension: "bundle"),
               let bundle = Bundle(url: bundleURL),
               let filePath = bundle.resourcePath?.appending("/\(name).json") else { return nil }
         return filePath
@@ -43,7 +45,7 @@ class FNDJsonHelper: NSObject {
 
     func loadABIFile() -> String {
         do {
-            let file = try getJsonFile(name: "abi")
+            let file = try getJsonFile(name: abiJsonFileName)
             let str = try jsonToString(json: file)
             return str
         } catch let err {
