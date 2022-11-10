@@ -4,6 +4,7 @@ public enum EthereumNetworkFND : Equatable{
     case MAINNET
     case ROPSTEN
     case POLYGON
+    case AQUA
     case CUSTOM(path : String)
     
     var path : String{
@@ -14,8 +15,11 @@ public enum EthereumNetworkFND : Equatable{
             return "ropsten"
         case .POLYGON:
             return "polygon-mainnet"
+        case .AQUA:
+            return "polygon-mainnet"
         case .CUSTOM(let path):
             return "\(path)"
+       
         }
     }
 }

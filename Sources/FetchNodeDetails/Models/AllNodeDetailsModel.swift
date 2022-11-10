@@ -1,5 +1,4 @@
 import Foundation
-import web3
 import BigInt
 
 public struct AllNodeDetailsModel:Equatable {

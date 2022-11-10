@@ -1,7 +1,6 @@
 import Foundation
 import web3
 import BigInt
-import PromiseKit
 
 public enum TorusLookupContract{
     public struct getNodeSet : ABIFunction{

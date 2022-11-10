@@ -1,7 +1,6 @@
-import BigInt
 import Foundation
+import BigInt
 import OSLog
-import PromiseKit
 import web3
 
 // Global variable
@@ -11,6 +10,7 @@ open class FetchNodeDetails {
     public static var proxyAddressMainnet = "0xf20336e16B5182637f09821c27BDe29b0AFcfe80"
     public static var proxyAddressRopsten = "0x6258c9d6c12ed3edda59a1a6527e469517744aa7"
     public static var proxyAddressPolygon = "0x9f072ba19b3370e512aa1b4bfcdaf97283168005"
+    public static var proxyAddressAqua = "0x29dea82a0509153b91040ee13cDBba0f03efb625"
     public static var nodeDetailsMainnet: AllNodeDetailsModel {
         return .init(_currentEpoch: 19, _nodeListAddress: proxyAddressMainnet, _torusNodeEndpoints: [
             "https://torus-19.torusnode.com/jrpc",
