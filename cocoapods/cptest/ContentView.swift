@@ -49,6 +49,17 @@ struct ContentView: View {
             }
         }
     }
+    
+    func execute(){
+        Task{
+            let fnd = FetchNodeDetails(proxyAddress: "0x6258c9d6c12ed3edda59a1a6527e469517744aa7", network: .ROPSTEN)
+            fnd.getNodeDetails(verifier : "google", verifierID : "hello@tor.us").done { result in
+               print(result)
+            }.catch { error in
+                print(error)
+            }
+    }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -3,6 +3,7 @@ PODS:
   - GenericJSON (2.0.2)
   - secp256k1.swift (0.1.4)
   - Torus-fetchNodeDetails (3.0.0):
+    - PromiseKit/Foundation (~> 6.0)
     - web3.swift (~> 0.9.3)
   - web3.swift (0.9.3):
     - BigInt (~> 5.0.0)

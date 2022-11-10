@@ -7,7 +7,7 @@ public enum EthereumNetworkFND : Equatable{
     case AQUA
     case CUSTOM(path : String)
     
-    var path : String{
+   public var path : String{
         switch self {
         case .MAINNET:
             return "mainnet"
