@@ -39,7 +39,6 @@ class FNDJsonHelper {
         do {
             let file = try getJsonFile(name: "abi")
             let str = try jsonToString(json: file)
-            print(str)
             return str
         } catch let err {
             fatalError(err.localizedDescription)

@@ -112,7 +112,7 @@ open class FetchNodeDetails {
             updated = true
             os_log("nodeDetails is: %@", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, "\(nodeDetails)")
             return nodeDetails
-        } catch {
+        } catch(let error) {
             os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, error.localizedDescription)
             if proxyAddress.value == FetchNodeDetails.proxyAddressMainnet {
                 return FetchNodeDetails.nodeDetailsMainnet
