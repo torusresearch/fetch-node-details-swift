@@ -1,23 +1,28 @@
 import Foundation
 
-public enum EthereumNetworkFND : Equatable{
+public enum EthereumNetworkFND: Equatable {
     case MAINNET
-    case ROPSTEN
-    case POLYGON
-    case CUSTOM(path : String)
-    
-   public var path : String{
+    case TESTNET
+    /// Name changed from Polygon to Cyan
+    case CYAN
+    case AQUA
+    case CELESTE
+    case CUSTOM(path: String)
+
+    public var path: String {
         switch self {
         case .MAINNET:
             return "mainnet"
-        case .ROPSTEN:
-            return "ropsten"
-        case .POLYGON:
+        case .TESTNET:
+            return "goerli"
+        case .CYAN:
             return "polygon-mainnet"
-        case .CUSTOM(let path):
+        case .AQUA:
+            return "polygon-mainnet"
+        case .CELESTE:
+            return "polygon-mainnet"
+        case let .CUSTOM(path):
             return "\(path)"
         }
     }
 }
-
-

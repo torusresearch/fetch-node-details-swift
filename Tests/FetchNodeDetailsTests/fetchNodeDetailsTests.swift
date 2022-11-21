@@ -11,7 +11,7 @@ class fetchNodeDetailsTests: XCTestCase {
         let exp = expectation(description: "should get node details")
         let fnd = FetchNodeDetails()
         fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
-            XCTAssertEqual(result, SampleOutputMainNet(proxyAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80").val)
+            XCTAssertEqual(result, SampleOutputMainNet().val)
             exp.fulfill()
         }.catch { _ in
             XCTFail()
@@ -23,7 +23,7 @@ class fetchNodeDetailsTests: XCTestCase {
         let exp = expectation(description: "should get node details")
         let fnd = FetchNodeDetails(network: .CUSTOM(path: "https://\("mainnet").infura.io/v3/\("7f287687b3d049e2bea7b64869ee30a3")"))
         fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
-            XCTAssertEqual(result, SampleOutputMainNet(proxyAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80").val)
+            XCTAssertEqual(result, SampleOutputMainNet().val)
             exp.fulfill()
         }.catch { _ in
             XCTFail()
@@ -33,9 +33,9 @@ class fetchNodeDetailsTests: XCTestCase {
 
     func test_getNode_Ropsten() {
         let exp = expectation(description: "should get node details")
-        let fnd = FetchNodeDetails(proxyAddress: "0x6258c9d6c12ed3edda59a1a6527e469517744aa7", network: .ROPSTEN)
+        let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressTestnet, network: .TESTNET)
         fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
-            XCTAssertEqual(result, SampleOutputRopsten(proxyAddress: "0x6258c9d6c12ed3edda59a1a6527e469517744aa7").val)
+            XCTAssertEqual(result, SampleOutputTestnet().val)
             exp.fulfill()
         }.catch { _ in
             XCTFail()
@@ -43,11 +43,35 @@ class fetchNodeDetailsTests: XCTestCase {
         wait(for: [exp], timeout: timeout)
     }
 
-    func test_getNode_Polygon() {
+    func test_getNode_Cyan() {
         let exp = expectation(description: "should get node details")
-        let fnd = FetchNodeDetails(proxyAddress: "0x9f072ba19b3370e512aa1b4bfcdaf97283168005", network: .POLYGON)
+        let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressCyan, network: .CYAN)
         fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
-            XCTAssertEqual(result, SampleOutputPolygon(proxyAddress: "0x9f072ba19b3370e512aa1b4bfcdaf97283168005").val)
+            XCTAssertEqual(result, SampleOutputCyan().val)
+            exp.fulfill()
+        }.catch { _ in
+            XCTFail()
+        }
+        wait(for: [exp], timeout: timeout)
+    }
+
+    func test_getNode_Aqua() {
+        let exp = expectation(description: "should get node details")
+        let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressAqua, network: .AQUA)
+        fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
+            XCTAssertEqual(result, SampleOutputAqua().val)
+            exp.fulfill()
+        }.catch { _ in
+            XCTFail()
+        }
+        wait(for: [exp], timeout: timeout)
+    }
+
+    func test_getNode_Celeste() {
+        let exp = expectation(description: "should get node details")
+        let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressCeleste, network: .CELESTE)
+        fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
+            XCTAssertEqual(result, SampleOutputCeleste().val)
             exp.fulfill()
         }.catch { _ in
             XCTFail()
