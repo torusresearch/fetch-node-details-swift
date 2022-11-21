@@ -2,6 +2,7 @@ import Foundation
 
 public enum EthereumNetworkFND: Equatable {
     case MAINNET
+    ///Name changed Ropsten to Testnet
     case TESTNET
     /// Name changed from Polygon to Cyan
     case CYAN
