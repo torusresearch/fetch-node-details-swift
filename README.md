@@ -7,7 +7,7 @@ A description of this package.
 ### Swift Package Manage
 
 ```
-.package(url: "https://github.com/torusresearch/fetch-node-details-swift.git", from: "3.1.0"),
+.package(url: "https://github.com/torusresearch/fetch-node-details-swift.git", from: "3.0.0"),
 ```
 
 ### Proxy contract address
