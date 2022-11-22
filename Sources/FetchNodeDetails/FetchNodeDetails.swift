@@ -1,7 +1,6 @@
-import BigInt
 import Foundation
+import BigInt
 import OSLog
-import PromiseKit
 import web3
 
 // Global variable
@@ -78,61 +77,51 @@ open class FetchNodeDetails {
         client = EthereumClient(url: clientUrl, sessionConfig: self.urlSession.configuration)
     }
 
-    public func getNodeDetails(verifier: String, verifierID: String) -> Promise<AllNodeDetailsModel> {
-        let (tempPromise, seal) = Promise<AllNodeDetailsModel>.pending()
-        if updated && (proxyAddress.value == FetchNodeDetails.proxyAddressMainnet || proxyAddress.value == FetchNodeDetails.proxyAddressTestnet) {
-            seal.fulfill(nodeDetails)
-            return tempPromise
+    public func getNodeDetails(verifier: String, verifierID: String) async throws -> AllNodeDetailsModel {
+        if updated && (proxyAddress.value == FetchNodeDetails.proxyAddressMainnet || proxyAddress.value == FetchNodeDetails.proxyAddressRopsten) {
+            return nodeDetails
         }
         let hashVerifierID = verifierID.web3.keccak256
         let function = TorusLookupContract.getNodeSet(contract: proxyAddress, verifier: verifier, hashVerifierID: hashVerifierID)
         guard let transcation = try? function.transaction() else {
             os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.transactionEncodingFailed.debugDescription)
-            seal.reject(FNDError.transactionEncodingFailed)
-            return tempPromise
+            throw FNDError.transactionEncodingFailed
         }
-        client.eth_call(transcation, block: .Latest) { [unowned self] _, info in
-            do {
-                if let info = info {
-                    guard let decodedTuple = try decodeNodeData(info: info)
-                    else {
-                        seal.reject(FNDError.decodingFailed)
-                        return
-                    }
-                    let updatedCurrentEpoch = decodedTuple.currentEpoch
-                    let updatedTorusIndexes = decodedTuple.torusIndexes
-                    var updatedEndPoints = [String]()
-                    var updatedNodePub = [TorusNodePubModel]()
-                    for i in 0 ... updatedTorusIndexes.count - 1 {
-                        let pubX = decodedTuple.torusNodePubX[i]
-                        let pubY = decodedTuple.torusNodePubY[i]
-                        let endPointElement = decodedTuple.torusNodeEndpoints[i]
-                        let endPoint = "https://\(endPointElement.split(separator: ":")[0])/jrpc"
-                        updatedEndPoints.append(endPoint)
-                        updatedNodePub.append(.init(_X: pubX.web3.hexString.replacingOccurrences(of: "0x", with: ""), _Y: pubY.web3.hexString.replacingOccurrences(of: "0x", with: "")))
-                    }
-                    self.currentEpoch = updatedCurrentEpoch
-                    self.torusNodeEndpoints = updatedEndPoints
-                    self.torusNodePub = updatedNodePub
-                    self.torusIndexes = updatedTorusIndexes
-                    self.updated = true
-                    os_log("nodeDetails is: %@", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, "\(self.nodeDetails)")
-                    seal.fulfill(self.nodeDetails)
-                } else {
-                    os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.infoFailed.debugDescription)
-                    seal.reject(FNDError.infoFailed)
-                    return
-                }
-            } catch {
-                if self.proxyAddress.value == FetchNodeDetails.proxyAddressMainnet {
-                    seal.fulfill(FetchNodeDetails.nodeDetailsMainnet)
-                } else {
-                    os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.decodingFailed.debugDescription)
-                    seal.reject(FNDError.decodingFailed)
-                }
+        do {
+            let info = try await client.eth_call(transcation, block: .Latest)
+
+            guard let decodedTuple = try decodeNodeData(info: info)
+            else {
+                throw FNDError.decodingFailed
+            }
+            let updatedCurrentEpoch = decodedTuple.currentEpoch
+            let updatedTorusIndexes = decodedTuple.torusIndexes
+            var updatedEndPoints = [String]()
+            var updatedNodePub = [TorusNodePubModel]()
+            for i in 0 ... updatedTorusIndexes.count - 1 {
+                let pubX = decodedTuple.torusNodePubX[i]
+                let pubY = decodedTuple.torusNodePubY[i]
+                let endPointElement = decodedTuple.torusNodeEndpoints[i]
+                let endPoint = "https://\(endPointElement.split(separator: ":")[0])/jrpc"
+                updatedEndPoints.append(endPoint)
+                updatedNodePub.append(.init(_X: pubX.web3.hexString.replacingOccurrences(of: "0x", with: ""), _Y: pubY.web3.hexString.replacingOccurrences(of: "0x", with: "")))
+            }
+            currentEpoch = updatedCurrentEpoch
+            torusNodeEndpoints = updatedEndPoints
+            torusNodePub = updatedNodePub
+            torusIndexes = updatedTorusIndexes
+            updated = true
+            os_log("nodeDetails is: %@", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, "\(nodeDetails)")
+            return nodeDetails
+        } catch(let error) {
+            os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, error.localizedDescription)
+            if proxyAddress.value == FetchNodeDetails.proxyAddressMainnet {
+                return FetchNodeDetails.nodeDetailsMainnet
+            } else {
+                os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.decodingFailed.debugDescription)
+                throw error
             }
         }
-        return tempPromise
     }
 }
 

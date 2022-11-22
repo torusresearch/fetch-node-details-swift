@@ -1,7 +1,6 @@
+import XCTest
 import BigInt
-import FetchNodeDetails
-import Foundation
-import web3
+@testable import FetchNodeDetails
 
 public struct SampleOutputMainNet {
     var currentEpoch: BigUInt = 19

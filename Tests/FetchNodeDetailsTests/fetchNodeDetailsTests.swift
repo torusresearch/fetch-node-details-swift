@@ -1,28 +1,23 @@
-import BigInt
-import FetchNodeDetails
-import OSLog
-import web3
 import XCTest
+@testable import FetchNodeDetails
 
 class fetchNodeDetailsTests: XCTestCase {
     var timeout: TimeInterval = 10
-
-    func test_getNode_MainNet() {
-        let exp = expectation(description: "should get node details")
+    var verifierID = "hello@tor.us"
+    func test_getNode_MainNet() async {
         let fnd = FetchNodeDetails()
-        fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
+        do {
+            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierID)
             XCTAssertEqual(result, SampleOutputMainNet().val)
-            exp.fulfill()
-        }.catch { _ in
-            XCTFail()
+        } catch {
+            XCTFail(error.localizedDescription)
         }
-        wait(for: [exp], timeout: timeout)
     }
 
-    func test_getNode_custom_path_MainNet() {
-        let exp = expectation(description: "should get node details")
+    func test_getNode_custom_path_MainNet() async {
         let fnd = FetchNodeDetails(network: .CUSTOM(path: "https://\("mainnet").infura.io/v3/\("7f287687b3d049e2bea7b64869ee30a3")"))
-        fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
+        do {
+            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierID)
             XCTAssertEqual(result, SampleOutputMainNet().val)
             exp.fulfill()
         }.catch { _ in
@@ -57,12 +52,43 @@ class fetchNodeDetailsTests: XCTestCase {
 
     func test_getNode_Aqua() {
         let exp = expectation(description: "should get node details")
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+
+        // Ropsten deprecation test
+    func test_getNode_Ropsten() async {
+        let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressRopsten, network: .CUSTOM(path: "https://rpc.ankr.com/eth_ropsten"))
+        do {
+            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierID)
+            XCTAssertEqual(result, SampleOutputRopsten().val)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+
+    func test_getNode_Polygon() async {
+        let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressPolygon, network: .POLYGON)
+        do {
+            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierID)
+            XCTAssertEqual(result, SampleOutputPolygon().val)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func test_getNode_Aqua() async {
         let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressAqua, network: .AQUA)
         fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
+        do {
+            let result = try await fnd.getNodeDetails(verifier: "glipandroid", verifierID: verifierID)
             XCTAssertEqual(result, SampleOutputAqua().val)
             exp.fulfill()
         }.catch { _ in
             XCTFail()
+        } catch {
+            XCTFail(error.localizedDescription)
         }
         wait(for: [exp], timeout: timeout)
     }

@@ -11,7 +11,7 @@ class FNDJsonHelper {
     func getJsonFile(name: String) throws -> Any {
         var bundle = Bundle(identifier: "torus.cptest")
         var path = bundle?.path(forResource: "FND", ofType: "bundle")
-        path?.append("/abi.json")
+        path?.append("/\(name).json")
         #if SWIFT_PACKAGE
             bundle = nil
             path = nil
@@ -39,7 +39,6 @@ class FNDJsonHelper {
         do {
             let file = try getJsonFile(name: "abi")
             let str = try jsonToString(json: file)
-            print(str)
             return str
         } catch {
             // backup incase abi file is missing
