@@ -1,8 +1,8 @@
-import XCTest
 import BigInt
 @testable import FetchNodeDetails
+import XCTest
 
-public struct SampleOutputMainNet {
+public struct SampleOutputMainnet {
     var currentEpoch: BigUInt = 19
     var nodeListAddress: String = "0xf20336e16B5182637f09821c27BDe29b0AFcfe80"
     var updated = true

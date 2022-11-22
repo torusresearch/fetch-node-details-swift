@@ -11,12 +11,12 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showAlert = false
-    @State var success:Bool = false
+    @State var success: Bool = false
     @State private var message = ""
     var body: some View {
-        NavigationView{
+        NavigationView {
             Form {
-                Section(header:Text("")){
+                Section(header: Text("")) {
                     Button {
                         execute()
                     } label: {
@@ -48,17 +48,6 @@ struct ContentView: View {
                 showAlert = true
             }
         }
-    }
-    
-    func execute(){
-        Task{
-            let fnd = FetchNodeDetails(proxyAddress: "0x6258c9d6c12ed3edda59a1a6527e469517744aa7", network: .ROPSTEN)
-            fnd.getNodeDetails(verifier : "google", verifierID : "hello@tor.us").done { result in
-               print(result)
-            }.catch { error in
-                print(error)
-            }
-    }
     }
 }
 

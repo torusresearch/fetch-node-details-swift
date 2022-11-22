@@ -1,5 +1,5 @@
-import Foundation
 import BigInt
+import Foundation
 import OSLog
 import web3
 
@@ -113,7 +113,7 @@ open class FetchNodeDetails {
             updated = true
             os_log("nodeDetails is: %@", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, "\(nodeDetails)")
             return nodeDetails
-        } catch(let error) {
+        } catch let error {
             os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, error.localizedDescription)
             if proxyAddress.value == FetchNodeDetails.proxyAddressMainnet {
                 return FetchNodeDetails.nodeDetailsMainnet
