@@ -11,7 +11,7 @@ class FNDJsonHelper {
     func getJsonFile(name: String) throws -> Any {
         var bundle = Bundle(identifier: "torus.cptest")
         var path = bundle?.path(forResource: "FND", ofType: "bundle")
-        path?.append("/abi.json")
+        path?.append("/\(name).json")
         #if SWIFT_PACKAGE
             bundle = nil
             path = nil
@@ -39,11 +39,9 @@ class FNDJsonHelper {
         do {
             let file = try getJsonFile(name: "abi")
             let str = try jsonToString(json: file)
-            print(str)
             return str
-        } catch let err {
-            print(err.localizedDescription)
-            //need to fix 
+        } catch {
+            // backup incase abi file is missing
             return "{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_verifier\",\"type\":\"string\"},{\"internalType\":\"bytes32\",\"name\":\"hashedVerifierId\",\"type\":\"bytes32\"}],\"name\":\"getNodeSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"currentEpoch\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"torusNodeEndpoints\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"torusNodePubX\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"torusNodePubY\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"torusIndexes\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]}"
         }
     }

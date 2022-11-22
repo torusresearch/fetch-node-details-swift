@@ -1,7 +1,7 @@
+import BigInt
 import Foundation
 import web3
 import BigInt
-import PromiseKit
 
 public enum TorusLookupContract{
     public struct getNodeSet : ABIFunction{
@@ -16,16 +16,12 @@ public enum TorusLookupContract{
         public init(contract : EthereumAddress, verifier : String, hashVerifierID : Data){
             self.contract = contract
             self.verifier = verifier
-            self.hashedVerifierId = hashVerifierID
+            hashedVerifierId = hashVerifierID
         }
-        
-        public func encode(to encoder : ABIFunctionEncoder) throws {
+
+        public func encode(to encoder: ABIFunctionEncoder) throws {
             try encoder.encode(verifier)
             try encoder.encode(hashedVerifierId, staticSize: 32)
         }
     }
 }
-
-
-
-
