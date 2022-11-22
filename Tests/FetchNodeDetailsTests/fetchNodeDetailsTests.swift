@@ -19,60 +19,26 @@ class fetchNodeDetailsTests: XCTestCase {
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierID)
             XCTAssertEqual(result, SampleOutputMainNet().val)
-            exp.fulfill()
-        }.catch { _ in
+        }catch {
             XCTFail()
         }
-        wait(for: [exp], timeout: timeout)
     }
 
-    func test_getNode_Ropsten() {
-        let exp = expectation(description: "should get node details")
-        let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressTestnet, network: .TESTNET)
-        fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
-            XCTAssertEqual(result, SampleOutputTestnet().val)
-            exp.fulfill()
-        }.catch { _ in
-            XCTFail()
-        }
-        wait(for: [exp], timeout: timeout)
-    }
-
-    func test_getNode_Cyan() {
-        let exp = expectation(description: "should get node details")
-        let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressCyan, network: .CYAN)
-        fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
-            XCTAssertEqual(result, SampleOutputCyan().val)
-            exp.fulfill()
-        }.catch { _ in
-            XCTFail()
-        }
-        wait(for: [exp], timeout: timeout)
-    }
-
-    func test_getNode_Aqua() {
-        let exp = expectation(description: "should get node details")
-        } catch {
-            XCTFail(error.localizedDescription)
-        }
-    }
-
-        // Ropsten deprecation test
     func test_getNode_Ropsten() async {
-        let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressRopsten, network: .CUSTOM(path: "https://rpc.ankr.com/eth_ropsten"))
+        let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressTestnet, network: .TESTNET)
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierID)
-            XCTAssertEqual(result, SampleOutputRopsten().val)
+            XCTAssertEqual(result, SampleOutputTestnet().val)
         } catch {
             XCTFail(error.localizedDescription)
         }
     }
-
-    func test_getNode_Polygon() async {
-        let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressPolygon, network: .POLYGON)
+    
+    func test_getNode_Cyan() async {
+       let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressCyan, network: .CYAN)
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierID)
-            XCTAssertEqual(result, SampleOutputPolygon().val)
+            XCTAssertEqual(result, SampleOutputCyan().val)
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -80,28 +46,22 @@ class fetchNodeDetailsTests: XCTestCase {
     
     func test_getNode_Aqua() async {
         let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressAqua, network: .AQUA)
-        fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
         do {
-            let result = try await fnd.getNodeDetails(verifier: "glipandroid", verifierID: verifierID)
+            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierID)
             XCTAssertEqual(result, SampleOutputAqua().val)
-            exp.fulfill()
-        }.catch { _ in
-            XCTFail()
-        } catch {
+        }
+        catch {
             XCTFail(error.localizedDescription)
         }
-        wait(for: [exp], timeout: timeout)
     }
 
-    func test_getNode_Celeste() {
-        let exp = expectation(description: "should get node details")
+    func test_getNode_Celeste() async {
+        do{
         let fnd = FetchNodeDetails(proxyAddress: FetchNodeDetails.proxyAddressCeleste, network: .CELESTE)
-        fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us").done { result in
+        let result = try await fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us")
             XCTAssertEqual(result, SampleOutputCeleste().val)
-            exp.fulfill()
-        }.catch { _ in
+        }catch {
             XCTFail()
         }
-        wait(for: [exp], timeout: timeout)
     }
 }

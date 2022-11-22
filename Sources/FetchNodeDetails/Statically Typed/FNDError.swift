@@ -46,22 +46,3 @@ extension FNDError: LocalizedError {
         }
     }
 }
-
-extension FNDError:LocalizedError{
-    public var errorDescription: String? {
-        switch self{
-        case .allNodeDetailsFailed:
-            return "unable to get node details for all nodes"
-        case .transactionEncodingFailed:
-            return "unable to encode transaction"
-        case .decodingFailed:
-            return "decoding failed"
-        case .infoFailed:
-            return "Info failed"
-        case .ABIFileMissing:
-            return "ABI file missing"
-        case .ABIJsonSerializationFailed:
-            return "ABI json cannot be serialized"
-        }
-    }
-}

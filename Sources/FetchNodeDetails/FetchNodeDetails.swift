@@ -78,7 +78,7 @@ open class FetchNodeDetails {
     }
 
     public func getNodeDetails(verifier: String, verifierID: String) async throws -> AllNodeDetailsModel {
-        if updated && (proxyAddress.value == FetchNodeDetails.proxyAddressMainnet || proxyAddress.value == FetchNodeDetails.proxyAddressRopsten) {
+        if updated && (proxyAddress.value == FetchNodeDetails.proxyAddressMainnet || proxyAddress.value == FetchNodeDetails.proxyAddressTestnet) {
             return nodeDetails
         }
         let hashVerifierID = verifierID.web3.keccak256
