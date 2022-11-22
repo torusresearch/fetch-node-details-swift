@@ -1,6 +1,5 @@
 import BigInt
 import Foundation
-import PromiseKit
 import web3
 import BigInt
 
