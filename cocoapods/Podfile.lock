@@ -2,7 +2,7 @@ PODS:
   - BigInt (5.0.0)
   - GenericJSON (2.0.2)
   - secp256k1.swift (0.1.4)
-  - Torus-fetchNodeDetails (4.0.0):
+  - Torus-fetchNodeDetails (4.0.1):
     - web3.swift (~> 0.9.3)
   - web3.swift (0.9.3):
     - BigInt (~> 5.0.0)
@@ -27,7 +27,7 @@ SPEC CHECKSUMS:
   BigInt: 74b4d88367b0e819d9f77393549226d36faeb0d8
   GenericJSON: 79a840eeb77030962e8cf02a62d36bd413b67626
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
-  Torus-fetchNodeDetails: 8286a6dbd200bda6a8c58d413c252273bc181a4a
+  Torus-fetchNodeDetails: a92d02f1bfe91bd61c90f92d64df023babaa5bfa
   web3.swift: c6c3bf1f853743f8a7a58d263e5f7e46545e22c7
 
 PODFILE CHECKSUM: 33add72342a492adb43676625c404c97ced731da
