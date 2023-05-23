@@ -23,18 +23,16 @@ open class FetchNodeDetails {
     private var torusNodeRSSEndpoints: [String] = []
     private var torusNodeTSSEndpoints: [String] = []
 
-//    private var client: EthereumClientProtocol
-    private var network: EthereumNetworkFND = EthereumNetworkFND.MAINNET
-//    private var proxyAddress: EthereumAddress
-//    private var projectID: String = "7f287687b3d049e2bea7b64869ee30a3"
-//    private let yourContractABI: String = contractABIString
+    private var network: TORUS_NETWORK_TYPE = TORUS_NETWORK["MAINNET"]!
+
     private var urlSession: URLSession
     private var updated = false
     var nodeDetails: AllNodeDetailsModel {
         return .init(_currentEpoch: currentEpoch, _torusNodeEndpoints: torusNodeEndpoints, _torusNodeSSSEndpoints: torusNodeSSSEndpoints, _torusNodeRSSEndpoints: torusNodeRSSEndpoints, _torusNodeTSSEndpoints:torusNodeTSSEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
     }
 
-    public init(network: EthereumNetworkFND = .MAINNET, fndEndpoint: String? = nil, logLevel: OSLogType = .default, urlSession: URLSession = URLSession.shared) {
+
+    public init(network: TORUS_NETWORK_TYPE, fndEndpoint: String? = nil, logLevel: OSLogType = .default, urlSession: URLSession = URLSession.shared) {
         fndLogType = logLevel // to be used across application
         self.network = network
         self.urlSession = urlSession
@@ -42,21 +40,35 @@ open class FetchNodeDetails {
             self.fndServerEndpoint = endpoint
         }
     }
-
-    public func getNodeDetails(verifier: String, verifierID: String) async throws -> AllNodeDetailsModel {
-        // TODO: make a constant and check MULTI_CLUSTER_NETWORKS includes self.network
-        if updated && (proxyAddress.value == FetchNodeDetails.proxyAddressMainnet || proxyAddress.value == FetchNodeDetails.proxyAddressTestnet) {
-            return nodeDetails
-        }
-        let hashVerifierID = verifierID.web3.keccak256
-
+    
+    func getNodeDetails(verifier: String, verifierId: String) async throws -> AllNodeDetailsModel {
         do {
+            // TODO: make a constant and check MULTI_CLUSTER_NETWORKS includes self.network
+
+            if updated && !MULTI_CLUSTER_NETWORKS.contains(self.network) {
+                return nodeDetails
+            }
             // TODO: try1 : get AllNodeDetailsModel from `${this.fndServerEndpoint}?network=${this.network}&verifier=${verifier}&verifierId=${verifierId}`
             // TODO: try2 : fetchLocalConfig from fnd-base
-
+            do {
+                let url = URL(string: "\(fndServerEndpoint)?network=\(network)&verifier=\(verifier)&verifierId=\(verifierId)")!
+                let (data, _) = try await URLSession.shared.data(from: url)
+                let response = try JSONDecoder().decode(NodeDetailsResponse.self, from: data)
+                setNodeDetails(response.nodeDetails)
+                
+                return nodeDetails
+            } catch {
+                log.error("Failed to fetch node details from server, using local.", error)
+            }
+            
+            guard let nodeDetails = fetchLocalConfig(self.network) else {
+                throw Error("Failed to fetch node details")
+            }
+            setNodeDetails(nodeDetails)
+            
             return nodeDetails
-        } catch let error {
-            os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, error.localizedDescription)
+        } catch {
+            log.error("Failed to fetch node details", error)
             throw error
         }
     }

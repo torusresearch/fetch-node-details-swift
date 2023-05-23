@@ -1,5 +1,5 @@
 import Foundation
-public struct TorusNodePubModel:Equatable {
+public struct TorusNodePubModel:Equatable, Decodable {
     
     public static func == (lhs: TorusNodePubModel, rhs: TorusNodePubModel) -> Bool {
         return lhs.X == rhs.X && lhs.Y == rhs.Y

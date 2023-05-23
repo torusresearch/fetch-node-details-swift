@@ -1,7 +1,7 @@
 import Foundation
 import BigInt
 
-public struct AllNodeDetailsModel:Equatable {
+public struct AllNodeDetailsModel:Equatable, Decodable {
     public static func == (lhs : AllNodeDetailsModel, rhs : AllNodeDetailsModel) -> Bool {
         return lhs.currentEpoch == rhs.currentEpoch && lhs.torusNodeEndpoints == rhs.torusNodeEndpoints && lhs.torusNodePub == rhs.torusNodePub && lhs.currentEpoch == rhs.currentEpoch && lhs.torusIndexes == rhs.torusIndexes && lhs.updated == rhs.updated
     }
@@ -14,6 +14,29 @@ public struct AllNodeDetailsModel:Equatable {
     private var torusIndexes : Array<BigUInt>
     private var torusNodePub : Array<TorusNodePubModel>
     private var updated = false
+    
+    private enum CodingKeys: String, CodingKey {
+            case currentEpoch = "_currentEpoch"
+            case torusNodeEndpoints = "_torusNodeEndpoints"
+            case torusNodeSSSEndpoints = "_torusNodeSSSEndpoints"
+            case torusNodeRSSEndpoints = "_torusNodeRSSEndpoints"
+            case torusNodeTSSEndpoints = "_torusNodeTSSEndpoints"
+            case torusIndexes = "_torusIndexes"
+            case torusNodePub = "_torusNodePub"
+            case updated = "_updated"
+        }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        currentEpoch = try container.decode(BigUInt.self, forKey: .currentEpoch)
+        torusNodeEndpoints = try container.decode([String].self, forKey: .torusNodeEndpoints)
+        torusNodeSSSEndpoints = try container.decodeIfPresent([String].self, forKey: .torusNodeSSSEndpoints) ?? []
+        torusNodeRSSEndpoints = try container.decodeIfPresent([String].self, forKey: .torusNodeRSSEndpoints) ?? []
+        torusNodeTSSEndpoints = try container.decodeIfPresent([String].self, forKey: .torusNodeTSSEndpoints) ?? []
+        torusIndexes = try container.decode([BigUInt].self, forKey: .torusIndexes)
+        torusNodePub = try container.decode([TorusNodePubModel].self, forKey: .torusNodePub)
+        updated = try container.decodeIfPresent(Bool.self, forKey: .updated) ?? false
+    }
     
     public init(_currentEpoch : BigUInt, _torusNodeEndpoints : Array<String>, _torusNodeSSSEndpoints : Array<String> = [], _torusNodeRSSEndpoints : Array<String> = [], _torusNodeTSSEndpoints : Array<String> = [],  _torusIndexes : Array<BigUInt>, _torusNodePub : Array<TorusNodePubModel>, _updated : Bool = false) {
         self.currentEpoch = _currentEpoch;
