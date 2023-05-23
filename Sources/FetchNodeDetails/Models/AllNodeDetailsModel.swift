@@ -15,7 +15,7 @@ public struct AllNodeDetailsModel:Equatable {
     private var torusNodePub : Array<TorusNodePubModel>
     private var updated = false
     
-    public init(_currentEpoch : BigUInt, _torusNodeEndpoints : Array<String>, _torusNodeSSSEndpoints : Array<String>, _torusNodeRSSEndpoints : Array<String>, _torusNodeTSSEndpoints : Array<String>,  _torusIndexes : Array<BigUInt>, _torusNodePub : Array<TorusNodePubModel>, _updated : Bool) {
+    public init(_currentEpoch : BigUInt, _torusNodeEndpoints : Array<String>, _torusNodeSSSEndpoints : Array<String> = [], _torusNodeRSSEndpoints : Array<String> = [], _torusNodeTSSEndpoints : Array<String> = [],  _torusIndexes : Array<BigUInt>, _torusNodePub : Array<TorusNodePubModel>, _updated : Bool = false) {
         self.currentEpoch = _currentEpoch;
         self.torusNodeSSSEndpoints = _torusNodeSSSEndpoints;
         self.torusNodeRSSEndpoints = _torusNodeRSSEndpoints;
