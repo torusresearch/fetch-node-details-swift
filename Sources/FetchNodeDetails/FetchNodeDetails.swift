@@ -44,49 +44,20 @@ open class FetchNodeDetails {
     }
 
     public func getNodeDetails(verifier: String, verifierID: String) async throws -> AllNodeDetailsModel {
+        // TODO: make a constant and check MULTI_CLUSTER_NETWORKS includes self.network
         if updated && (proxyAddress.value == FetchNodeDetails.proxyAddressMainnet || proxyAddress.value == FetchNodeDetails.proxyAddressTestnet) {
             return nodeDetails
         }
         let hashVerifierID = verifierID.web3.keccak256
-        let function = TorusLookupContract.getNodeSet(contract: proxyAddress, verifier: verifier, hashVerifierID: hashVerifierID)
-        guard let transcation = try? function.transaction() else {
-            os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.transactionEncodingFailed.debugDescription)
-            throw FNDError.transactionEncodingFailed
-        }
-        do {
-            let info = try await client.eth_call(transcation, block: .Latest)
 
-            guard let decodedTuple = try decodeNodeData(info: info)
-            else {
-                throw FNDError.decodingFailed
-            }
-            let updatedCurrentEpoch = decodedTuple.currentEpoch
-            let updatedTorusIndexes = decodedTuple.torusIndexes
-            var updatedEndPoints = [String]()
-            var updatedNodePub = [TorusNodePubModel]()
-            for i in 0 ... updatedTorusIndexes.count - 1 {
-                let pubX = decodedTuple.torusNodePubX[i]
-                let pubY = decodedTuple.torusNodePubY[i]
-                let endPointElement = decodedTuple.torusNodeEndpoints[i]
-                let endPoint = "https://\(endPointElement.split(separator: ":")[0])/jrpc"
-                updatedEndPoints.append(endPoint)
-                updatedNodePub.append(.init(_X: pubX.web3.hexString.replacingOccurrences(of: "0x", with: ""), _Y: pubY.web3.hexString.replacingOccurrences(of: "0x", with: "")))
-            }
-            currentEpoch = updatedCurrentEpoch
-            torusNodeEndpoints = updatedEndPoints
-            torusNodePub = updatedNodePub
-            torusIndexes = updatedTorusIndexes
-            updated = true
-            os_log("nodeDetails is: %@", log: getTorusLogger(log: FNDLogger.core, type: .info), type: .info, "\(nodeDetails)")
+        do {
+            // TODO: try1 : get AllNodeDetailsModel from `${this.fndServerEndpoint}?network=${this.network}&verifier=${verifier}&verifierId=${verifierId}`
+            // TODO: try2 : fetchLocalConfig from fnd-base
+
             return nodeDetails
         } catch let error {
             os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, error.localizedDescription)
-            if proxyAddress.value == FetchNodeDetails.proxyAddressMainnet {
-                return FetchNodeDetails.nodeDetailsMainnet
-            } else {
-                os_log("%s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, FNDError.decodingFailed.debugDescription)
-                throw error
-            }
+            throw error
         }
     }
     
