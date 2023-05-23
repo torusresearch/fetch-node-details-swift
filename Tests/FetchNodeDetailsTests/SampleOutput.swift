@@ -3,7 +3,7 @@ import BigInt
 import XCTest
 
 public struct SampleOutputMainnet {
-    var currentEpoch: BigUInt = 19
+    var currentEpoch: String = "19"
     var nodeListAddress: String = "0xf20336e16B5182637f09821c27BDe29b0AFcfe80"
     var updated = true
     var torusNodeEndpoints = [
@@ -24,7 +24,7 @@ public struct SampleOutputMainnet {
         .init(_X: "c208cac4ef9a47d386097a9c915b28e9cb89213abee8d26a17198ee261201b0d", _Y:
             "c7db2fe4631109f40833de9dc78d07e35706549ee48fa557b33e4e75e1047873"),
 
-        .init(_X: "0ca1766bb426d4ca5582818a0c5439d560ea64f5baa060793ab29dd3d0ceacfe", _Y:
+        .init(_X: "ca1766bb426d4ca5582818a0c5439d560ea64f5baa060793ab29dd3d0ceacfe", _Y:
             "d46c1d08c40e1306e1bca328c2287b8268166b11a1ba4b8442ea2ad0c5e32152"),
 
         .init(_X: "c3934dd2f6f4b3d2e1e398cc501e143c1e1a381b52feb6d1525af34d16253768", _Y:
@@ -47,12 +47,12 @@ public struct SampleOutputMainnet {
     ]
     var torusIndexes: [BigUInt] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     var val: AllNodeDetailsModel {
-        return .init(_currentEpoch: currentEpoch, _nodeListAddress: nodeListAddress, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
+        return .init(_currentEpoch: currentEpoch, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
     }
 }
 
 public struct SampleOutputTestnet {
-    var currentEpoch: BigUInt = 15
+    var currentEpoch: String = "15"
     var nodeListAddress: String = "0xd084604e5FA387FbC2Da8bAab07fDD6aDED4614A"
     var updated = true
     var torusNodeEndpoints = [
@@ -80,12 +80,12 @@ public struct SampleOutputTestnet {
     ]
     var torusIndexes: [BigUInt] = [1, 2, 3, 4, 5]
     var val: AllNodeDetailsModel {
-        return .init(_currentEpoch: currentEpoch, _nodeListAddress: nodeListAddress, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
+        return .init(_currentEpoch: currentEpoch, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
     }
 }
 
 public struct SampleOutputCyan {
-    var currentEpoch: BigUInt = 1
+    var currentEpoch: String = "1"
     var nodeListAddress = "0x9f072ba19b3370e512aa1b4bfcdaf97283168005"
     var updated = true
     var torusNodeEndpoints = [
@@ -113,12 +113,12 @@ public struct SampleOutputCyan {
     ]
     var torusIndexes: [BigUInt] = [1, 2, 3, 4, 5]
     var val: AllNodeDetailsModel {
-        return .init(_currentEpoch: currentEpoch, _nodeListAddress: nodeListAddress, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
+        return .init(_currentEpoch: currentEpoch, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
     }
 }
 
 public struct SampleOutputAqua {
-    var currentEpoch: BigUInt = 1
+    var currentEpoch: String = "1"
     var nodeListAddress = "0x29Dea82a0509153b91040ee13cDBba0f03efb625"
     var updated = true
     var torusNodeEndpoints = [
@@ -146,12 +146,12 @@ public struct SampleOutputAqua {
     ]
     var torusIndexes: [BigUInt] = [1, 2, 3, 4, 5]
     var val: AllNodeDetailsModel {
-        return .init(_currentEpoch: currentEpoch, _nodeListAddress: nodeListAddress, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
+        return .init(_currentEpoch: currentEpoch, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
     }
 }
 
 public struct SampleOutputCeleste {
-    var currentEpoch: BigUInt = 1
+    var currentEpoch: String = "1"
     var nodeListAddress: String = "0x6Bffb4e89453069E7487f0fa5c9f4a2D771cce6c"
     var updated = true
     var torusNodeEndpoints = [
@@ -179,6 +179,70 @@ public struct SampleOutputCeleste {
     ]
     var torusIndexes: [BigUInt] = [1, 2, 3, 4, 5]
     var val: AllNodeDetailsModel {
-        return .init(_currentEpoch: currentEpoch, _nodeListAddress: nodeListAddress, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
+        return .init(_currentEpoch: currentEpoch, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
+    }
+}
+
+
+public struct SampleOutputSAPPHIREDEVNET {
+    var val: AllNodeDetailsModel {
+        return .init(
+            _currentEpoch: "1",
+            _torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[TORUS_NETWORK["SAPPHIRE_DEVNET"]!]!,
+            _torusNodeSSSEndpoints: getSSSEndpoints(network: TORUS_NETWORK["SAPPHIRE_DEVNET"]!),
+            _torusNodeRSSEndpoints: getRSSEndpoints(network: TORUS_NETWORK["SAPPHIRE_DEVNET"]!),
+            _torusNodeTSSEndpoints: getTSSEndpoints(network: TORUS_NETWORK["SAPPHIRE_DEVNET"]!),
+            _torusIndexes: [1, 2, 3, 4, 5],
+            _torusNodePub: [
+                .init(_X: "f74389b0a4c8d10d2a687ae575f69b20f412d41ab7f1fe6b358aa14871327247", _Y: "54e3a73098ed9bced3ef8821736e9794f9264a1420c0c7ad15d2fa617ba35ef7"),
+                .init(_X: "bc38813a6873e526087918507c78fc3a61624670ee851ecfb4f3bef55d027b5a", _Y: "ac4b21229f662a0aefdfdac21cf17c3261a392c74a8790db218b34e3e4c1d56a"),
+                .init(_X: "b56541684ea5fa40c8337b7688d502f0e9e092098962ad344c34e94f06d293fb", _Y: "759a998cef79d389082f9a75061a29190eec0cac99b8c25ddcf6b58569dad55c"),
+                .init(_X: "7bcb058d4c6ffc6ba4bfdfd93d141af35a66338a62c7c27cdad2ae3f8289b767", _Y: "336ab1935e41ed4719e162587f0ab55518db4207a1eb36cc72303f1b86689d2b"),
+                .init(_X: "bf12a136ef94399ea098f926f04e26a4ec4ac70f69cce274e8893704c4951773", _Y: "bdd44828020f52ce510e026338216ada184a6867eb4e19fb4c2d495d4a7e15e4"),
+            ],
+            _updated: true
+        )
+    }
+}
+
+public struct SampleOutputSAPPHIRETESTNET {
+    var val: AllNodeDetailsModel {
+        return .init(
+            _currentEpoch: "1",
+            _torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[TORUS_NETWORK["SAPPHIRE_DEVNET"]!]!,
+            _torusNodeSSSEndpoints: getSSSEndpoints(network: TORUS_NETWORK["SAPPHIRE_DEVNET"]!),
+            _torusNodeRSSEndpoints: getRSSEndpoints(network: TORUS_NETWORK["SAPPHIRE_DEVNET"]!),
+            _torusNodeTSSEndpoints: getTSSEndpoints(network: TORUS_NETWORK["SAPPHIRE_DEVNET"]!),
+            _torusIndexes: [1, 2, 3, 4, 5],
+            _torusNodePub: [
+                .init(_X: "d0e57d0fb29f37888a71c5d1d8312b191121b53e7e77968ca59e5c2ceee89386", _Y: "2190e5e78c02ecdd4e5e04a01d3c12d847d53682ade7b6f715df1e1f3911081d"),
+                .init(_X: "69d4fcd1ab4dedc06ac0bafaccac8e5459275ec12a8b3feaef26646ece902e38", _Y: "2319469c4344d78140ed9672c5231a0d045467dec66c77b53dfbefc56496ff3c"),
+                .init(_X: "9b0ea52ef5d8fc68e02b3ea242b2b11556ab5746b92779a7c4d61ff57c054710", _Y: "0f9fc9e706e0a2d2b5c8511177583cdf5fa5379e2c3c1ed4db74aaded08b1a28"),
+                .init(_X: "e08bb1de0c017241be3c8e2ab3e788b64cb83d77ddd5517424626d1e3a4a5406", _Y: "d4a87ae195e1f55fe4751caf22123d495cc4b51df48f234c956262fd1d8baafc"),
+                .init(_X: "29154aaa5b76bdb5082ea9616769f1940e56de5c6d8afb8cc75fbd228302d961", _Y: "3535fb808e205f5589ca2dd28014103771266148ebc372f364dae0f3905dd811"),
+            ],
+            _updated: true
+        )
+    }
+}
+
+public struct SampleOutputSAPPHIREMAINNET {
+    var val: AllNodeDetailsModel {
+        return .init(
+            _currentEpoch: "1",
+            _torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[TORUS_NETWORK["SAPPHIRE_MAINNET"]!]!,
+            _torusNodeSSSEndpoints: getSSSEndpoints(network: TORUS_NETWORK["SAPPHIRE_MAINNET"]!),
+            _torusNodeRSSEndpoints: getRSSEndpoints(network: TORUS_NETWORK["SAPPHIRE_MAINNET"]!),
+            _torusNodeTSSEndpoints: getTSSEndpoints(network: TORUS_NETWORK["SAPPHIRE_MAINNET"]!),
+            _torusIndexes: [1, 2, 3, 4, 5],
+            _torusNodePub: [
+                .init(_X: "e0925898fee0e9e941fdca7ee88deec99939ae9407e923535c4d4a3a3ff8b052", _Y: "54b9fea924e3f3e40791f9987f4234ae4222412d65b74068032fa5d8b63375c1"),
+                .init(_X: "9124cf1e280aab32ba50dffd2de81cecabc13d82d2c1fe9de82f3b3523f9b637", _Y: "fca939a1ceb42ce745c55b21ef094f543b457630cb63a94ef4f1afeee2b1f107"),
+                .init(_X: "555f681a63d469cc6c3a58a97e29ebd277425f0e6159708e7c7bf05f18f89476", _Y: "606f2bcc0884fa5b64366fc3e8362e4939841b56acd60d5f4553cf36b891ac4e"),
+                .init(_X: "2b5f58d8e340f1ab922e89b3a69a68930edfe51364644a456335e179bc130128", _Y: "4b4daa05939426e3cbe7d08f0e773d2bf36f64c00d04620ee6df2a7af4d2247"),
+                .init(_X: "3ecbb6a68afe72cf34ec6c0a12b5cb78a0d2e83ba402983b6adbc5f36219861a", _Y: "dc1031c5cc8f0472bd521a62a64ebca9e163902c247bf05937daf4ae835091e4"),
+            ],
+            _updated: true
+        )
     }
 }

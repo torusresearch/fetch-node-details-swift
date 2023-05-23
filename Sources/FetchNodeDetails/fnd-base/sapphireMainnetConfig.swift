@@ -1,6 +1,6 @@
 public var NODE_DETAILS_SAPPHIRE_MAINNET: AllNodeDetailsModel {
     return .init(
-        _currentEpoch: 1,
+        _currentEpoch: "1",
         _torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[TORUS_NETWORK["SAPPHIRE_MAINNET"]!]!,
         _torusNodeSSSEndpoints: getSSSEndpoints(network: TORUS_NETWORK["SAPPHIRE_MAINNET"]!),
         _torusNodeRSSEndpoints: getRSSEndpoints(network: TORUS_NETWORK["SAPPHIRE_MAINNET"]!),

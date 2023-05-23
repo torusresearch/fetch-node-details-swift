@@ -1,7 +1,7 @@
 
 public var NODE_DETAILS_TESTNET: AllNodeDetailsModel {
     return .init(
-        _currentEpoch: 15,
+        _currentEpoch: "15",
         _torusNodeEndpoints: [
             "https://teal-15-1.torusnode.com/jrpc",
             "https://teal-15-3.torusnode.com/jrpc",

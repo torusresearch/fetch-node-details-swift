@@ -6,7 +6,7 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
         return lhs.currentEpoch == rhs.currentEpoch && lhs.torusNodeEndpoints == rhs.torusNodeEndpoints && lhs.torusNodePub == rhs.torusNodePub && lhs.currentEpoch == rhs.currentEpoch && lhs.torusIndexes == rhs.torusIndexes && lhs.updated == rhs.updated
     }
     
-    private var currentEpoch : BigUInt
+    private var currentEpoch : String
     private var torusNodeEndpoints : Array<String>
     private var torusNodeSSSEndpoints : Array<String>
     private var torusNodeRSSEndpoints : Array<String>
@@ -16,29 +16,33 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
     private var updated = false
     
     private enum CodingKeys: String, CodingKey {
-            case currentEpoch = "_currentEpoch"
-            case torusNodeEndpoints = "_torusNodeEndpoints"
-            case torusNodeSSSEndpoints = "_torusNodeSSSEndpoints"
-            case torusNodeRSSEndpoints = "_torusNodeRSSEndpoints"
-            case torusNodeTSSEndpoints = "_torusNodeTSSEndpoints"
-            case torusIndexes = "_torusIndexes"
-            case torusNodePub = "_torusNodePub"
-            case updated = "_updated"
+            case currentEpoch = "currentEpoch"
+            case torusNodeEndpoints = "torusNodeEndpoints"
+            case torusNodeSSSEndpoints = "torusNodeSSSEndpoints"
+            case torusNodeRSSEndpoints = "torusNodeRSSEndpoints"
+            case torusNodeTSSEndpoints = "torusNodeTSSEndpoints"
+            case torusIndexes = "torusIndexes"
+            case torusNodePub = "torusNodePub"
+            case updated = "updated"
         }
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        currentEpoch = try container.decode(BigUInt.self, forKey: .currentEpoch)
+        currentEpoch = try container.decode(String.self, forKey: .currentEpoch)
         torusNodeEndpoints = try container.decode([String].self, forKey: .torusNodeEndpoints)
         torusNodeSSSEndpoints = try container.decodeIfPresent([String].self, forKey: .torusNodeSSSEndpoints) ?? []
         torusNodeRSSEndpoints = try container.decodeIfPresent([String].self, forKey: .torusNodeRSSEndpoints) ?? []
         torusNodeTSSEndpoints = try container.decodeIfPresent([String].self, forKey: .torusNodeTSSEndpoints) ?? []
-        torusIndexes = try container.decode([BigUInt].self, forKey: .torusIndexes)
+        // Decode torusIndexes as [Int]
+        let torusIndexesInt = try container.decode([Int].self, forKey: .torusIndexes)
+
+        // Convert [Int] to Array<BigUInt>
+        torusIndexes = torusIndexesInt.map { BigUInt($0) }
         torusNodePub = try container.decode([TorusNodePubModel].self, forKey: .torusNodePub)
         updated = try container.decodeIfPresent(Bool.self, forKey: .updated) ?? false
     }
     
-    public init(_currentEpoch : BigUInt, _torusNodeEndpoints : Array<String>, _torusNodeSSSEndpoints : Array<String> = [], _torusNodeRSSEndpoints : Array<String> = [], _torusNodeTSSEndpoints : Array<String> = [],  _torusIndexes : Array<BigUInt>, _torusNodePub : Array<TorusNodePubModel>, _updated : Bool = false) {
+    public init(_currentEpoch : String, _torusNodeEndpoints : Array<String>, _torusNodeSSSEndpoints : Array<String> = [], _torusNodeRSSEndpoints : Array<String> = [], _torusNodeTSSEndpoints : Array<String> = [],  _torusIndexes : Array<BigUInt>, _torusNodePub : Array<TorusNodePubModel>, _updated : Bool = false) {
         self.currentEpoch = _currentEpoch;
         self.torusNodeSSSEndpoints = _torusNodeSSSEndpoints;
         self.torusNodeRSSEndpoints = _torusNodeRSSEndpoints;
@@ -65,11 +69,11 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
         self.updated = updated
     }
     
-    public mutating func getCurrentEpoch() -> BigUInt{
+    public mutating func getCurrentEpoch() -> String{
         return currentEpoch
     }
     
-    public mutating func setCurrentEpoch( currentEpoch : BigUInt) {
+    public mutating func setCurrentEpoch( currentEpoch : String) {
         self.currentEpoch = currentEpoch;
     }
     

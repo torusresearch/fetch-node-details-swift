@@ -7,15 +7,9 @@ import web3
 var fndLogType = OSLogType.default
 
 open class FetchNodeDetails {
-    public static var proxyAddressMainnet = "0xf20336e16B5182637f09821c27BDe29b0AFcfe80"
-    public static var proxyAddressTestnet = "0xd084604e5FA387FbC2Da8bAab07fDD6aDED4614A"
-    public static var proxyAddressCyan = "0x9f072ba19b3370e512aa1b4bfcdaf97283168005"
-    public static var proxyAddressAqua = "0x29Dea82a0509153b91040ee13cDBba0f03efb625"
-    public static var proxyAddressCeleste = "0x6Bffb4e89453069E7487f0fa5c9f4a2D771cce6c"
-    
     
     private var fndServerEndpoint = "https://fnd.tor.us/node-details"
-    private var currentEpoch: BigUInt = 0
+    private var currentEpoch: String = "0"
     private var torusNodeEndpoints = [String]()
     private var torusNodePub: [TorusNodePubModel] = []
     private var torusIndexes: [BigUInt] = []
@@ -41,36 +35,27 @@ open class FetchNodeDetails {
         }
     }
     
-    func getNodeDetails(verifier: String, verifierId: String) async throws -> AllNodeDetailsModel {
-        do {
-            // TODO: make a constant and check MULTI_CLUSTER_NETWORKS includes self.network
-
-            if updated && !MULTI_CLUSTER_NETWORKS.contains(self.network) {
-                return nodeDetails
-            }
-            // TODO: try1 : get AllNodeDetailsModel from `${this.fndServerEndpoint}?network=${this.network}&verifier=${verifier}&verifierId=${verifierId}`
-            // TODO: try2 : fetchLocalConfig from fnd-base
-            do {
-                let url = URL(string: "\(fndServerEndpoint)?network=\(network)&verifier=\(verifier)&verifierId=\(verifierId)")!
-                let (data, _) = try await URLSession.shared.data(from: url)
-                let response = try JSONDecoder().decode(NodeDetailsResponse.self, from: data)
-                setNodeDetails(response.nodeDetails)
-                
-                return nodeDetails
-            } catch {
-                log.error("Failed to fetch node details from server, using local.", error)
-            }
-            
-            guard let nodeDetails = fetchLocalConfig(self.network) else {
-                throw Error("Failed to fetch node details")
-            }
-            setNodeDetails(nodeDetails)
-            
+    func getNodeDetails(verifier: String, verifierID: String) async throws -> AllNodeDetailsModel {
+        if updated && !MULTI_CLUSTER_NETWORKS.contains(self.network) {
             return nodeDetails
-        } catch {
-            log.error("Failed to fetch node details", error)
-            throw error
         }
+        var fndResult: AllNodeDetailsModel
+        fndResult = nodeDetails
+        do {
+            let url = URL(string: "\(fndServerEndpoint)?network=\(self.network)&verifier=\(verifier)&verifierId=\(verifierID)")!
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let response = try JSONDecoder().decode(NodeDetailsResponse.self, from: data)
+            print("== result", response)
+            fndResult.setNodeDetails(nodeDetails: response.nodeDetails)
+            return fndResult
+        } catch let error {
+            print("== error:", error)
+            os_log("Failed to fetch node details from server, using local. %s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, error.localizedDescription)
+        }
+        print("==",self.network)
+        let nodeDetails = fetchLocalConfig(network: self.network)!
+        fndResult.setNodeDetails(nodeDetails: nodeDetails)
+        return fndResult
     }
     
     // setNodeDetails is defined in AllNodeDetailsModel because of accessibility of variables
