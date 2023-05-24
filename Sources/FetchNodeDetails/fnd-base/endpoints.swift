@@ -1,19 +1,19 @@
-let SAPPHIRE_NETWORK_URLS: [String: [String]] = [
-    TORUS_NETWORK["SAPPHIRE_DEVNET"]!: [
+let SAPPHIRE_NETWORK_URLS: [TorusNetwork: [String]] = [
+    .sapphireDevnet: [
         "https://sapphire-dev-2-1.authnetwork.dev",
         "https://sapphire-dev-2-2.authnetwork.dev",
         "https://sapphire-dev-2-3.authnetwork.dev",
         "https://sapphire-dev-2-4.authnetwork.dev",
         "https://sapphire-dev-2-5.authnetwork.dev",
     ],
-    TORUS_NETWORK["SAPPHIRE_TESTNET"]!: [
+    .sapphireTestnet: [
         "https://lrc1.authnetwork.dev",
         "https://lrc2.authnetwork.dev",
         "https://lrc3.authnetwork.dev",
         "https://lrc4.authnetwork.dev",
         "https://lrc5.authnetwork.dev",
     ],
-    TORUS_NETWORK["SAPPHIRE_MAINNET"]!: [
+    .sapphireMainnet: [
         "https://sapphire-1.auth.network",
         "https://sapphire-2.auth.network",
         "https://sapphire-3.auth.network",
@@ -22,7 +22,7 @@ let SAPPHIRE_NETWORK_URLS: [String: [String]] = [
     ],
 ]
 
-func getSSSEndpoints(network: String) -> [String] {
+func getSSSEndpoints(network: TorusNetwork) -> [String] {
     guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
         fatalError("Unsupported network: \(network)")
     }
@@ -30,7 +30,7 @@ func getSSSEndpoints(network: String) -> [String] {
     return endpoints.map { "\($0)/sss/jrpc" }
 }
 
-func getRSSEndpoints(network: String) -> [String] {
+func getRSSEndpoints(network: TorusNetwork) -> [String] {
     guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
         fatalError("Unsupported network: \(network)")
     }
@@ -38,7 +38,7 @@ func getRSSEndpoints(network: String) -> [String] {
     return endpoints.map { "\($0)/rss" }
 }
 
-func getTSSEndpoints(network: String) -> [String] {
+func getTSSEndpoints(network: TorusNetwork) -> [String] {
     guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
         fatalError("Unsupported network: \(network)")
     }

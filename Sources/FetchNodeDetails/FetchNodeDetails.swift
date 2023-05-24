@@ -17,7 +17,7 @@ open class FetchNodeDetails {
     private var torusNodeRSSEndpoints: [String] = []
     private var torusNodeTSSEndpoints: [String] = []
 
-    private var network: TORUS_NETWORK_TYPE = TORUS_NETWORK["MAINNET"]!
+    private var network: TorusNetwork = .MAINNET
 
     private var urlSession: URLSession
     private var updated = false
@@ -26,7 +26,7 @@ open class FetchNodeDetails {
     }
 
 
-    public init(network: TORUS_NETWORK_TYPE, fndEndpoint: String? = nil, logLevel: OSLogType = .default, urlSession: URLSession = URLSession.shared) {
+    public init(network: TorusNetwork, fndEndpoint: String? = nil, logLevel: OSLogType = .default, urlSession: URLSession = URLSession.shared) {
         fndLogType = logLevel // to be used across application
         self.network = network
         self.urlSession = urlSession
@@ -42,18 +42,17 @@ open class FetchNodeDetails {
         var fndResult: AllNodeDetailsModel
         fndResult = nodeDetails
         do {
-            let url = URL(string: "\(fndServerEndpoint)?network=\(self.network)&verifier=\(verifier)&verifierId=\(verifierID)")!
+            guard let url = URL(string: "\(fndServerEndpoint)?network=\(self.network)&verifier=\(verifier)&verifierId=\(verifierID)") else {
+                fatalError("Invalid URL ")
+            }
             let (data, _) = try await URLSession.shared.data(from: url)
             let response = try JSONDecoder().decode(NodeDetailsResponse.self, from: data)
-            print("== result", response)
             fndResult.setNodeDetails(nodeDetails: response.nodeDetails)
             return fndResult
         } catch let error {
-            print("== error:", error)
             os_log("Failed to fetch node details from server, using local. %s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, error.localizedDescription)
         }
-        print("==",self.network)
-        let nodeDetails = fetchLocalConfig(network: self.network)!
+        let nodeDetails = fetchLocalConfig(network: self.network)! 
         fndResult.setNodeDetails(nodeDetails: nodeDetails)
         return fndResult
     }

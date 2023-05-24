@@ -1,15 +1,15 @@
-func fetchLocalConfig(network: TORUS_NETWORK_TYPE) -> AllNodeDetailsModel? {
+func fetchLocalConfig(network: TorusNetwork) -> AllNodeDetailsModel? {
     switch network {
-        case TORUS_NETWORK["SAPPHIRE_DEVNET"]:
-            return NODE_DETAILS_SAPPHIRE_DEVNET
-        case TORUS_NETWORK["SAPPHIRE_TESTNET"]:
-            return NODE_DETAILS_SAPPHIRE_TESTNET
-        case TORUS_NETWORK["SAPPHIRE_MAINNET"]:
-            return NODE_DETAILS_SAPPHIRE_MAINNET
-        case TORUS_NETWORK["MAINNET"]:
-            return NODE_DETAILS_MAINNET
-        case TORUS_NETWORK["TESTNET"]:
-            return NODE_DETAILS_TESTNET
+        case .sapphireDevnet:
+                return NODE_DETAILS_SAPPHIRE_DEVNET
+        case .sapphireTestnet:
+                return NODE_DETAILS_SAPPHIRE_TESTNET
+        case .sapphireMainnet:
+                return NODE_DETAILS_SAPPHIRE_MAINNET
+        case .MAINNET:
+                return NODE_DETAILS_MAINNET
+        case .TESTNET:
+                return NODE_DETAILS_TESTNET
         default:
             return nil
     }
