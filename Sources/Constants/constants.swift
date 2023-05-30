@@ -1,7 +1,7 @@
 let TORUS_NETWORK: [TorusNetwork: String] = [
-    .sapphireDevnet: "sapphire_devnet",
-    .sapphireTestnet: "sapphire_testnet",
-    .sapphireMainnet: "sapphire_mainnet",
+    .SAPPHIRE_DEVNET: "sapphire_devnet",
+    .SAPPHIRE_TESTNET: "sapphire_testnet",
+    .SAPPHIRE_MAINNET: "sapphire_mainnet",
     .MAINNET: "mainnet",
     .TESTNET: "testnet",
     .CYAN: "cyan",

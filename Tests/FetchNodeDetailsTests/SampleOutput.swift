@@ -188,10 +188,10 @@ public struct SampleOutputSAPPHIREDEVNET {
     var val: AllNodeDetailsModel {
         return .init(
             _currentEpoch: "1",
-            _torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[.sapphireDevnet]!,
-            _torusNodeSSSEndpoints: getSSSEndpoints(network: .sapphireDevnet),
-            _torusNodeRSSEndpoints: getRSSEndpoints(network: .sapphireDevnet),
-            _torusNodeTSSEndpoints: getTSSEndpoints(network: .sapphireDevnet),
+            _torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[.SAPPHIRE_DEVNET]!,
+            _torusNodeSSSEndpoints: getSSSEndpoints(network: .SAPPHIRE_DEVNET),
+            _torusNodeRSSEndpoints: getRSSEndpoints(network: .SAPPHIRE_DEVNET),
+            _torusNodeTSSEndpoints: getTSSEndpoints(network: .SAPPHIRE_DEVNET),
             _torusIndexes: [1, 2, 3, 4, 5],
             _torusNodePub: [
                 .init(_X: "f74389b0a4c8d10d2a687ae575f69b20f412d41ab7f1fe6b358aa14871327247", _Y: "54e3a73098ed9bced3ef8821736e9794f9264a1420c0c7ad15d2fa617ba35ef7"),
@@ -209,10 +209,10 @@ public struct SampleOutputSAPPHIRETESTNET {
     var val: AllNodeDetailsModel {
         return .init(
             _currentEpoch: "1",
-            _torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[.sapphireTestnet]!,
-            _torusNodeSSSEndpoints: getSSSEndpoints(network: .sapphireTestnet),
-            _torusNodeRSSEndpoints: getRSSEndpoints(network: .sapphireTestnet),
-            _torusNodeTSSEndpoints: getTSSEndpoints(network: .sapphireTestnet),
+            _torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[.SAPPHIRE_TESTNET]!,
+            _torusNodeSSSEndpoints: getSSSEndpoints(network: .SAPPHIRE_TESTNET),
+            _torusNodeRSSEndpoints: getRSSEndpoints(network: .SAPPHIRE_TESTNET),
+            _torusNodeTSSEndpoints: getTSSEndpoints(network: .SAPPHIRE_TESTNET),
             _torusIndexes: [1, 2, 3, 4, 5],
             _torusNodePub: [
                 .init(_X: "d0e57d0fb29f37888a71c5d1d8312b191121b53e7e77968ca59e5c2ceee89386", _Y: "2190e5e78c02ecdd4e5e04a01d3c12d847d53682ade7b6f715df1e1f3911081d"),
@@ -230,10 +230,10 @@ public struct SampleOutputSAPPHIREMAINNET {
     var val: AllNodeDetailsModel {
         return .init(
             _currentEpoch: "1",
-            _torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[.sapphireMainnet]!,
-            _torusNodeSSSEndpoints: getSSSEndpoints(network: .sapphireMainnet),
-            _torusNodeRSSEndpoints: getRSSEndpoints(network: .sapphireMainnet),
-            _torusNodeTSSEndpoints: getTSSEndpoints(network: .sapphireMainnet),
+            _torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[.SAPPHIRE_MAINNET]!,
+            _torusNodeSSSEndpoints: getSSSEndpoints(network: .SAPPHIRE_MAINNET),
+            _torusNodeRSSEndpoints: getRSSEndpoints(network: .SAPPHIRE_MAINNET),
+            _torusNodeTSSEndpoints: getTSSEndpoints(network: .SAPPHIRE_MAINNET),
             _torusIndexes: [1, 2, 3, 4, 5],
             _torusNodePub: [
                 .init(_X: "e0925898fee0e9e941fdca7ee88deec99939ae9407e923535c4d4a3a3ff8b052", _Y: "54b9fea924e3f3e40791f9987f4234ae4222412d65b74068032fa5d8b63375c1"),

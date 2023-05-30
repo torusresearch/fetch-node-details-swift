@@ -1,10 +1,10 @@
 public var NODE_DETAILS_SAPPHIRE_MAINNET: AllNodeDetailsModel {
     return .init(
         _currentEpoch: "1",
-        _torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[.sapphireMainnet]!,
-        _torusNodeSSSEndpoints: getSSSEndpoints(network: .sapphireMainnet),
-        _torusNodeRSSEndpoints: getRSSEndpoints(network: .sapphireMainnet),
-        _torusNodeTSSEndpoints: getTSSEndpoints(network: .sapphireMainnet),
+        _torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[.SAPPHIRE_MAINNET]!,
+        _torusNodeSSSEndpoints: getSSSEndpoints(network: .SAPPHIRE_MAINNET),
+        _torusNodeRSSEndpoints: getRSSEndpoints(network: .SAPPHIRE_MAINNET),
+        _torusNodeTSSEndpoints: getTSSEndpoints(network: .SAPPHIRE_MAINNET),
         _torusIndexes: [1, 2, 3, 4, 5],
         _torusNodePub: [
             .init(_X: "e0925898fee0e9e941fdca7ee88deec99939ae9407e923535c4d4a3a3ff8b052", _Y: "54b9fea924e3f3e40791f9987f4234ae4222412d65b74068032fa5d8b63375c1"),

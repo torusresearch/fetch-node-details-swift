@@ -1,9 +1,9 @@
 import Foundation
 
 public enum TorusNetwork: Equatable, Hashable {
-    case sapphireDevnet
-    case sapphireTestnet
-    case sapphireMainnet
+    case SAPPHIRE_DEVNET
+    case SAPPHIRE_TESTNET
+    case SAPPHIRE_MAINNET
     case MAINNET
     case TESTNET
     case CYAN
@@ -13,11 +13,11 @@ public enum TorusNetwork: Equatable, Hashable {
 
     public var path: String {
         switch self {
-        case .sapphireDevnet:
+        case .SAPPHIRE_DEVNET:
             return "sapphire_devnet"
-        case .sapphireTestnet:
+        case .SAPPHIRE_TESTNET:
             return "sapphire_testnet"
-        case .sapphireMainnet:
+        case .SAPPHIRE_MAINNET:
             return "sapphire_mainnet"
         case .MAINNET:
             return "mainnet"

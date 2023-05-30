@@ -1,10 +1,10 @@
 func fetchLocalConfig(network: TorusNetwork) -> AllNodeDetailsModel? {
     switch network {
-        case .sapphireDevnet:
+        case .SAPPHIRE_DEVNET:
                 return NODE_DETAILS_SAPPHIRE_DEVNET
-        case .sapphireTestnet:
+        case .SAPPHIRE_TESTNET:
                 return NODE_DETAILS_SAPPHIRE_TESTNET
-        case .sapphireMainnet:
+        case .SAPPHIRE_MAINNET:
                 return NODE_DETAILS_SAPPHIRE_MAINNET
         case .MAINNET:
                 return NODE_DETAILS_MAINNET

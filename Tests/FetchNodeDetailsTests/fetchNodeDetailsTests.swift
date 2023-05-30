@@ -5,7 +5,7 @@ class fetchNodeDetailsTests: XCTestCase {
     var timeout: TimeInterval = 10
     var verifierId = "hello@tor.us"
     func test_getNode_Mainnet() async {
-        let fnd = FetchNodeDetails(network: .MAINNET)
+        let fnd = NodeDetailManager(network: .MAINNET)
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
             XCTAssertEqual(result, SampleOutputMainnet().val)
@@ -26,7 +26,7 @@ class fetchNodeDetailsTests: XCTestCase {
 //    }
 
     func test_getNode_Testnet() async {
-        let fnd = FetchNodeDetails(network: .TESTNET)
+        let fnd = NodeDetailManager(network: .TESTNET)
 
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
@@ -37,7 +37,7 @@ class fetchNodeDetailsTests: XCTestCase {
     }
     
     func test_getNode_SapphireDevnet() async {
-        let fnd = FetchNodeDetails(network: .sapphireDevnet)
+        let fnd = NodeDetailManager(network: .SAPPHIRE_DEVNET)
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
             XCTAssertEqual(result, SampleOutputSAPPHIREDEVNET().val)
@@ -58,7 +58,7 @@ class fetchNodeDetailsTests: XCTestCase {
 //    }
     
     func test_getNode_SapphireMainnet() async {
-        let fnd = FetchNodeDetails(network: .sapphireMainnet)
+        let fnd = NodeDetailManager(network: .SAPPHIRE_MAINNET)
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
             XCTAssertEqual(result, SampleOutputSAPPHIREMAINNET().val)

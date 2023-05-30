@@ -6,7 +6,7 @@ import web3
 // Global variable
 var fndLogType = OSLogType.default
 
-open class FetchNodeDetails {
+open class NodeDetailManager {
     
     private var fndServerEndpoint = "https://fnd.tor.us/node-details"
     private var currentEpoch: String = "0"
@@ -60,7 +60,7 @@ open class FetchNodeDetails {
     // setNodeDetails is defined in AllNodeDetailsModel because of accessibility of variables
 }
 
-extension FetchNodeDetails {
+extension NodeDetailManager {
     public func decodeNodeData(info: String) throws -> GetNodeSetModel? {
         let decodedData = try ABIDecoder.decodeData(info, types: [BigInt.self, ABIArray<String>.self, ABIArray<BigUInt>.self, ABIArray<BigUInt>.self, ABIArray<BigUInt>.self])
         let currentEpoch: BigUInt = try decodedData[0].decoded()

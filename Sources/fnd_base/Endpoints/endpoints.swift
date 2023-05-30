@@ -1,19 +1,19 @@
 let SAPPHIRE_NETWORK_URLS: [TorusNetwork: [String]] = [
-    .sapphireDevnet: [
+    .SAPPHIRE_DEVNET: [
         "https://sapphire-dev-2-1.authnetwork.dev",
         "https://sapphire-dev-2-2.authnetwork.dev",
         "https://sapphire-dev-2-3.authnetwork.dev",
         "https://sapphire-dev-2-4.authnetwork.dev",
         "https://sapphire-dev-2-5.authnetwork.dev",
     ],
-    .sapphireTestnet: [
+    .SAPPHIRE_TESTNET: [
         "https://lrc1.authnetwork.dev",
         "https://lrc2.authnetwork.dev",
         "https://lrc3.authnetwork.dev",
         "https://lrc4.authnetwork.dev",
         "https://lrc5.authnetwork.dev",
     ],
-    .sapphireMainnet: [
+    .SAPPHIRE_MAINNET: [
         "https://sapphire-1.auth.network",
         "https://sapphire-2.auth.network",
         "https://sapphire-3.auth.network",
