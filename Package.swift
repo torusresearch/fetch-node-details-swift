@@ -26,11 +26,11 @@ let package = Package(
         .target(
             name: "FndBase",
             dependencies: ["CommonSources"],
-            path: "Sources/fnd_base"),
+            path: "Sources/FndBase"),
         .target(
             name: "FetchNodeDetails",
             dependencies: ["web3.swift", "CommonSources", "FndBase"],
-            path: "Sources/fetch_node_details"),
+            path: "Sources/FetchNodeDetails"),
         .testTarget(
             name: "FetchNodeDetailsTests",
             dependencies: ["FetchNodeDetails","CommonSources", "FndBase"]),
