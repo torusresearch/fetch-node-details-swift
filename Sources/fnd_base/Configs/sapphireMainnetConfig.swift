@@ -1,3 +1,5 @@
+import CommonSources
+
 public var NODE_DETAILS_SAPPHIRE_MAINNET: AllNodeDetailsModel {
     return .init(
         _currentEpoch: "1",

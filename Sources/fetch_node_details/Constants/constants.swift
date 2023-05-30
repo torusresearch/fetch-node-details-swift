@@ -1,3 +1,5 @@
+import CommonSources
+
 let TORUS_NETWORK: [TorusNetwork: String] = [
     .SAPPHIRE_DEVNET: "sapphire_devnet",
     .SAPPHIRE_TESTNET: "sapphire_testnet",

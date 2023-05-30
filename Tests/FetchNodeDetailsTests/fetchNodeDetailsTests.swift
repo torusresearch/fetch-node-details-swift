@@ -46,16 +46,15 @@ class fetchNodeDetailsTests: XCTestCase {
         }
     }
     
-//    TODO: Currently sapphire testnet is down
-//    func test_getNode_SapphireTestnet() async {
-//        let fnd = FetchNodeDetails(network: .sapphireTestnet)
-//        do {
-//            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
-//            XCTAssertEqual(result, SampleOutputSAPPHIRETESTNET().val)
-//        } catch {
-//            XCTFail(error.localizedDescription)
-//        }
-//    }
+    func test_getNode_SapphireTestnet() async {
+        let fnd = NodeDetailManager(network: .SAPPHIRE_TESTNET)
+        do {
+            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
+            XCTAssertEqual(result, SampleOutputSAPPHIRETESTNET().val)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
     
     func test_getNode_SapphireMainnet() async {
         let fnd = NodeDetailManager(network: .SAPPHIRE_MAINNET)

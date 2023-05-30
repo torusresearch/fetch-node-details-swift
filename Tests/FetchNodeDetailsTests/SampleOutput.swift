@@ -1,6 +1,10 @@
 import BigInt
 @testable import FetchNodeDetails
+@testable import FndBase
+@testable import CommonSources
+
 import XCTest
+
 
 public struct SampleOutputMainnet {
     var currentEpoch: String = "19"

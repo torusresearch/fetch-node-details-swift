@@ -2,7 +2,8 @@ import BigInt
 import Foundation
 import OSLog
 import web3
-
+import CommonSources
+import FndBase
 // Global variable
 var fndLogType = OSLogType.default
 
@@ -47,7 +48,8 @@ open class NodeDetailManager {
             }
             let (data, _) = try await URLSession.shared.data(from: url)
             let response = try JSONDecoder().decode(NodeDetailsResponse.self, from: data)
-            fndResult.setNodeDetails(nodeDetails: response.nodeDetails)
+            let nodeDetails = response.getNodeDetails()
+            fndResult.setNodeDetails(nodeDetails: nodeDetails)
             return fndResult
         } catch let error {
             os_log("Failed to fetch node details from server, using local. %s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, error.localizedDescription)

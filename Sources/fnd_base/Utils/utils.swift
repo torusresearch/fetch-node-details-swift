@@ -1,4 +1,6 @@
-func fetchLocalConfig(network: TorusNetwork) -> AllNodeDetailsModel? {
+import CommonSources
+
+public func fetchLocalConfig(network: TorusNetwork) -> AllNodeDetailsModel? {
     switch network {
         case .SAPPHIRE_DEVNET:
                 return NODE_DETAILS_SAPPHIRE_DEVNET

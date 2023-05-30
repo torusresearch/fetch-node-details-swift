@@ -5,40 +5,34 @@ import PackageDescription
 
 let package = Package(
     name: "FetchNodeDetails",
-    platforms: [.iOS(.v13),.macOS(.v10_15)
-    ],
+    platforms: [.iOS(.v13), .macOS(.v10_15)],
     products: [
-        // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "FetchNodeDetails",
             targets: ["FetchNodeDetails"]),
         .library(
-            name: "fnd_base",
-            targets: ["fnd_base"]),
+            name: "FndBase",
+            targets: ["FndBase"])
     ],
     dependencies: [
         .package(url: "https://github.com/argentlabs/web3.swift", from:"0.8.1")
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages which this package depends on.
+        .target(
+            name: "CommonSources",
+            dependencies: [],
+            path: "Sources/CommonSources"),
+        .target(
+            name: "FndBase",
+            dependencies: ["CommonSources"],
+            path: "Sources/fnd_base"),
         .target(
             name: "FetchNodeDetails",
-            dependencies: ["web3.swift"],
-            path: "Sources"),
+            dependencies: ["web3.swift", "CommonSources", "FndBase"],
+            path: "Sources/fetch_node_details"),
         .testTarget(
             name: "FetchNodeDetailsTests",
-            dependencies: ["FetchNodeDetails"]),
-        .target(
-            name: "fnd_base",
-            dependencies: [],
-            path: "Sources/fnd_base",
-            sources: [
-                "Configs",
-                "Endpoints",
-                "Utils",
-            ]
-        ),
+            dependencies: ["FetchNodeDetails","CommonSources", "FndBase"]),
     ],
     swiftLanguageVersions: [.v5]
 )

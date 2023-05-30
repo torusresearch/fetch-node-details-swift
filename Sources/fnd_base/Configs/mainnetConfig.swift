@@ -1,3 +1,4 @@
+import CommonSources
 
 public var NODE_DETAILS_MAINNET: AllNodeDetailsModel {
     return .init(
