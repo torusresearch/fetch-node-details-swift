@@ -36,7 +36,7 @@ open class NodeDetailManager {
         }
     }
     
-    func getNodeDetails(verifier: String, verifierID: String) async throws -> AllNodeDetailsModel {
+    public func getNodeDetails(verifier: String, verifierID: String) async throws -> AllNodeDetailsModel {
         if updated && !MULTI_CLUSTER_NETWORKS.contains(self.network) {
             return nodeDetails
         }
