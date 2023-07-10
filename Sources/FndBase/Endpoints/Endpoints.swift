@@ -1,6 +1,6 @@
 import CommonSources
 
-let SAPPHIRE_NETWORK_URLS: [TorusNetwork: [String]] = [
+let SAPPHIRE_NETWORK_URLS: [SapphireNetwork: [String]] = [
     .SAPPHIRE_DEVNET: [
         "https://sapphire-dev-2-1.authnetwork.dev",
         "https://sapphire-dev-2-2.authnetwork.dev",
@@ -24,27 +24,83 @@ let SAPPHIRE_NETWORK_URLS: [TorusNetwork: [String]] = [
     ],
 ]
 
-func getSSSEndpoints(network: TorusNetwork) -> [String] {
-    guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
-        fatalError("Unsupported network: \(network)")
+func getSSSEndpoints(network: TorusNetwork) throws -> [String] {
+    switch network {
+        case .sapphire(let network) :
+            
+            guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
+                fatalError("Unsupported network: \(network)")
+            }
+            
+            return endpoints.map { "\($0)/sss/jrpc" }
+        case .legacy(let network ) :
+            guard let routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[network] else {
+                throw FetchNodeError.InvalidNetwork(network.path)
+            }
+            guard let endpoints = SAPPHIRE_NETWORK_URLS[routeIdentifier.networkMigratedTo] else {
+                throw FetchNodeError.InvalidMigrationNetwork(routeIdentifier.networkMigratedTo.path)
+            }
+        
+            if ( !routeIdentifier.migrationCompleted) {
+                return endpoints.map{ "\($0)/sss/\(routeIdentifier.networkIdentifier)/jrpc" };
+            } else {
+                return endpoints.map { "\($0)/sss/jrpc" }
+            
+            }
     }
-
-    return endpoints.map { "\($0)/sss/jrpc" }
 }
 
-func getRSSEndpoints(network: TorusNetwork) -> [String] {
-    guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
-        fatalError("Unsupported network: \(network)")
+func getRSSEndpoints(network: TorusNetwork) throws -> [String] {
+    switch network {
+        case .sapphire(let network) :
+            
+            guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
+                fatalError("Unsupported network: \(network)")
+            }
+            
+            return endpoints.map { "\($0)/rss/jrpc" }
+        case .legacy(let network ) :
+            guard let routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[network] else {
+                throw FetchNodeError.InvalidNetwork(network.path)
+            }
+            guard let endpoints = SAPPHIRE_NETWORK_URLS[routeIdentifier.networkMigratedTo] else {
+                throw FetchNodeError.InvalidMigrationNetwork(routeIdentifier.networkMigratedTo.path)
+            }
+        
+            if ( !routeIdentifier.migrationCompleted) {
+                return endpoints.map{ "\($0)/rss/\(routeIdentifier.networkIdentifier)/jrpc" };
+            } else {
+                return endpoints.map { "\($0)/rss/jrpc" }
+            
+            }
     }
-
-    return endpoints.map { "\($0)/rss" }
 }
 
-func getTSSEndpoints(network: TorusNetwork) -> [String] {
-    guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
-        fatalError("Unsupported network: \(network)")
+func getTSSEndpoints(network: TorusNetwork) throws -> [String] {
+    switch network {
+        case .sapphire(let network) :
+            
+            guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
+                fatalError("Unsupported network: \(network)")
+            }
+            
+            return endpoints.map { "\($0)/tss/jrpc" }
+        case .legacy(let network ) :
+            guard let routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[network] else {
+                throw FetchNodeError.InvalidNetwork(network.path)
+            }
+            guard let endpoints = SAPPHIRE_NETWORK_URLS[routeIdentifier.networkMigratedTo] else {
+                throw FetchNodeError.InvalidMigrationNetwork(routeIdentifier.networkMigratedTo.path)
+            }
+        
+            if ( !routeIdentifier.migrationCompleted) {
+                return endpoints.map{ "\($0)/tss/\(routeIdentifier.networkIdentifier)/jrpc" };
+            } else {
+                return endpoints.map { "\($0)/tss/jrpc" }
+            
+            }
     }
-
-    return endpoints.map { "\($0)/tss" }
 }
+
+
 
