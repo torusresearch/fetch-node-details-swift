@@ -5,7 +5,7 @@ class fetchNodeDetailsTests: XCTestCase {
     var timeout: TimeInterval = 10
     var verifierId = "hello@tor.us"
     func test_getNode_Mainnet() async {
-        let fnd = NodeDetailManager(network: .MAINNET)
+        let fnd = NodeDetailManager(network: .legacy(.CYAN))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
             XCTAssertEqual(result, SampleOutputMainnet().val)
@@ -26,7 +26,7 @@ class fetchNodeDetailsTests: XCTestCase {
 //    }
 
     func test_getNode_Testnet() async {
-        let fnd = NodeDetailManager(network: .TESTNET)
+        let fnd = NodeDetailManager(network: .legacy(.TESTNET))
 
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
@@ -37,7 +37,7 @@ class fetchNodeDetailsTests: XCTestCase {
     }
     
     func test_getNode_SapphireDevnet() async {
-        let fnd = NodeDetailManager(network: .SAPPHIRE_DEVNET)
+        let fnd = NodeDetailManager(network: .sapphire(.SAPPHIRE_DEVNET))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
             XCTAssertEqual(result, SampleOutputSAPPHIREDEVNET().val)
@@ -47,7 +47,7 @@ class fetchNodeDetailsTests: XCTestCase {
     }
     
     func test_getNode_SapphireTestnet() async {
-        let fnd = NodeDetailManager(network: .SAPPHIRE_TESTNET)
+        let fnd = NodeDetailManager(network: .sapphire(.SAPPHIRE_TESTNET))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
             XCTAssertEqual(result, SampleOutputSAPPHIRETESTNET().val)
@@ -57,7 +57,7 @@ class fetchNodeDetailsTests: XCTestCase {
     }
     
     func test_getNode_SapphireMainnet() async {
-        let fnd = NodeDetailManager(network: .SAPPHIRE_MAINNET)
+        let fnd = NodeDetailManager(network: .sapphire(.SAPPHIRE_MAINNET))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
             XCTAssertEqual(result, SampleOutputSAPPHIREMAINNET().val)
@@ -65,4 +65,36 @@ class fetchNodeDetailsTests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
+    
+    
+//    func test_getNode_Cyan() async {
+//        let fnd = NodeDetailManager(network: .legacy(.CYAN))
+//        do {
+//            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
+//            XCTAssertEqual(result, SampleOutputCyan().val)
+//        } catch {
+//            XCTFail(error.localizedDescription)
+//        }
+//    }
+//
+//    func test_getNode_Aqua() async {
+//        let fnd = NodeDetailManager(network: .legacy(.AQUA))
+//        do {
+//            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
+//            print (result)
+//            XCTAssertEqual(result, SampleOutputAqua().val)
+//        } catch {
+//            XCTFail(error.localizedDescription)
+//        }
+//    }
+//
+//    func test_getNode_Celeste() async {
+//        do {
+//            let fnd = NodeDetailManager(network: .legacy(.CELESTE))
+//            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us")
+//            XCTAssertEqual(result, SampleOutputCeleste().val)
+//        } catch {
+//            XCTFail()
+//        }
+//    }
 }

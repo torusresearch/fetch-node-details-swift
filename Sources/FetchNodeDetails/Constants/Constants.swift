@@ -1,21 +1,20 @@
 import CommonSources
 
 let TORUS_NETWORK: [TorusNetwork: String] = [
-    .SAPPHIRE_DEVNET: "sapphire_devnet",
-    .SAPPHIRE_TESTNET: "sapphire_testnet",
-    .SAPPHIRE_MAINNET: "sapphire_mainnet",
-    .MAINNET: "mainnet",
-    .TESTNET: "testnet",
-    .CYAN: "cyan",
-    .AQUA: "aqua",
-    .CELESTE: "celeste"
+    TorusNetwork.sapphire(SapphireNetwork.SAPPHIRE_DEVNET) : "sapphire_devnet",
+    TorusNetwork.sapphire(SapphireNetwork.SAPPHIRE_TESTNET) : "sapphire_testnet",
+    TorusNetwork.sapphire(SapphireNetwork.SAPPHIRE_MAINNET) : "sapphire_mainnet",
+    TorusNetwork.legacy(LegacyNetwork.MAINNET) : "mainnet",
+    TorusNetwork.legacy(LegacyNetwork.TESTNET) : "testnet",
+    TorusNetwork.legacy(LegacyNetwork.CYAN) : "cyan",
+    TorusNetwork.legacy(LegacyNetwork.CELESTE) : "celeste",
 ]
 public typealias TORUS_NETWORK_TYPE = String
 
 
-let MULTI_CLUSTER_NETWORKS: [TorusNetwork] = [.AQUA, .CELESTE, .CYAN]
+let MULTI_CLUSTER_NETWORKS: [LegacyNetwork] = [ .AQUA, .CELESTE, .CYAN ]
 
-let NETWORK_MAP: [TorusNetwork: String] = [
+let NETWORK_MAP: [LegacyNetwork: String] = [
     .MAINNET: "mainnet",
     .TESTNET: "goerli",
     .CYAN: "polygon-mainnet",
@@ -23,7 +22,7 @@ let NETWORK_MAP: [TorusNetwork: String] = [
     .CELESTE: "polygon-mainnet"
 ]
 
-let SIGNER_MAP: [TorusNetwork: String] = [
+let SIGNER_MAP: [LegacyNetwork: String] = [
     .MAINNET: "https://signer.tor.us",
     .TESTNET: "https://signer.tor.us",
     .CYAN: "https://signer-polygon.tor.us",

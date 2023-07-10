@@ -18,7 +18,7 @@ open class NodeDetailManager {
     private var torusNodeRSSEndpoints: [String] = []
     private var torusNodeTSSEndpoints: [String] = []
 
-    private var network: TorusNetwork = .MAINNET
+    private var network: TorusNetwork = .sapphire( SapphireNetwork.SAPPHIRE_MAINNET ) 
 
     private var urlSession: URLSession
     private var updated = false
@@ -37,9 +37,16 @@ open class NodeDetailManager {
     }
     
     public func getNodeDetails(verifier: String, verifierID: String) async throws -> AllNodeDetailsModel {
-        if updated && !MULTI_CLUSTER_NETWORKS.contains(self.network) {
-            return nodeDetails
+        switch network {
+        case .legacy(let legacyNetwork):
+            if updated && !MULTI_CLUSTER_NETWORKS.contains(legacyNetwork) {
+                return nodeDetails
+            }
+        case .sapphire( _ ):
+            break
         }
+    
+        
         var fndResult: AllNodeDetailsModel
         fndResult = nodeDetails
         do {
@@ -54,7 +61,7 @@ open class NodeDetailManager {
         } catch let error {
             os_log("Failed to fetch node details from server, using local. %s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, error.localizedDescription)
         }
-        let nodeDetails = fetchLocalConfig(network: self.network)! 
+        let nodeDetails = try fetchLocalConfig(network: self.network)!
         fndResult.setNodeDetails(nodeDetails: nodeDetails)
         return fndResult
     }
