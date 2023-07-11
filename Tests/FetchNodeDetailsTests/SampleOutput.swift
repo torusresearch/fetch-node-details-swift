@@ -14,7 +14,7 @@ public struct SampleOutputMainnet {
         "https://torus-19.torusnode.com/jrpc",
         "https://torus-node.ens.domains/jrpc",
         "https://torus-node.matic.network/jrpc",
-        "https://torus.zilliqa.network/jrpc",
+        "https://zilliqa.tor.us/jrpc",
         "https://torus-mainnet.cosmos.network/jrpc",
         "https://torus2.etherscan.com/jrpc",
         "https://torus-node-v2.skalelabs.com/jrpc",
@@ -83,6 +83,7 @@ public struct SampleOutputTestnet {
             "f977530b3ec0e525438c72d1e768380cbc5fb3b38a760ee925053b2e169428ce"),
     ]
     var torusIndexes: [BigUInt] = [1, 2, 3, 4, 5]
+
     var val: AllNodeDetailsModel {
         return .init(_currentEpoch: currentEpoch, _torusNodeEndpoints: torusNodeEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
     }

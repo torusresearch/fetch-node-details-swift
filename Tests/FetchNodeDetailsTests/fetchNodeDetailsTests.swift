@@ -5,7 +5,7 @@ class fetchNodeDetailsTests: XCTestCase {
     var timeout: TimeInterval = 10
     var verifierId = "hello@tor.us"
     func test_getNode_Mainnet() async {
-        let fnd = NodeDetailManager(network: .legacy(.CYAN))
+        let fnd = NodeDetailManager(network: .legacy(.MAINNET))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
             XCTAssertEqual(result, SampleOutputMainnet().val)
@@ -67,34 +67,34 @@ class fetchNodeDetailsTests: XCTestCase {
     }
     
     
-//    func test_getNode_Cyan() async {
-//        let fnd = NodeDetailManager(network: .legacy(.CYAN))
-//        do {
-//            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
-//            XCTAssertEqual(result, SampleOutputCyan().val)
-//        } catch {
-//            XCTFail(error.localizedDescription)
-//        }
-//    }
-//
-//    func test_getNode_Aqua() async {
-//        let fnd = NodeDetailManager(network: .legacy(.AQUA))
-//        do {
-//            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
-//            print (result)
-//            XCTAssertEqual(result, SampleOutputAqua().val)
-//        } catch {
-//            XCTFail(error.localizedDescription)
-//        }
-//    }
-//
-//    func test_getNode_Celeste() async {
-//        do {
-//            let fnd = NodeDetailManager(network: .legacy(.CELESTE))
-//            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us")
-//            XCTAssertEqual(result, SampleOutputCeleste().val)
-//        } catch {
-//            XCTFail()
-//        }
-//    }
+    func test_getNode_Cyan() async {
+        let fnd = NodeDetailManager(network: .legacy(.CYAN))
+        do {
+            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
+            XCTAssertEqual(result, SampleOutputCyan().val)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+
+    func test_getNode_Aqua() async {
+        let fnd = NodeDetailManager(network: .legacy(.AQUA))
+        do {
+            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
+            print (result)
+            XCTAssertEqual(result, SampleOutputAqua().val)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+
+    func test_getNode_Celeste() async {
+        do {
+            let fnd = NodeDetailManager(network: .legacy(.CELESTE))
+            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us")
+            XCTAssertEqual(result, SampleOutputCeleste().val)
+        } catch {
+            XCTFail()
+        }
+    }
 }

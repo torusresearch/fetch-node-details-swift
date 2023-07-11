@@ -51,6 +51,17 @@ public enum SapphireNetwork: Equatable, Hashable {
             return "sapphire_mainnet"
         }
     }
+    
+    public var name: String {
+        switch self {
+        case .SAPPHIRE_DEVNET:
+            return "sapphire_devnet"
+        case .SAPPHIRE_TESTNET:
+            return "sapphire_testnet"
+        case .SAPPHIRE_MAINNET:
+            return "sapphire_mainnet"
+        }
+    }
 }
 
 public enum LegacyNetwork: Equatable, Hashable {
@@ -71,6 +82,23 @@ public enum LegacyNetwork: Equatable, Hashable {
             return "polygon-mainnet"
         case let .CUSTOM(path):
             return path
+        }
+    }
+    
+    public var name: String {
+        switch self {
+        case .MAINNET:
+            return "mainnet"
+        case .TESTNET:
+            return "testnet"
+        case .CYAN :
+            return "cyan"
+        case .AQUA :
+            return "aqua"
+        case .CELESTE:
+            return "celeste"
+        case .CUSTOM(_):
+            return "custom"
         }
     }
 }
