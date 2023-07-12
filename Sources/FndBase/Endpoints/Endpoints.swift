@@ -58,7 +58,7 @@ func getRSSEndpoints(network: TorusNetwork) throws -> [String] {
                 fatalError("Unsupported network: \(network)")
             }
             
-            return endpoints.map { "\($0)/rss/jrpc" }
+            return endpoints.map { "\($0)/rss" }
         case .legacy(let network ) :
             guard let routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[network] else {
                 throw FetchNodeError.InvalidNetwork(network.path)
@@ -66,13 +66,8 @@ func getRSSEndpoints(network: TorusNetwork) throws -> [String] {
             guard let endpoints = SAPPHIRE_NETWORK_URLS[routeIdentifier.networkMigratedTo] else {
                 throw FetchNodeError.InvalidMigrationNetwork(routeIdentifier.networkMigratedTo.path)
             }
-        
-            if ( !routeIdentifier.migrationCompleted) {
-                return endpoints.map{ "\($0)/rss/\(routeIdentifier.networkIdentifier)/jrpc" };
-            } else {
-                return endpoints.map { "\($0)/rss/jrpc" }
+            return endpoints.map{ "\($0)/rss/\(routeIdentifier.networkIdentifier)" };
             
-            }
     }
 }
 
@@ -84,7 +79,7 @@ func getTSSEndpoints(network: TorusNetwork) throws -> [String] {
                 fatalError("Unsupported network: \(network)")
             }
             
-            return endpoints.map { "\($0)/tss/jrpc" }
+            return endpoints.map { "\($0)/tss" }
         case .legacy(let network ) :
             guard let routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[network] else {
                 throw FetchNodeError.InvalidNetwork(network.path)
@@ -92,13 +87,7 @@ func getTSSEndpoints(network: TorusNetwork) throws -> [String] {
             guard let endpoints = SAPPHIRE_NETWORK_URLS[routeIdentifier.networkMigratedTo] else {
                 throw FetchNodeError.InvalidMigrationNetwork(routeIdentifier.networkMigratedTo.path)
             }
-        
-            if ( !routeIdentifier.migrationCompleted) {
-                return endpoints.map{ "\($0)/tss/\(routeIdentifier.networkIdentifier)/jrpc" };
-            } else {
-                return endpoints.map { "\($0)/tss/jrpc" }
-            
-            }
+            return endpoints.map{ "\($0)/tss/\(routeIdentifier.networkIdentifier)" };
     }
 }
 

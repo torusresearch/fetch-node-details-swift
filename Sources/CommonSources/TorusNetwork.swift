@@ -34,6 +34,24 @@ import Foundation
 public enum TorusNetwork : Equatable, Hashable {
     case legacy(LegacyNetwork)
     case sapphire(SapphireNetwork)
+    
+    public var name : String {
+        switch self {
+        case .legacy(let network) :
+            return network.name
+        case .sapphire(let network) :
+            return network.name
+        }
+    }
+    
+    public var path : String {
+        switch self {
+        case .legacy(let network) :
+            return network.path
+        case .sapphire(let network) :
+            return network.path
+        }
+    }
 }
 
 public enum SapphireNetwork: Equatable, Hashable {

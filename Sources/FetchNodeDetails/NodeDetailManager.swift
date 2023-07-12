@@ -38,15 +38,13 @@ open class NodeDetailManager {
     
     public func getNodeDetails(verifier: String, verifierID: String) async throws -> AllNodeDetailsModel {
         
-        let networkName: String
         switch network {
         case .legacy(let legacyNetwork):
-            networkName = legacyNetwork.name
             if updated && !MULTI_CLUSTER_NETWORKS.contains(legacyNetwork) {
                 return nodeDetails
             }
-        case .sapphire( let network ):
-            networkName = network.name
+        case .sapphire(_):
+            break
         }
     
         
@@ -54,10 +52,9 @@ open class NodeDetailManager {
         fndResult = nodeDetails
         
         do {
-            guard let url = URL(string: "\(fndServerEndpoint)?network=\(networkName)&verifier=\(verifier)&verifierId=\(verifierID)") else {
+            guard let url = URL(string: "\(fndServerEndpoint)?network=\(network.name)&verifier=\(verifier)&verifierId=\(verifierID)") else {
                 fatalError("Invalid URL ")
             }
-            print(url)
             let (data, _) = try await URLSession.shared.data(from: url)
             let response = try JSONDecoder().decode(NodeDetailsResponse.self, from: data)
             let nodeDetails = response.getNodeDetails()

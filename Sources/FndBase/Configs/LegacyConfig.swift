@@ -7,7 +7,7 @@ public var NODE_DETAILS_MAINNET: AllNodeDetailsModel {
             "https://torus-19.torusnode.com/jrpc",
             "https://torus-node.ens.domains/jrpc",
             "https://torus-node.matic.network/jrpc",
-            "https://torus.zilliqa.network/jrpc",
+            "https://zilliqa.tor.us/jrpc",
             "https://torus-mainnet.cosmos.network/jrpc",
             "https://torus2.etherscan.com/jrpc",
             "https://torus-node-v2.skalelabs.com/jrpc",
@@ -38,7 +38,7 @@ public var NODE_DETAILS_TESTNET: AllNodeDetailsModel {
             "https://teal-15-4.torusnode.com/jrpc",
             "https://teal-15-5.torusnode.com/jrpc",
             "https://teal-15-2.torusnode.com/jrpc"
-        ],
+        ], // getSSSEndpoint(.Testnet)
         _torusIndexes: [1, 2, 3, 4, 5],
         _torusNodePub: [
             .init(_X: "1363aad8868cacd7f8946c590325cd463106fb3731f08811ab4302d2deae35c3", _Y: "d77eebe5cdf466b475ec892d5b4cffbe0c1670525debbd97eee6dae2f87a7cbe"),
@@ -59,16 +59,16 @@ public func LegacyConfig ( network : LegacyNetwork ) throws -> AllNodeDetailsMod
                 "https://torus-19.torusnode.com/jrpc",
                 "https://torus-node.ens.domains/jrpc",
                 "https://torus-node.matic.network/jrpc",
-                "https://torus.zilliqa.network/jrpc",
+                "https://zilliqa.tor.us/jrpc",
                 "https://torus-mainnet.cosmos.network/jrpc",
                 "https://torus2.etherscan.com/jrpc",
                 "https://torus-node-v2.skalelabs.com/jrpc",
                 "https://torus-node.binancex.dev/jrpc",
                 "https://torusnode.ont.io/jrpc"
             ],
-            _torusNodeSSSEndpoints: try getSSSEndpoints(network: .legacy(network)),
-            _torusNodeRSSEndpoints: try getRSSEndpoints(network: .legacy(network)),
-            _torusNodeTSSEndpoints: try getTSSEndpoints(network: .legacy(network)),
+//            _torusNodeSSSEndpoints: try getSSSEndpoints(network: .legacy(network)),
+//            _torusNodeRSSEndpoints: try getRSSEndpoints(network: .legacy(network)),
+//            _torusNodeTSSEndpoints: try getTSSEndpoints(network: .legacy(network)),
             _torusIndexes: [1, 2, 3, 4, 5, 6, 7, 8, 9],
             _torusNodePub: [
                 .init(_X: "bbe83c64177c3775550e6ba6ac2bc059f6847d644c9e4894e42c60d7974d8c2b", _Y: "82b49a7caf70def38cdad2740af45c1e4f969650105c5019a29bb18b21a9acb5"),
@@ -84,24 +84,31 @@ public func LegacyConfig ( network : LegacyNetwork ) throws -> AllNodeDetailsMod
         )
     case .TESTNET :
         return .init(
-            _currentEpoch: "15",
-            _torusNodeEndpoints: [
-                "https://teal-15-1.torusnode.com/jrpc",
-                "https://teal-15-3.torusnode.com/jrpc",
-                "https://teal-15-4.torusnode.com/jrpc",
-                "https://teal-15-5.torusnode.com/jrpc",
-                "https://teal-15-2.torusnode.com/jrpc"
-            ],
+            _currentEpoch: "1",
+            _torusNodeEndpoints: try getSSSEndpoints(network: .legacy(network)),
+//                [
+//                "https://teal-15-1.torusnode.com/jrpc",
+//                "https://teal-15-3.torusnode.com/jrpc",
+//                "https://teal-15-4.torusnode.com/jrpc",
+//                "https://teal-15-5.torusnode.com/jrpc",
+//                "https://teal-15-2.torusnode.com/jrpc"
+//            ],
             _torusNodeSSSEndpoints: try getSSSEndpoints(network: .legacy(network)),
             _torusNodeRSSEndpoints: try getRSSEndpoints(network: .legacy(network)),
             _torusNodeTSSEndpoints: try getTSSEndpoints(network: .legacy(network)),
             _torusIndexes: [1, 2, 3, 4, 5],
             _torusNodePub: [
-                .init(_X: "1363aad8868cacd7f8946c590325cd463106fb3731f08811ab4302d2deae35c3", _Y: "d77eebe5cdf466b475ec892d5b4cffbe0c1670525debbd97eee6dae2f87a7cbe"),
-                .init(_X: "7c8cc521c48690f016bea593f67f88ad24f447dd6c31bbab541e59e207bf029d", _Y: "b359f0a82608db2e06b953b36d0c9a473a00458117ca32a5b0f4563a7d539636"),
-                .init(_X: "8a86543ca17df5687719e2549caa024cf17fe0361e119e741eaee668f8dd0a6f", _Y: "9cdb254ff915a76950d6d13d78ef054d5d0dc34e2908c00bb009a6e4da701891"),
-                .init(_X: "25a98d9ae006aed1d77e81d58be8f67193d13d01a9888e2923841894f4b0bf9c", _Y: "f63d40df480dacf68922004ed36dbab9e2969181b047730a5ce0797fb6958249"),
-                .init(_X: "d908f41f8e06324a8a7abcf702adb6a273ce3ae63d86a3d22723e1bbf1438c9a", _Y: "f977530b3ec0e525438c72d1e768380cbc5fb3b38a760ee925053b2e169428ce"),
+//                .init(_X: "1363aad8868cacd7f8946c590325cd463106fb3731f08811ab4302d2deae35c3", _Y: "d77eebe5cdf466b475ec892d5b4cffbe0c1670525debbd97eee6dae2f87a7cbe"),
+//                .init(_X: "7c8cc521c48690f016bea593f67f88ad24f447dd6c31bbab541e59e207bf029d", _Y: "b359f0a82608db2e06b953b36d0c9a473a00458117ca32a5b0f4563a7d539636"),
+//                .init(_X: "8a86543ca17df5687719e2549caa024cf17fe0361e119e741eaee668f8dd0a6f", _Y: "9cdb254ff915a76950d6d13d78ef054d5d0dc34e2908c00bb009a6e4da701891"),
+//                .init(_X: "25a98d9ae006aed1d77e81d58be8f67193d13d01a9888e2923841894f4b0bf9c", _Y: "f63d40df480dacf68922004ed36dbab9e2969181b047730a5ce0797fb6958249"),
+//                .init(_X: "d908f41f8e06324a8a7abcf702adb6a273ce3ae63d86a3d22723e1bbf1438c9a", _Y: "f977530b3ec0e525438c72d1e768380cbc5fb3b38a760ee925053b2e169428ce"),
+                .init(_X: "f74389b0a4c8d10d2a687ae575f69b20f412d41ab7f1fe6b358aa14871327247", _Y: "54e3a73098ed9bced3ef8821736e9794f9264a1420c0c7ad15d2fa617ba35ef7"),
+                .init(_X: "bc38813a6873e526087918507c78fc3a61624670ee851ecfb4f3bef55d027b5a", _Y: "ac4b21229f662a0aefdfdac21cf17c3261a392c74a8790db218b34e3e4c1d56a"),
+                .init(_X: "b56541684ea5fa40c8337b7688d502f0e9e092098962ad344c34e94f06d293fb", _Y: "759a998cef79d389082f9a75061a29190eec0cac99b8c25ddcf6b58569dad55c"),
+                .init(_X: "7bcb058d4c6ffc6ba4bfdfd93d141af35a66338a62c7c27cdad2ae3f8289b767", _Y: "336ab1935e41ed4719e162587f0ab55518db4207a1eb36cc72303f1b86689d2b"),
+                .init(_X: "bf12a136ef94399ea098f926f04e26a4ec4ac70f69cce274e8893704c4951773", _Y: "bdd44828020f52ce510e026338216ada184a6867eb4e19fb4c2d495d4a7e15e4"),
+                
             ]
         )
     case .AQUA :

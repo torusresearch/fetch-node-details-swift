@@ -1,4 +1,6 @@
 @testable import FetchNodeDetails
+import FndBase
+
 import XCTest
 
 class fetchNodeDetailsTests: XCTestCase {
@@ -8,7 +10,10 @@ class fetchNodeDetailsTests: XCTestCase {
         let fnd = NodeDetailManager(network: .legacy(.MAINNET))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
+            var config = try! LegacyConfig(network: .MAINNET)
+            config.updated = true
             XCTAssertEqual(result, SampleOutputMainnet().val)
+            XCTAssertEqual(result, config )
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -30,7 +35,10 @@ class fetchNodeDetailsTests: XCTestCase {
 
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
+            var config = try! LegacyConfig(network: .TESTNET)
+            config.updated = true
             XCTAssertEqual(result, SampleOutputTestnet().val)
+            XCTAssertEqual(result, config)
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -40,6 +48,9 @@ class fetchNodeDetailsTests: XCTestCase {
         let fnd = NodeDetailManager(network: .sapphire(.SAPPHIRE_DEVNET))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
+            var config = try! SapphireConfig(network: .SAPPHIRE_DEVNET)
+            config.updated = true
+            XCTAssertEqual(result, config)
             XCTAssertEqual(result, SampleOutputSAPPHIREDEVNET().val)
         } catch {
             XCTFail(error.localizedDescription)
@@ -50,6 +61,9 @@ class fetchNodeDetailsTests: XCTestCase {
         let fnd = NodeDetailManager(network: .sapphire(.SAPPHIRE_TESTNET))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
+            var config = try! SapphireConfig(network: .SAPPHIRE_TESTNET)
+            config.updated = true
+            XCTAssertEqual(result, config)
             XCTAssertEqual(result, SampleOutputSAPPHIRETESTNET().val)
         } catch {
             XCTFail(error.localizedDescription)
@@ -60,6 +74,9 @@ class fetchNodeDetailsTests: XCTestCase {
         let fnd = NodeDetailManager(network: .sapphire(.SAPPHIRE_MAINNET))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
+            var config = try! SapphireConfig(network: .SAPPHIRE_MAINNET)
+            config.updated = true
+            XCTAssertEqual(result, config)
             XCTAssertEqual(result, SampleOutputSAPPHIREMAINNET().val)
         } catch {
             XCTFail(error.localizedDescription)
@@ -71,6 +88,9 @@ class fetchNodeDetailsTests: XCTestCase {
         let fnd = NodeDetailManager(network: .legacy(.CYAN))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
+            var config = try! LegacyConfig(network: .CYAN)
+            config.updated = true
+            XCTAssertEqual(result, config)
             XCTAssertEqual(result, SampleOutputCyan().val)
         } catch {
             XCTFail(error.localizedDescription)
@@ -81,7 +101,9 @@ class fetchNodeDetailsTests: XCTestCase {
         let fnd = NodeDetailManager(network: .legacy(.AQUA))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
-            print (result)
+            var config = try! LegacyConfig(network: .AQUA)
+            config.updated = true
+            XCTAssertEqual(result, config)
             XCTAssertEqual(result, SampleOutputAqua().val)
         } catch {
             XCTFail(error.localizedDescription)
@@ -92,6 +114,9 @@ class fetchNodeDetailsTests: XCTestCase {
         do {
             let fnd = NodeDetailManager(network: .legacy(.CELESTE))
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us")
+            var config = try! LegacyConfig(network: .CELESTE)
+            config.updated = true
+            XCTAssertEqual(result, config)
             XCTAssertEqual(result, SampleOutputCeleste().val)
         } catch {
             XCTFail()
