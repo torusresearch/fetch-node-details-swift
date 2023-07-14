@@ -118,21 +118,13 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
     }
     
     public mutating func setNodeDetails(nodeDetails: AllNodeDetailsModel) {
-        let currentEpoch = nodeDetails.currentEpoch
-        let torusNodeEndpoints = nodeDetails.torusNodeEndpoints
-        let torusNodeSSSEndpoints = nodeDetails.torusNodeSSSEndpoints
-        let torusNodeRSSEndpoints = nodeDetails.torusNodeRSSEndpoints
-        let torusNodeTSSEndpoints = nodeDetails.torusNodeTSSEndpoints
-        let torusNodePub = nodeDetails.torusNodePub
-        let torusIndexes = nodeDetails.torusIndexes
-
-        self.torusNodeEndpoints = torusNodeEndpoints
-        self.torusNodeSSSEndpoints = torusNodeSSSEndpoints
-        self.torusNodeRSSEndpoints = torusNodeRSSEndpoints
-        self.torusNodeTSSEndpoints = torusNodeTSSEndpoints
-        self.torusNodePub = torusNodePub
-        self.torusIndexes = torusIndexes
-        self.currentEpoch = currentEpoch
+        self.torusNodeEndpoints = nodeDetails.torusNodeEndpoints
+        self.torusNodeSSSEndpoints = nodeDetails.torusNodeSSSEndpoints
+        self.torusNodeRSSEndpoints = nodeDetails.torusNodeRSSEndpoints
+        self.torusNodeTSSEndpoints = nodeDetails.torusNodeTSSEndpoints
+        self.torusNodePub = nodeDetails.torusNodePub
+        self.torusIndexes = nodeDetails.torusIndexes
+        self.currentEpoch = nodeDetails.currentEpoch
         self.updated = true
     }
 }

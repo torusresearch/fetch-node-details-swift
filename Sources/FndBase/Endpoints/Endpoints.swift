@@ -34,18 +34,16 @@ func getSSSEndpoints(network: TorusNetwork) throws -> [String] {
             
             return endpoints.map { "\($0)/sss/jrpc" }
         case .legacy(let network ) :
-            guard let routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[network] else {
-                throw FetchNodeError.InvalidNetwork(network.path)
-            }
+            let routeIdentifier = network.migration_map
+                    
             guard let endpoints = SAPPHIRE_NETWORK_URLS[routeIdentifier.networkMigratedTo] else {
                 throw FetchNodeError.InvalidMigrationNetwork(routeIdentifier.networkMigratedTo.path)
             }
         
-            if ( !routeIdentifier.migrationCompleted) {
+            if ( routeIdentifier.migrationCompleted) {
                 return endpoints.map{ "\($0)/sss/\(routeIdentifier.networkIdentifier)/jrpc" };
             } else {
                 return endpoints.map { "\($0)/sss/jrpc" }
-            
             }
     }
 }
@@ -60,13 +58,15 @@ func getRSSEndpoints(network: TorusNetwork) throws -> [String] {
             
             return endpoints.map { "\($0)/rss" }
         case .legacy(let network ) :
-            guard let routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[network] else {
-                throw FetchNodeError.InvalidNetwork(network.path)
-            }
+            let routeIdentifier = network.migration_map
+        
             guard let endpoints = SAPPHIRE_NETWORK_URLS[routeIdentifier.networkMigratedTo] else {
                 throw FetchNodeError.InvalidMigrationNetwork(routeIdentifier.networkMigratedTo.path)
             }
-            return endpoints.map{ "\($0)/rss/\(routeIdentifier.networkIdentifier)" };
+            if ( routeIdentifier.migrationCompleted) {
+                return endpoints.map{ "\($0)/rss/\(routeIdentifier.networkIdentifier)" };
+            }
+            return endpoints.map { "\($0)/rss" }
             
     }
 }
@@ -81,13 +81,15 @@ func getTSSEndpoints(network: TorusNetwork) throws -> [String] {
             
             return endpoints.map { "\($0)/tss" }
         case .legacy(let network ) :
-            guard let routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[network] else {
-                throw FetchNodeError.InvalidNetwork(network.path)
-            }
+            let routeIdentifier = network.migration_map
+        
             guard let endpoints = SAPPHIRE_NETWORK_URLS[routeIdentifier.networkMigratedTo] else {
                 throw FetchNodeError.InvalidMigrationNetwork(routeIdentifier.networkMigratedTo.path)
             }
-            return endpoints.map{ "\($0)/tss/\(routeIdentifier.networkIdentifier)" };
+            if ( routeIdentifier.migrationCompleted) {
+                return endpoints.map{ "\($0)/tss/\(routeIdentifier.networkIdentifier)" };
+            }
+            return endpoints.map { "\($0)/tss" }
     }
 }
 

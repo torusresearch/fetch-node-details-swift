@@ -90,7 +90,20 @@ public enum LegacyNetwork: Equatable, Hashable {
     }
     
     public var migration_map: LegacyNetworkMigrationInfo {
-        return LegacyNetworkMigrationInfo(migrationCompleted: false, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
+        switch self {
+        case .MAINNET:
+            return LegacyNetworkMigrationInfo(migrationCompleted: false, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
+        case .TESTNET:
+            return LegacyNetworkMigrationInfo(migrationCompleted: true, networkIdentifier: "teal", networkMigratedTo: SapphireNetwork.SAPPHIRE_TESTNET)
+        case .CYAN :
+            return LegacyNetworkMigrationInfo(migrationCompleted: false, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
+        case .AQUA :
+            return LegacyNetworkMigrationInfo(migrationCompleted: false, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
+        case .CELESTE:
+            return LegacyNetworkMigrationInfo(migrationCompleted: false, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
+        case .CUSTOM(_):
+            return LegacyNetworkMigrationInfo(migrationCompleted: false, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
+        }
     }
     
     public var networkMap : String {
