@@ -7,7 +7,7 @@ public func fetchLocalConfig(network: TorusNetwork) throws -> AllNodeDetailsMode
         if (network.migration_map.migrationCompleted) {
             return try SapphireConfig(network: network.migration_map.networkMigratedTo )
         }
-        if (network == LegacyNetwork.MAINNET ) { return try LegacyConfig(network: network) }
+        if (network == LegacyNetwork.MAINNET ) { return NODE_DETAILS_MAINNET }
         return nil
     
         case .sapphire(let network) :

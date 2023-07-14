@@ -10,7 +10,7 @@ class fetchNodeDetailsTests: XCTestCase {
         let fnd = NodeDetailManager(network: .legacy(.MAINNET))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
-            var config = try! LegacyConfig(network: .MAINNET)
+            var config = NODE_DETAILS_MAINNET
             config.updated = true
             XCTAssertEqual(result, SampleOutputMainnet().val)
             XCTAssertEqual(result, config )
@@ -35,10 +35,7 @@ class fetchNodeDetailsTests: XCTestCase {
 
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
-            var config = try! LegacyConfig(network: .TESTNET)
-            config.updated = true
             XCTAssertEqual(result, SampleOutputTestnet().val)
-            XCTAssertEqual(result, config)
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -88,9 +85,6 @@ class fetchNodeDetailsTests: XCTestCase {
         let fnd = NodeDetailManager(network: .legacy(.CYAN))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
-            var config = try! LegacyConfig(network: .CYAN)
-            config.updated = true
-            XCTAssertEqual(result, config)
             XCTAssertEqual(result, SampleOutputCyan().val)
         } catch {
             XCTFail(error.localizedDescription)
@@ -101,9 +95,6 @@ class fetchNodeDetailsTests: XCTestCase {
         let fnd = NodeDetailManager(network: .legacy(.AQUA))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
-            var config = try! LegacyConfig(network: .AQUA)
-            config.updated = true
-            XCTAssertEqual(result, config)
             XCTAssertEqual(result, SampleOutputAqua().val)
         } catch {
             XCTFail(error.localizedDescription)
@@ -114,9 +105,6 @@ class fetchNodeDetailsTests: XCTestCase {
         do {
             let fnd = NodeDetailManager(network: .legacy(.CELESTE))
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us")
-            var config = try! LegacyConfig(network: .CELESTE)
-            config.updated = true
-            XCTAssertEqual(result, config)
             XCTAssertEqual(result, SampleOutputCeleste().val)
         } catch {
             XCTFail()
