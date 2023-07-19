@@ -11,7 +11,7 @@ public var NODE_DETAILS_MAINNET: AllNodeDetailsModel {
             "https://torus-mainnet.cosmos.network/jrpc",
             "https://torus2.etherscan.com/jrpc",
             "https://torus-node-v2.skalelabs.com/jrpc",
-            "https://torus-node.binancex.dev/jrpc",
+            "https://binancex.tor.us/jrpc",
             "https://torusnode.ont.io/jrpc"
         ],
         _torusIndexes: [1, 2, 3, 4, 5, 6, 7, 8, 9],

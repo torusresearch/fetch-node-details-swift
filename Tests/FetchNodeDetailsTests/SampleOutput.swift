@@ -18,7 +18,7 @@ public struct SampleOutputMainnet {
         "https://torus-mainnet.cosmos.network/jrpc",
         "https://torus2.etherscan.com/jrpc",
         "https://torus-node-v2.skalelabs.com/jrpc",
-        "https://torus-node.binancex.dev/jrpc",
+        "https://binancex.tor.us/jrpc",
         "https://torusnode.ont.io/jrpc",
     ]
     var torusNodePub: [TorusNodePubModel] = [
