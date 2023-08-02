@@ -25,15 +25,12 @@ public enum TorusNetwork : Equatable, Hashable {
 
 public enum SapphireNetwork: Equatable, Hashable {
     case SAPPHIRE_DEVNET
-    case SAPPHIRE_TESTNET
     case SAPPHIRE_MAINNET
 
     public var path: String {
         switch self {
         case .SAPPHIRE_DEVNET:
             return "sapphire_devnet"
-        case .SAPPHIRE_TESTNET:
-            return "sapphire_testnet"
         case .SAPPHIRE_MAINNET:
             return "sapphire_mainnet"
         }
@@ -43,8 +40,6 @@ public enum SapphireNetwork: Equatable, Hashable {
         switch self {
         case .SAPPHIRE_DEVNET:
             return "sapphire_devnet"
-        case .SAPPHIRE_TESTNET:
-            return "sapphire_testnet"
         case .SAPPHIRE_MAINNET:
             return "sapphire_mainnet"
         }
@@ -94,7 +89,7 @@ public enum LegacyNetwork: Equatable, Hashable {
         case .MAINNET:
             return LegacyNetworkMigrationInfo(migrationCompleted: false, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
         case .TESTNET:
-            return LegacyNetworkMigrationInfo(migrationCompleted: true, networkIdentifier: "teal", networkMigratedTo: SapphireNetwork.SAPPHIRE_TESTNET)
+            return LegacyNetworkMigrationInfo(migrationCompleted: true, networkIdentifier: "teal", networkMigratedTo: SapphireNetwork.SAPPHIRE_DEVNET)
         case .CYAN :
             return LegacyNetworkMigrationInfo(migrationCompleted: false, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
         case .AQUA :

@@ -54,19 +54,6 @@ class fetchNodeDetailsTests: XCTestCase {
         }
     }
     
-    func test_getNode_SapphireTestnet() async {
-        let fnd = NodeDetailManager(network: .sapphire(.SAPPHIRE_TESTNET))
-        do {
-            let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
-            var config = try! SapphireConfig(network: .SAPPHIRE_TESTNET)
-            config.updated = true
-            XCTAssertEqual(result, config)
-            XCTAssertEqual(result, SampleOutputSAPPHIRETESTNET().val)
-        } catch {
-            XCTFail(error.localizedDescription)
-        }
-    }
-    
     func test_getNode_SapphireMainnet() async {
         let fnd = NodeDetailManager(network: .sapphire(.SAPPHIRE_MAINNET))
         do {
