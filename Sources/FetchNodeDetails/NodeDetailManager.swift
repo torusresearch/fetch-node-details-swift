@@ -1,7 +1,6 @@
 import BigInt
 import Foundation
 import OSLog
-import web3
 import CommonSources
 import FndBase
 // Global variable
@@ -69,17 +68,4 @@ open class NodeDetailManager {
     }
     
     // setNodeDetails is defined in AllNodeDetailsModel because of accessibility of variables
-}
-
-extension NodeDetailManager {
-    public func decodeNodeData(info: String) throws -> GetNodeSetModel? {
-        let decodedData = try ABIDecoder.decodeData(info, types: [BigInt.self, ABIArray<String>.self, ABIArray<BigUInt>.self, ABIArray<BigUInt>.self, ABIArray<BigUInt>.self])
-        let currentEpoch: BigUInt = try decodedData[0].decoded()
-        let nodeEndpoints: [String] = try decodedData[1].decodedArray()
-        let pubx: [BigUInt] = try decodedData[2].decodedArray()
-        let puby: [BigUInt] = try decodedData[3].decodedArray()
-        let indexes: [BigUInt] = try decodedData[4].decodedArray()
-        let val: GetNodeSetModel = .init(_currentEpoch: currentEpoch, _torusNodeEndpoints: nodeEndpoints, _torusIndexes: indexes, _torusNodePubX: pubx, _torusNodePubY: puby)
-        return val
-    }
 }
