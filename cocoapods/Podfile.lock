@@ -3,11 +3,6 @@ PODS:
   - GenericJSON (2.0.2)
   - secp256k1.swift (0.1.4)
   - Torus-fetchNodeDetails (4.0.1):
-    - web3.swift (~> 0.9.3)
-  - web3.swift (0.9.3):
-    - BigInt (~> 5.0.0)
-    - GenericJSON (~> 2.0)
-    - secp256k1.swift (~> 0.1)
 
 DEPENDENCIES:
   - Torus-fetchNodeDetails (from `../`)
@@ -17,8 +12,6 @@ SPEC REPOS:
     - BigInt
     - GenericJSON
     - secp256k1.swift
-    - web3.swift
-
 EXTERNAL SOURCES:
   Torus-fetchNodeDetails:
     :path: "../"
@@ -28,8 +21,6 @@ SPEC CHECKSUMS:
   GenericJSON: 79a840eeb77030962e8cf02a62d36bd413b67626
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
   Torus-fetchNodeDetails: a92d02f1bfe91bd61c90f92d64df023babaa5bfa
-  web3.swift: c6c3bf1f853743f8a7a58d263e5f7e46545e22c7
-
 PODFILE CHECKSUM: 33add72342a492adb43676625c404c97ced731da
 
 COCOAPODS: 1.11.3

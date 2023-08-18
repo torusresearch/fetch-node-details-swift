@@ -99,15 +99,6 @@
           "revision": "1b9cc1f43c9c0f80194aad80b25324d464f2fa59",
           "version": "0.1.1"
         }
-      },
-      {
-        "package": "Web3swift",
-        "repositoryURL": "https://github.com/rathishubham7/web3swift",
-        "state": {
-          "branch": null,
-          "revision": "95c8cb18bc8a664963f55e095318c1a180c3f5ec",
-          "version": "2.2.2"
-        }
       }
     ]
   },

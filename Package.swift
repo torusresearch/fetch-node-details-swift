@@ -15,7 +15,6 @@ let package = Package(
             targets: ["FndBase"])
     ],
     dependencies: [
-        .package(url: "https://github.com/argentlabs/web3.swift", from:"1.6.0"),
         .package(url: "https://github.com/attaswift/BigInt.git", from: "5.3.0"),
     ],
     targets: [
@@ -29,7 +28,7 @@ let package = Package(
             path: "Sources/FndBase"),
         .target(
             name: "FetchNodeDetails",
-            dependencies: ["web3.swift", "CommonSources", "FndBase"],
+            dependencies: ["CommonSources", "FndBase"],
             path: "Sources/FetchNodeDetails"),
         .testTarget(
             name: "FetchNodeDetailsTests",
