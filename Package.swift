@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "FetchNodeDetails",
-    platforms: [.iOS(.v13), .macOS(.v10_13)],
+    platforms: [.iOS(.v13), .macOS(.v10_15)],
     products: [
         .library(
             name: "FetchNodeDetails",
