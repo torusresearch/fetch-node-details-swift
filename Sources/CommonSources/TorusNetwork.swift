@@ -87,7 +87,7 @@ public enum LegacyNetwork: Equatable, Hashable {
     public var migration_map: LegacyNetworkMigrationInfo {
         switch self {
         case .MAINNET:
-            return LegacyNetworkMigrationInfo(migrationCompleted: false, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
+            return LegacyNetworkMigrationInfo(migrationCompleted: true, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
         case .TESTNET:
             return LegacyNetworkMigrationInfo(migrationCompleted: true, networkIdentifier: "teal", networkMigratedTo: SapphireNetwork.SAPPHIRE_DEVNET)
         case .CYAN :
