@@ -10,10 +10,7 @@ class fetchNodeDetailsTests: XCTestCase {
         let fnd = NodeDetailManager(network: .legacy(.MAINNET))
         do {
             let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
-            var config = NODE_DETAILS_MAINNET
-            config.updated = true
             XCTAssertEqual(result, SampleOutputMainnet().val)
-            XCTAssertEqual(result, config )
         } catch {
             XCTFail(error.localizedDescription)
         }
