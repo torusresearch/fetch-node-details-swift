@@ -5,26 +5,34 @@ import PackageDescription
 
 let package = Package(
     name: "FetchNodeDetails",
-    platforms: [.iOS(.v13),.macOS(.v10_15)
-    ],
+    platforms: [.iOS(.v13), .macOS(.v10_15)],
     products: [
-        // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "FetchNodeDetails",
             targets: ["FetchNodeDetails"]),
+        .library(
+            name: "FndBase",
+            targets: ["FndBase"])
     ],
     dependencies: [
-        .package(url: "https://github.com/argentlabs/web3.swift", from:"0.8.1")
+        .package(url: "https://github.com/attaswift/BigInt.git", from: "5.3.0"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
-            name: "FetchNodeDetails" ,dependencies: ["web3.swift"], path: "Sources",resources: [.process("FetchNodeDetails/Resources/abi.json")]),
+            name: "CommonSources",
+            dependencies: ["BigInt"],
+            path: "Sources/CommonSources"),
+        .target(
+            name: "FndBase",
+            dependencies: ["CommonSources"],
+            path: "Sources/FndBase"),
+        .target(
+            name: "FetchNodeDetails",
+            dependencies: ["CommonSources", "FndBase"],
+            path: "Sources/FetchNodeDetails"),
         .testTarget(
             name: "FetchNodeDetailsTests",
-            dependencies: ["FetchNodeDetails"]),
-    ]
-    
-    ,swiftLanguageVersions: [.v5]
+            dependencies: ["FetchNodeDetails","CommonSources", "FndBase"]),
+    ],
+    swiftLanguageVersions: [.v5]
 )
