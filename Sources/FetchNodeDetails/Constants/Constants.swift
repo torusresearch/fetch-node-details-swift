@@ -11,7 +11,7 @@ let TORUS_NETWORK: [TorusNetwork: String] = [
 public typealias TORUS_NETWORK_TYPE = String
 
 
-let MULTI_CLUSTER_NETWORKS: [LegacyNetwork] = [ .AQUA, .CELESTE, .CYAN ]
+let MULTI_CLUSTER_NETWORKS: [LegacyNetwork] = [.CELESTE]
 
 let NETWORK_MAP: [LegacyNetwork: String] = [
     .MAINNET: "mainnet",
