@@ -57,13 +57,13 @@ open class NodeDetailManager {
             let (data, _) = try await URLSession.shared.data(from: url)
             let response = try JSONDecoder().decode(NodeDetailsResponse.self, from: data)
             let nodeDetails = response.getNodeDetails()
-            fndResult.setNodeDetails(nodeDetails: nodeDetails)
+            fndResult.setNodeDetails(nodeDetails: nodeDetails, updated: true)
             return fndResult
         } catch let error {
             os_log("Failed to fetch node details from server, using local. %s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, error.localizedDescription)
         }
         let nodeDetails = try fetchLocalConfig(network: self.network)!
-        fndResult.setNodeDetails(nodeDetails: nodeDetails)
+        fndResult.setNodeDetails(nodeDetails: nodeDetails, updated: false)
         return fndResult
     }
     
