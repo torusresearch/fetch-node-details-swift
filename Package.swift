@@ -12,7 +12,10 @@ let package = Package(
             targets: ["FetchNodeDetails"]),
         .library(
             name: "FndBase",
-            targets: ["FndBase"])
+            targets: ["FndBase"]),
+        .library(
+            name: "CommonSources",
+            targets: ["CommonSources"])
     ],
     dependencies: [
         .package(url: "https://github.com/attaswift/BigInt.git", from: "5.3.0"),
