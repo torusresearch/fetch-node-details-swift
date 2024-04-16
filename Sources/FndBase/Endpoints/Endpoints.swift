@@ -2,18 +2,18 @@ import CommonSources
 
 let SAPPHIRE_NETWORK_URLS: [SapphireNetwork: [String]] = [
     .SAPPHIRE_DEVNET: [
-        "https://sapphire-dev-2-1.authnetwork.dev",
-        "https://sapphire-dev-2-2.authnetwork.dev",
-        "https://sapphire-dev-2-3.authnetwork.dev",
-        "https://sapphire-dev-2-4.authnetwork.dev",
-        "https://sapphire-dev-2-5.authnetwork.dev",
+        "https://node-1.dev-node.web3auth.io",
+        "https://node-2.dev-node.web3auth.io",
+        "https://node-3.dev-node.web3auth.io",
+        "https://node-4.dev-node.web3auth.io",
+        "https://node-5.dev-node.web3auth.io",
     ],
     .SAPPHIRE_MAINNET: [
-        "https://sapphire-1.auth.network",
-        "https://sapphire-2.auth.network",
-        "https://sapphire-3.auth.network",
-        "https://sapphire-4.auth.network",
-        "https://sapphire-5.auth.network",
+        "https://node-1.node.web3auth.io",
+        "https://node-2.node.web3auth.io",
+        "https://node-3.node.web3auth.io",
+        "https://node-4.node.web3auth.io",
+        "https://node-5.node.web3auth.io",
     ],
 ]
 

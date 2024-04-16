@@ -64,4 +64,16 @@ class fetchNodeDetailsTests: XCTestCase {
         let result = try await fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us")
         XCTAssertEqual(result, SampleOutputCeleste().val)
     }
+    
+    func test_getMetadata_Mainnet() async throws {
+        let fnd = NodeDetailManager(network: .legacy(.MAINNET))
+        let result = try await fnd.getMetadataUrl()
+        XCTAssertEqual(result, "https://metadata.web3auth.io")
+    }
+    
+    func test_getMetadata_SapphireMainnet() async throws {
+        let fnd = NodeDetailManager(network: .sapphire(.SAPPHIRE_MAINNET))
+        let result = try await fnd.getMetadataUrl()
+        XCTAssertEqual(result, SampleOutputSAPPHIREMAINNET().val.torusNodeEndpoints[0].replacingOccurrences(of: "/sss/jrpc", with: "/metadata"))
+    }
 }

@@ -8,7 +8,7 @@ var fndLogType = OSLogType.default
 
 open class NodeDetailManager {
     
-    private var fndServerEndpoint = "https://fnd.tor.us/node-details"
+    private var fndServerEndpoint = "https://fnd.web3auth.io/node-details"
     private var currentEpoch: String = "0"
     private var torusNodeEndpoints = [String]()
     private var torusNodePub: [TorusNodePubModel] = []
@@ -65,6 +65,15 @@ open class NodeDetailManager {
         let nodeDetails = try fetchLocalConfig(network: self.network)!
         fndResult.setNodeDetails(nodeDetails: nodeDetails, updated: false)
         return fndResult
+    }
+    
+    public func getMetadataUrl() async throws -> String {
+        switch network {
+        case .legacy(let legacyNetwork):
+            return legacyNetwork.metadataMap
+        case .sapphire(_):
+            return try await self.getNodeDetails(verifier: "test-verifier", verifierID: "test-verifier-id").torusNodeEndpoints[0].replacingOccurrences(of: "/sss/jrpc", with: "/metadata")
+        }
     }
     
     // setNodeDetails is defined in AllNodeDetailsModel because of accessibility of variables

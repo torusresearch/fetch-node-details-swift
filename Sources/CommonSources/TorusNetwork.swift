@@ -114,12 +114,23 @@ public enum LegacyNetwork: Equatable, Hashable {
     
     public var signerMap : String {
         switch self {
-        case .MAINNET: return "https://signer.tor.us"
-        case .TESTNET: return "https://signer.tor.us"
-        case .CYAN: return "https://signer-polygon.tor.us"
-        case .AQUA: return "https://signer-polygon.tor.us"
-        case .CELESTE: return "https://signer-polygon.tor.us"
+        case .MAINNET: return "https://signer.web3auth.io"
+        case .TESTNET: return "https://signer.web3auth.io"
+        case .CYAN: return "https://signer-polygon.web3auth.io"
+        case .AQUA: return "https://signer-polygon.web3auth.io"
+        case .CELESTE: return "https://signer-polygon.web3auth.io"
         case .CUSTOM(let path) : return path
+        }
+    }
+    
+    public var metadataMap: String {
+        switch self {
+        case .MAINNET: return "https://metadata.web3auth.io"
+        case .TESTNET: return "https://metadata.web3auth.io"
+        case .CYAN: return "https://metadata.web3auth.io"
+        case .AQUA: return "https://metadata.web3auth.io"
+        case .CELESTE: return "https://metadata.web3auth.io"
+        case .CUSTOM(let path): return path
         }
     }
 }
