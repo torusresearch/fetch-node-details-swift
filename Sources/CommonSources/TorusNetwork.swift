@@ -21,6 +21,15 @@ public enum TorusNetwork : Equatable, Hashable {
             return network.path
         }
     }
+    
+    public var signerMap :  String {
+        switch self {
+        case .legacy(let network) :
+            return network.signerMap
+        case .sapphire(let network) :
+            return network.signerMap
+        }
+    }
 }
 
 public enum SapphireNetwork: Equatable, Hashable {
@@ -42,6 +51,13 @@ public enum SapphireNetwork: Equatable, Hashable {
             return "sapphire_devnet"
         case .SAPPHIRE_MAINNET:
             return "sapphire_mainnet"
+        }
+    }
+    
+    public var signerMap : String {
+        switch self {
+        case .SAPPHIRE_MAINNET: return "https://signer.web3auth.io"
+        case .SAPPHIRE_DEVNET: return "https://signer.web3auth.io"
         }
     }
 }
