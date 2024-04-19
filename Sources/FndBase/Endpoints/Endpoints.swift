@@ -1,5 +1,3 @@
-import CommonSources
-
 let SAPPHIRE_NETWORK_URLS: [SapphireNetwork: [String]] = [
     .SAPPHIRE_DEVNET: [
         "https://node-1.dev-node.web3auth.io",

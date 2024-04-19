@@ -1,5 +1,4 @@
 @testable import FetchNodeDetails
-import FndBase
 
 import XCTest
 

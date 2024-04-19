@@ -1,5 +1,3 @@
-import CommonSources
-
 public func fetchLocalConfig(network: TorusNetwork) throws -> AllNodeDetailsModel? {
     
     switch network {
