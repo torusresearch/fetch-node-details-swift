@@ -1,12 +1,4 @@
-//
-//  File.swift
-//  
-//
-//  Created by CW Lee on 10/07/2023.
-//
-
 import Foundation
-import CommonSources
 
 public var SapphireMainnetNodePub : [TorusNodePubModel] = [
     .init(_X: "e0925898fee0e9e941fdca7ee88deec99939ae9407e923535c4d4a3a3ff8b052", _Y: "54b9fea924e3f3e40791f9987f4234ae4222412d65b74068032fa5d8b63375c1"),

@@ -1,8 +1,6 @@
 import BigInt
 import Foundation
 import OSLog
-import CommonSources
-import FndBase
 // Global variable
 var fndLogType = OSLogType.default
 

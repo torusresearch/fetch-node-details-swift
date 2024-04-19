@@ -10,29 +10,18 @@ let package = Package(
         .library(
             name: "FetchNodeDetails",
             targets: ["FetchNodeDetails"]),
-        .library(
-            name: "FndBase",
-            targets: ["FndBase"])
     ],
     dependencies: [
         .package(url: "https://github.com/attaswift/BigInt.git", from: "5.3.0"),
     ],
     targets: [
         .target(
-            name: "CommonSources",
-            dependencies: ["BigInt"],
-            path: "Sources/CommonSources"),
-        .target(
-            name: "FndBase",
-            dependencies: ["CommonSources"],
-            path: "Sources/FndBase"),
-        .target(
             name: "FetchNodeDetails",
-            dependencies: ["CommonSources", "FndBase"],
-            path: "Sources/FetchNodeDetails"),
+            dependencies: ["BigInt"],
+            path: "Sources"),
         .testTarget(
             name: "FetchNodeDetailsTests",
-            dependencies: ["FetchNodeDetails","CommonSources", "FndBase"]),
+            dependencies: ["FetchNodeDetails"]),
     ],
     swiftLanguageVersions: [.v5]
 )
