@@ -111,7 +111,7 @@ public enum LegacyNetwork: Equatable, Hashable {
         case .AQUA :
             return LegacyNetworkMigrationInfo(migrationCompleted: true, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
         case .CELESTE:
-            return LegacyNetworkMigrationInfo(migrationCompleted: false, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
+            return LegacyNetworkMigrationInfo(migrationCompleted: true, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
         case .CUSTOM(_):
             return LegacyNetworkMigrationInfo(migrationCompleted: false, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
         }
