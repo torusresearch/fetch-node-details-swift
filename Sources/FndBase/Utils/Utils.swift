@@ -5,7 +5,7 @@ public func fetchLocalConfig(network: TorusNetwork) throws -> AllNodeDetailsMode
         if (network.migration_map.migrationCompleted) {
             return try SapphireConfig(network: network.migration_map.networkMigratedTo )
         }
-        throw FetchNodeError.InvalidAllNodeDetailsModel
+        throw FetchNodeError.InvalidNetwork("Unsupported network: \(network)")
     
         case .sapphire(let network) :
             return try SapphireConfig(network: network)
