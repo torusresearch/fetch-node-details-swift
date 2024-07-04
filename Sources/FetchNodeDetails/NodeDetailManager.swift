@@ -50,7 +50,7 @@ open class NodeDetailManager {
         
         do {
             guard let url = URL(string: "\(fndServerEndpoint)?network=\(network.name)&verifier=\(verifier)&verifierId=\(verifierID)") else {
-                fatalError("Invalid URL ")
+                throw FetchNodeError.InvalidURL
             }
             let (data, _) = try await URLSession.shared.data(from: url)
             let response = try JSONDecoder().decode(NodeDetailsResponse.self, from: data)
