@@ -20,7 +20,7 @@ func getSSSEndpoints(network: TorusNetwork) throws -> [String] {
         case .sapphire(let network) :
             
             guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
-                fatalError("Unsupported network: \(network)")
+                throw FetchNodeError.InvalidNetwork("Unsupported network: \(network)")
             }
             
             return endpoints.map { "\($0)/sss/jrpc" }
@@ -44,7 +44,7 @@ func getRSSEndpoints(network: TorusNetwork) throws -> [String] {
         case .sapphire(let network) :
             
             guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
-                fatalError("Unsupported network: \(network)")
+                throw FetchNodeError.InvalidNetwork("Unsupported network: \(network)")
             }
             
             return endpoints.map { "\($0)/rss" }
@@ -67,7 +67,7 @@ func getTSSEndpoints(network: TorusNetwork) throws -> [String] {
         case .sapphire(let network) :
             
             guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
-                fatalError("Unsupported network: \(network)")
+                throw FetchNodeError.InvalidNetwork("Unsupported network: \(network)")
             }
             
             return endpoints.map { "\($0)/tss" }

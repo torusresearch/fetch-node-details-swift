@@ -49,8 +49,15 @@ open class NodeDetailManager {
         fndResult = nodeDetails
         
         do {
-            guard let url = URL(string: "\(fndServerEndpoint)?network=\(network.name)&verifier=\(verifier)&verifierId=\(verifierID)") else {
-                fatalError("Invalid URL ")
+            guard let urlEncodedVerifier = verifier.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+                  let urlEncodedVerifierID = verifierID.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+                  let urlEncodedNetwork = network.name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            else {
+                throw FetchNodeError.InvalidInput
+            }
+            
+            guard let url = URL(string: "\(fndServerEndpoint)?network=\(urlEncodedNetwork)&verifier=\(urlEncodedVerifier)&verifierId=\(urlEncodedVerifierID)") else {
+                throw FetchNodeError.InvalidURL
             }
             let (data, _) = try await URLSession.shared.data(from: url)
             let response = try JSONDecoder().decode(NodeDetailsResponse.self, from: data)
@@ -60,7 +67,8 @@ open class NodeDetailManager {
         } catch let error {
             os_log("Failed to fetch node details from server, using local. %s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, error.localizedDescription)
         }
-        let nodeDetails = try fetchLocalConfig(network: self.network)!
+        
+        let nodeDetails = try fetchLocalConfig(network: self.network)
         fndResult.setNodeDetails(nodeDetails: nodeDetails, updated: false)
         return fndResult
     }
