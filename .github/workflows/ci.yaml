@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - master
+      - v2
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      
+      - name: Lint code using SwiftLint
+        run: swiftlint lint ./Sources --reporter github-actions-logging
+
+      - name: Build
+        run: swift build -v
