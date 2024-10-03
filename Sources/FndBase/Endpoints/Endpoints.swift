@@ -1,4 +1,4 @@
-let SAPPHIRE_NETWORK_URLS: [SapphireNetwork: [String]] = [
+let SAPPHIRE_NETWORK_URLS: [Web3AuthNetwork: [String]] = [
     .SAPPHIRE_DEVNET: [
         "https://node-1.dev-node.web3auth.io",
         "https://node-2.dev-node.web3auth.io",
@@ -15,16 +15,16 @@ let SAPPHIRE_NETWORK_URLS: [SapphireNetwork: [String]] = [
     ],
 ]
 
-func getSSSEndpoints(network: TorusNetwork) throws -> [String] {
+func getSSSEndpoints(network: Web3AuthNetwork) throws -> [String] {
     switch network {
-        case .sapphire(let network) :
+    case .SAPPHIRE_DEVNET, .SAPPHIRE_MAINNET :
             
             guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
                 throw FetchNodeError.InvalidNetwork("Unsupported network: \(network)")
             }
             
             return endpoints.map { "\($0)/sss/jrpc" }
-        case .legacy(let network ) :
+    case .AQUA,.CELESTE,.CYAN,.MAINNET,.TESTNET :
             let routeIdentifier = network.migration_map
                     
             guard let endpoints = SAPPHIRE_NETWORK_URLS[routeIdentifier.networkMigratedTo] else {
@@ -39,16 +39,16 @@ func getSSSEndpoints(network: TorusNetwork) throws -> [String] {
     }
 }
 
-func getRSSEndpoints(network: TorusNetwork) throws -> [String] {
+func getRSSEndpoints(network: Web3AuthNetwork) throws -> [String] {
     switch network {
-        case .sapphire(let network) :
+    case .SAPPHIRE_DEVNET,.SAPPHIRE_MAINNET :
             
             guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
                 throw FetchNodeError.InvalidNetwork("Unsupported network: \(network)")
             }
             
             return endpoints.map { "\($0)/rss" }
-        case .legacy(let network ) :
+        case .AQUA,.CELESTE,.CYAN,.MAINNET,.TESTNET :
             let routeIdentifier = network.migration_map
         
             guard let endpoints = SAPPHIRE_NETWORK_URLS[routeIdentifier.networkMigratedTo] else {
@@ -62,16 +62,16 @@ func getRSSEndpoints(network: TorusNetwork) throws -> [String] {
     }
 }
 
-func getTSSEndpoints(network: TorusNetwork) throws -> [String] {
+func getTSSEndpoints(network: Web3AuthNetwork) throws -> [String] {
     switch network {
-        case .sapphire(let network) :
+    case .SAPPHIRE_DEVNET,.SAPPHIRE_MAINNET :
             
             guard let endpoints = SAPPHIRE_NETWORK_URLS[network] else {
                 throw FetchNodeError.InvalidNetwork("Unsupported network: \(network)")
             }
             
             return endpoints.map { "\($0)/tss" }
-        case .legacy(let network ) :
+    case .AQUA,.CELESTE,.CYAN,.MAINNET,.TESTNET :
             let routeIdentifier = network.migration_map
         
             guard let endpoints = SAPPHIRE_NETWORK_URLS[routeIdentifier.networkMigratedTo] else {

@@ -1,11 +1,3 @@
-//
-//  ContentView.swift
-//  cptest
-//
-//  Created by Shubham on 12/6/20.
-//  Copyright © 2020 torus. All rights reserved.
-//
-
 import FetchNodeDetails
 import SwiftUI
 
@@ -35,12 +27,12 @@ struct ContentView: View {
 
     func execute() {
         Task {
-            let fnd = FetchNodeDetails()
+            let fnd = NodeDetailManager(network: .SAPPHIRE_MAINNET)
             do {
                 let val = try await fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us")
                 print(val)
                 success = true
-                message = val.getNodeListAddress()
+                message = val.getTorusNodeEndpoints().joined(separator: ";")
                 showAlert = true
             } catch let err {
                 success = false

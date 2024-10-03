@@ -5,49 +5,47 @@ import OSLog
 var fndLogType = OSLogType.default
 
 open class NodeDetailManager {
-    
-    private var fndServerEndpoint = "https://fnd.web3auth.io/node-details"
+    private var fndServerEndpoint: String
     private var currentEpoch: String = "0"
     private var torusNodeEndpoints = [String]()
-    private var torusNodePub: [TorusNodePubModel] = []
+    private var torusNodePub: [TorusNodePub] = []
     private var torusIndexes: [BigUInt] = []
     private var torusNodeSSSEndpoints: [String] = []
     private var torusNodeRSSEndpoints: [String] = []
     private var torusNodeTSSEndpoints: [String] = []
 
-    private var network: TorusNetwork = .sapphire( SapphireNetwork.SAPPHIRE_MAINNET ) 
+    private var network: Web3AuthNetwork = .SAPPHIRE_MAINNET
 
     private var urlSession: URLSession
     private var updated = false
-    var nodeDetails: AllNodeDetailsModel {
-        return .init(_currentEpoch: currentEpoch, _torusNodeEndpoints: torusNodeEndpoints, _torusNodeSSSEndpoints: torusNodeSSSEndpoints, _torusNodeRSSEndpoints: torusNodeRSSEndpoints, _torusNodeTSSEndpoints:torusNodeTSSEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
+    var nodeDetails: NodeDetails {
+        return .init(_currentEpoch: currentEpoch, _torusNodeEndpoints: torusNodeEndpoints, _torusNodeSSSEndpoints: torusNodeSSSEndpoints, _torusNodeRSSEndpoints: torusNodeRSSEndpoints, _torusNodeTSSEndpoints: torusNodeTSSEndpoints, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
     }
 
-
-    public init(network: TorusNetwork, fndEndpoint: String? = nil, logLevel: OSLogType = .default, urlSession: URLSession = URLSession.shared) {
+    public init(network: Web3AuthNetwork, fndEndpoint: String? = nil, logLevel: OSLogType = .default, urlSession: URLSession = URLSession.shared) {
         fndLogType = logLevel // to be used across application
         self.network = network
         self.urlSession = urlSession
         if let endpoint = fndEndpoint, !endpoint.isEmpty {
-            self.fndServerEndpoint = endpoint
+            fndServerEndpoint = endpoint
+        } else {
+            fndServerEndpoint = network.fndServer
         }
     }
-    
-    public func getNodeDetails(verifier: String, verifierID: String) async throws -> AllNodeDetailsModel {
-        
+
+    public func getNodeDetails(verifier: String, verifierID: String) async throws -> NodeDetails {
         switch network {
-        case .legacy(let legacyNetwork):
-            if updated && !MULTI_CLUSTER_NETWORKS.contains(legacyNetwork) {
+        case .AQUA, .CELESTE, .CYAN, .MAINNET, .TESTNET:
+            if updated && !MULTI_CLUSTER_NETWORKS.contains(network) {
                 return nodeDetails
             }
-        case .sapphire(_):
+        case .SAPPHIRE_DEVNET, .SAPPHIRE_MAINNET:
             break
         }
-    
-        
-        var fndResult: AllNodeDetailsModel
+
+        var fndResult: NodeDetails
         fndResult = nodeDetails
-        
+
         do {
             guard let urlEncodedVerifier = verifier.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
                   let urlEncodedVerifierID = verifierID.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -55,7 +53,7 @@ open class NodeDetailManager {
             else {
                 throw FetchNodeError.InvalidInput
             }
-            
+
             guard let url = URL(string: "\(fndServerEndpoint)?network=\(urlEncodedNetwork)&verifier=\(urlEncodedVerifier)&verifierId=\(urlEncodedVerifierID)") else {
                 throw FetchNodeError.InvalidURL
             }
@@ -67,20 +65,13 @@ open class NodeDetailManager {
         } catch let error {
             os_log("Failed to fetch node details from server, using local. %s", log: getTorusLogger(log: FNDLogger.core, type: .error), type: .error, error.localizedDescription)
         }
-        
-        let nodeDetails = try fetchLocalConfig(network: self.network)
+
+        let nodeDetails = try fetchLocalConfig(network: network)
         fndResult.setNodeDetails(nodeDetails: nodeDetails, updated: false)
         return fndResult
     }
-    
+
     public func getMetadataUrl() async throws -> String {
-        switch network {
-        case .legacy(let legacyNetwork):
-            return legacyNetwork.metadataMap
-        case .sapphire(_):
-            return try await self.getNodeDetails(verifier: "test-verifier", verifierID: "test-verifier-id").torusNodeEndpoints[0].replacingOccurrences(of: "/sss/jrpc", with: "/metadata")
-        }
+        return network.metadataMap
     }
-    
-    // setNodeDetails is defined in AllNodeDetailsModel because of accessibility of variables
 }

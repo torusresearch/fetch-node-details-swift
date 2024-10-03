@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  cptest
-//
-//  Created by Shubham on 12/6/20.
-//  Copyright © 2020 torus. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain

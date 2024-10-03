@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by CW Lee on 10/07/2023.
-//
-
 import Foundation
 
 public enum FetchNodeError : Error {

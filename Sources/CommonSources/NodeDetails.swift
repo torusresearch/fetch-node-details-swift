@@ -1,8 +1,8 @@
 import Foundation
 import BigInt
 
-public struct AllNodeDetailsModel:Equatable, Decodable {
-    public static func == (lhs : AllNodeDetailsModel, rhs : AllNodeDetailsModel) -> Bool {
+public class NodeDetails: Equatable, Decodable {
+    public static func == (lhs : NodeDetails, rhs : NodeDetails) -> Bool {
         return lhs.currentEpoch == rhs.currentEpoch && lhs.torusNodeEndpoints == rhs.torusNodeEndpoints && lhs.torusNodePub == rhs.torusNodePub && lhs.currentEpoch == rhs.currentEpoch && lhs.torusIndexes == rhs.torusIndexes && lhs.updated == rhs.updated
     }
     
@@ -12,7 +12,7 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
     public var torusNodeRSSEndpoints : Array<String>
     public var torusNodeTSSEndpoints : Array<String>
     public var torusIndexes : Array<BigUInt>
-    public var torusNodePub : Array<TorusNodePubModel>
+    public var torusNodePub : Array<TorusNodePub>
     public var updated = false
     
     public enum CodingKeys: String, CodingKey {
@@ -26,7 +26,7 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
             case updated = "updated"
         }
     
-    public init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         currentEpoch = try container.decode(String.self, forKey: .currentEpoch)
         torusNodeEndpoints = try container.decode([String].self, forKey: .torusNodeEndpoints)
@@ -38,11 +38,11 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
 
         // Convert [Int] to Array<BigUInt>
         torusIndexes = torusIndexesInt.map { BigUInt($0) }
-        torusNodePub = try container.decode([TorusNodePubModel].self, forKey: .torusNodePub)
+        torusNodePub = try container.decode([TorusNodePub].self, forKey: .torusNodePub)
         updated = try container.decodeIfPresent(Bool.self, forKey: .updated) ?? false
     }
     
-    public init(_currentEpoch : String, _torusNodeEndpoints : Array<String>, _torusNodeSSSEndpoints : Array<String> = [], _torusNodeRSSEndpoints : Array<String> = [], _torusNodeTSSEndpoints : Array<String> = [],  _torusIndexes : Array<BigUInt>, _torusNodePub : Array<TorusNodePubModel>, _updated : Bool = false) {
+    public init(_currentEpoch : String, _torusNodeEndpoints : Array<String>, _torusNodeSSSEndpoints : Array<String> = [], _torusNodeRSSEndpoints : Array<String> = [], _torusNodeTSSEndpoints : Array<String> = [],  _torusIndexes : Array<BigUInt>, _torusNodePub : Array<TorusNodePub>, _updated : Bool = false) {
         self.currentEpoch = _currentEpoch;
         self.torusNodeSSSEndpoints = _torusNodeSSSEndpoints;
         self.torusNodeRSSEndpoints = _torusNodeRSSEndpoints;
@@ -57,7 +57,7 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
         return self.torusIndexes;
     }
     
-    public mutating func setTorusIndexes(torusIndexes : Array<BigUInt>){
+    public func setTorusIndexes(torusIndexes : Array<BigUInt>){
         self.torusIndexes = torusIndexes
     }
     
@@ -65,15 +65,15 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
         return updated
     }
     
-    public mutating func setUpdated(updated : Bool){
+    public func setUpdated(updated : Bool){
         self.updated = updated
     }
     
-    public mutating func getCurrentEpoch() -> String{
+    public func getCurrentEpoch() -> String{
         return currentEpoch
     }
     
-    public mutating func setCurrentEpoch( currentEpoch : String) {
+    public func setCurrentEpoch( currentEpoch : String) {
         self.currentEpoch = currentEpoch;
     }
     
@@ -81,15 +81,15 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
         return torusNodeEndpoints
     }
     
-    public mutating func setTorusNodeEndpoints(torusNodeEndpoints : Array<String>) {
+    public func setTorusNodeEndpoints(torusNodeEndpoints : Array<String>) {
         self.torusNodeEndpoints = torusNodeEndpoints
     }
     
-    public func getTorusNodePub() -> Array<TorusNodePubModel> {
+    public func getTorusNodePub() -> Array<TorusNodePub> {
         return torusNodePub
     }
     
-    public mutating func setTorusNodePub(torusNodePub : Array<TorusNodePubModel>) {
+    public func setTorusNodePub(torusNodePub : Array<TorusNodePub>) {
         self.torusNodePub = torusNodePub
     }
     
@@ -97,7 +97,7 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
         return torusNodeSSSEndpoints
     }
     
-    public mutating func setTorusNodeSSSEndpoints(torusNodeSSSEndpoints : Array<String>) {
+    public func setTorusNodeSSSEndpoints(torusNodeSSSEndpoints : Array<String>) {
         self.torusNodeSSSEndpoints = torusNodeSSSEndpoints
     }
     
@@ -105,7 +105,7 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
         return torusNodeRSSEndpoints
     }
     
-    public mutating func setTorusNodeRSSEndpoints(torusNodeRSSEndpoints : Array<String>) {
+    public func setTorusNodeRSSEndpoints(torusNodeRSSEndpoints : Array<String>) {
         self.torusNodeRSSEndpoints = torusNodeRSSEndpoints
     }
     
@@ -113,11 +113,11 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
         return torusNodeTSSEndpoints
     }
     
-    public mutating func setTorusNodeTSSEndpoints(torusNodeTSSEndpoints : Array<String>) {
+    public func setTorusNodeTSSEndpoints(torusNodeTSSEndpoints : Array<String>) {
         self.torusNodeTSSEndpoints = torusNodeTSSEndpoints
     }
     
-    public mutating func setNodeDetails(nodeDetails: AllNodeDetailsModel, updated: Bool) {
+    public func setNodeDetails(nodeDetails: NodeDetails, updated: Bool) {
         self.torusNodeEndpoints = nodeDetails.torusNodeEndpoints
         self.torusNodeSSSEndpoints = nodeDetails.torusNodeSSSEndpoints
         self.torusNodeRSSEndpoints = nodeDetails.torusNodeRSSEndpoints

@@ -4,13 +4,13 @@ import BigInt
 import XCTest
 
 public struct SampleOutputMainnet {
-    var val: AllNodeDetailsModel {
+    var val: NodeDetails {
         return .init(
             _currentEpoch: "1",
-            _torusNodeEndpoints: try! getSSSEndpoints(network: .legacy(.MAINNET)), // SAPPHIRE_NETWORK_URLS[.SAPPHIRE_MAINNET]!,
-            _torusNodeSSSEndpoints: try! getSSSEndpoints(network: .legacy(.MAINNET)),
-            _torusNodeRSSEndpoints: try! getRSSEndpoints(network: .legacy(.MAINNET)),
-            _torusNodeTSSEndpoints: try! getTSSEndpoints(network: .legacy(.MAINNET)),
+            _torusNodeEndpoints: try! getSSSEndpoints(network: .MAINNET), // SAPPHIRE_NETWORK_URLS[.SAPPHIRE_MAINNET]!,
+            _torusNodeSSSEndpoints: try! getSSSEndpoints(network: .MAINNET),
+            _torusNodeRSSEndpoints: try! getRSSEndpoints(network: .MAINNET),
+            _torusNodeTSSEndpoints: try! getTSSEndpoints(network: .MAINNET),
             _torusIndexes: [1, 2, 3, 4, 5],
             _torusNodePub: [
                 .init(_X: "e0925898fee0e9e941fdca7ee88deec99939ae9407e923535c4d4a3a3ff8b052",
@@ -33,8 +33,8 @@ public struct SampleOutputTestnet {
     var currentEpoch: String = "1"
     var nodeListAddress: String = "0xd084604e5FA387FbC2Da8bAab07fDD6aDED4614A"
     var updated = true
-    var torusNodeEndpoints = try! getSSSEndpoints(network: .legacy(.TESTNET))
-    var torusNodePub: [TorusNodePubModel] = [
+    var torusNodeEndpoints = try! getSSSEndpoints(network: .TESTNET)
+    var torusNodePub: [TorusNodePub] = [
         .init(_X: "f74389b0a4c8d10d2a687ae575f69b20f412d41ab7f1fe6b358aa14871327247",
               _Y: "54e3a73098ed9bced3ef8821736e9794f9264a1420c0c7ad15d2fa617ba35ef7"),
         .init(_X: "bc38813a6873e526087918507c78fc3a61624670ee851ecfb4f3bef55d027b5a",
@@ -48,23 +48,23 @@ public struct SampleOutputTestnet {
     ]
     var torusIndexes: [BigUInt] = [1, 2, 3, 4, 5]
 
-    var val: AllNodeDetailsModel {
-        let sss = try! getSSSEndpoints(network: .legacy(.TESTNET))
-        let rss = try! getRSSEndpoints(network: .legacy(.TESTNET))
-        let tss = try! getTSSEndpoints(network: .legacy(.TESTNET))
+    var val: NodeDetails {
+        let sss = try! getSSSEndpoints(network: .TESTNET)
+        let rss = try! getRSSEndpoints(network: .TESTNET)
+        let tss = try! getTSSEndpoints(network: .TESTNET)
 
         return .init(_currentEpoch: currentEpoch, _torusNodeEndpoints: torusNodeEndpoints, _torusNodeSSSEndpoints: sss, _torusNodeRSSEndpoints: rss, _torusNodeTSSEndpoints: tss, _torusIndexes: torusIndexes, _torusNodePub: torusNodePub, _updated: updated)
     }
 }
 
 public struct SampleOutputCyan {
-    var val: AllNodeDetailsModel {
+    var val: NodeDetails {
         return .init(
             _currentEpoch: "1",
-            _torusNodeEndpoints: try! getSSSEndpoints(network: .legacy(.CYAN)),
-            _torusNodeSSSEndpoints: try! getSSSEndpoints(network: .legacy(.CYAN)),
-            _torusNodeRSSEndpoints: try! getRSSEndpoints(network: .legacy(.CYAN)),
-            _torusNodeTSSEndpoints: try! getTSSEndpoints(network: .legacy(.CYAN)),
+            _torusNodeEndpoints: try! getSSSEndpoints(network: .CYAN),
+            _torusNodeSSSEndpoints: try! getSSSEndpoints(network: .CYAN),
+            _torusNodeRSSEndpoints: try! getRSSEndpoints(network: .CYAN),
+            _torusNodeTSSEndpoints: try! getTSSEndpoints(network: .CYAN),
             _torusIndexes: [1, 2, 3, 4, 5],
             _torusNodePub: [
                 .init(_X: "e0925898fee0e9e941fdca7ee88deec99939ae9407e923535c4d4a3a3ff8b052",
@@ -84,13 +84,13 @@ public struct SampleOutputCyan {
 }
 
 public struct SampleOutputAqua {
-    var val: AllNodeDetailsModel {
+    var val: NodeDetails {
         return .init(
             _currentEpoch: "1",
-            _torusNodeEndpoints: try! getSSSEndpoints(network: .legacy(.AQUA)),
-            _torusNodeSSSEndpoints: try! getSSSEndpoints(network: .legacy(.AQUA)),
-            _torusNodeRSSEndpoints: try! getRSSEndpoints(network: .legacy(.AQUA)),
-            _torusNodeTSSEndpoints: try! getTSSEndpoints(network: .legacy(.AQUA)),
+            _torusNodeEndpoints: try! getSSSEndpoints(network: .AQUA),
+            _torusNodeSSSEndpoints: try! getSSSEndpoints(network: .AQUA),
+            _torusNodeRSSEndpoints: try! getRSSEndpoints(network: .AQUA),
+            _torusNodeTSSEndpoints: try! getTSSEndpoints(network: .AQUA),
             _torusIndexes: [1, 2, 3, 4, 5],
             _torusNodePub: [
                 .init(_X: "e0925898fee0e9e941fdca7ee88deec99939ae9407e923535c4d4a3a3ff8b052",
@@ -110,13 +110,13 @@ public struct SampleOutputAqua {
 }
 
 public struct SampleOutputCeleste {
-    var val: AllNodeDetailsModel {
+    var val: NodeDetails {
         return .init(
             _currentEpoch: "1",
-            _torusNodeEndpoints: try! getSSSEndpoints(network: .legacy(.CELESTE)),
-            _torusNodeSSSEndpoints: try! getSSSEndpoints(network: .legacy(.CELESTE)),
-            _torusNodeRSSEndpoints: try! getRSSEndpoints(network: .legacy(.CELESTE)),
-            _torusNodeTSSEndpoints: try! getTSSEndpoints(network: .legacy(.CELESTE)),
+            _torusNodeEndpoints: try! getSSSEndpoints(network: .CELESTE),
+            _torusNodeSSSEndpoints: try! getSSSEndpoints(network: .CELESTE),
+            _torusNodeRSSEndpoints: try! getRSSEndpoints(network: .CELESTE),
+            _torusNodeTSSEndpoints: try! getTSSEndpoints(network: .CELESTE),
             _torusIndexes: [1, 2, 3, 4, 5],
             _torusNodePub: [
                 .init(_X: "e0925898fee0e9e941fdca7ee88deec99939ae9407e923535c4d4a3a3ff8b052",
@@ -136,13 +136,13 @@ public struct SampleOutputCeleste {
 }
 
 public struct SampleOutputSAPPHIREDEVNET {
-    var val: AllNodeDetailsModel {
+    var val: NodeDetails {
         return .init(
             _currentEpoch: "1",
-            _torusNodeEndpoints: try! getSSSEndpoints(network: .sapphire(SapphireNetwork.SAPPHIRE_DEVNET)), // SAPPHIRE_NETWORK_URLS[.SAPPHIRE_DEVNET]!,
-            _torusNodeSSSEndpoints: try! getSSSEndpoints(network: .sapphire(SapphireNetwork.SAPPHIRE_DEVNET)),
-            _torusNodeRSSEndpoints: try! getRSSEndpoints(network: .sapphire(SapphireNetwork.SAPPHIRE_DEVNET)),
-            _torusNodeTSSEndpoints: try! getTSSEndpoints(network: .sapphire(SapphireNetwork.SAPPHIRE_DEVNET)),
+            _torusNodeEndpoints: try! getSSSEndpoints(network: .SAPPHIRE_DEVNET), // SAPPHIRE_NETWORK_URLS[.SAPPHIRE_DEVNET]!,
+            _torusNodeSSSEndpoints: try! getSSSEndpoints(network: .SAPPHIRE_DEVNET),
+            _torusNodeRSSEndpoints: try! getRSSEndpoints(network: .SAPPHIRE_DEVNET),
+            _torusNodeTSSEndpoints: try! getTSSEndpoints(network: .SAPPHIRE_DEVNET),
             _torusIndexes: [1, 2, 3, 4, 5],
             _torusNodePub: [
                 .init(_X: "f74389b0a4c8d10d2a687ae575f69b20f412d41ab7f1fe6b358aa14871327247",
@@ -162,13 +162,13 @@ public struct SampleOutputSAPPHIREDEVNET {
 }
 
 public struct SampleOutputSAPPHIREMAINNET {
-    var val: AllNodeDetailsModel {
+    var val: NodeDetails {
         return .init(
             _currentEpoch: "1",
-            _torusNodeEndpoints: try! getSSSEndpoints(network: .sapphire(SapphireNetwork.SAPPHIRE_MAINNET)), // SAPPHIRE_NETWORK_URLS[.SAPPHIRE_MAINNET]!,
-            _torusNodeSSSEndpoints: try! getSSSEndpoints(network: .sapphire(SapphireNetwork.SAPPHIRE_MAINNET)),
-            _torusNodeRSSEndpoints: try! getRSSEndpoints(network: .sapphire(SapphireNetwork.SAPPHIRE_MAINNET)),
-            _torusNodeTSSEndpoints: try! getTSSEndpoints(network: .sapphire(SapphireNetwork.SAPPHIRE_MAINNET)),
+            _torusNodeEndpoints: try! getSSSEndpoints(network: .SAPPHIRE_MAINNET), // SAPPHIRE_NETWORK_URLS[.SAPPHIRE_MAINNET]!,
+            _torusNodeSSSEndpoints: try! getSSSEndpoints(network: .SAPPHIRE_MAINNET),
+            _torusNodeRSSEndpoints: try! getRSSEndpoints(network: .SAPPHIRE_MAINNET),
+            _torusNodeTSSEndpoints: try! getTSSEndpoints(network: .SAPPHIRE_MAINNET),
             _torusIndexes: [1, 2, 3, 4, 5],
             _torusNodePub: [
                 .init(_X: "e0925898fee0e9e941fdca7ee88deec99939ae9407e923535c4d4a3a3ff8b052",
