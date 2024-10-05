@@ -15,7 +15,7 @@ open class NodeDetailManager {
     private var torusNodeRSSEndpoints: [String] = []
     private var torusNodeTSSEndpoints: [String] = []
 
-    private var network: TorusNetwork = .sapphire( SapphireNetwork.SAPPHIRE_MAINNET ) 
+    private var network: Web3AuthNetwork = .SAPPHIRE_MAINNET
 
     private var urlSession: URLSession
     private var updated = false
@@ -24,7 +24,7 @@ open class NodeDetailManager {
     }
 
 
-    public init(network: TorusNetwork, fndEndpoint: String? = nil, logLevel: OSLogType = .default, urlSession: URLSession = URLSession.shared) {
+    public init(network: Web3AuthNetwork, fndEndpoint: String? = nil, logLevel: OSLogType = .default, urlSession: URLSession = URLSession.shared) {
         fndLogType = logLevel // to be used across application
         self.network = network
         self.urlSession = urlSession
@@ -34,8 +34,7 @@ open class NodeDetailManager {
     }
     
     public func getNodeDetails(verifier: String, verifierID: String) async throws -> AllNodeDetailsModel {
-        
-        switch network {
+        switch network.torusNetwork {
         case .legacy(let legacyNetwork):
             if updated && !MULTI_CLUSTER_NETWORKS.contains(legacyNetwork) {
                 return nodeDetails
@@ -74,11 +73,11 @@ open class NodeDetailManager {
     }
     
     public func getMetadataUrl() async throws -> String {
-        switch network {
+        switch network.torusNetwork {
         case .legacy(let legacyNetwork):
             return legacyNetwork.metadataMap
         case .sapphire(_):
-            return try await self.getNodeDetails(verifier: "test-verifier", verifierID: "test-verifier-id").torusNodeEndpoints[0].replacingOccurrences(of: "/sss/jrpc", with: "/metadata")
+            return try await self.getNodeDetails(verifier: "test-verifier", verifierID: "test-verifier-id").getTorusNodeEndpoints()[0].replacingOccurrences(of: "/sss/jrpc", with: "/metadata")
         }
     }
     

@@ -1,6 +1,6 @@
 import Foundation
 
-public enum TorusNetwork : Equatable, Hashable {
+internal enum TorusNetwork : Equatable, Hashable {
     case legacy(LegacyNetwork)
     case sapphire(SapphireNetwork)
     
@@ -68,7 +68,6 @@ public enum LegacyNetwork: Equatable, Hashable {
     case CYAN
     case AQUA
     case CELESTE
-    case CUSTOM(path: String)
 
     public var path: String {
         switch self {
@@ -78,8 +77,6 @@ public enum LegacyNetwork: Equatable, Hashable {
             return "goerli"
         case .CYAN, .AQUA, .CELESTE:
             return "polygon-mainnet"
-        case let .CUSTOM(path):
-            return path
         }
     }
     
@@ -95,8 +92,6 @@ public enum LegacyNetwork: Equatable, Hashable {
             return "aqua"
         case .CELESTE:
             return "celeste"
-        case .CUSTOM(_):
-            return "custom"
         }
     }
     
@@ -112,8 +107,6 @@ public enum LegacyNetwork: Equatable, Hashable {
             return LegacyNetworkMigrationInfo(migrationCompleted: true, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
         case .CELESTE:
             return LegacyNetworkMigrationInfo(migrationCompleted: true, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
-        case .CUSTOM(_):
-            return LegacyNetworkMigrationInfo(migrationCompleted: false, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
         }
     }
     
@@ -124,7 +117,6 @@ public enum LegacyNetwork: Equatable, Hashable {
         case .CYAN: return "polygon-mainnet"
         case .AQUA: return "polygon-mainnet"
         case .CELESTE: return "polygon-mainnet"
-        case .CUSTOM(let path) : return path
         }
     }
     
@@ -135,7 +127,6 @@ public enum LegacyNetwork: Equatable, Hashable {
         case .CYAN: return "https://signer-polygon.web3auth.io"
         case .AQUA: return "https://signer-polygon.web3auth.io"
         case .CELESTE: return "https://signer-polygon.web3auth.io"
-        case .CUSTOM(let path) : return path
         }
     }
     
@@ -146,7 +137,6 @@ public enum LegacyNetwork: Equatable, Hashable {
         case .CYAN: return "https://metadata.web3auth.io"
         case .AQUA: return "https://metadata.web3auth.io"
         case .CELESTE: return "https://metadata.web3auth.io"
-        case .CUSTOM(let path): return path
         }
     }
 }

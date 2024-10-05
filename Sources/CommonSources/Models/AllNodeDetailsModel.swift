@@ -6,14 +6,14 @@ public struct AllNodeDetailsModel:Equatable, Decodable {
         return lhs.currentEpoch == rhs.currentEpoch && lhs.torusNodeEndpoints == rhs.torusNodeEndpoints && lhs.torusNodePub == rhs.torusNodePub && lhs.currentEpoch == rhs.currentEpoch && lhs.torusIndexes == rhs.torusIndexes && lhs.updated == rhs.updated
     }
     
-    public var currentEpoch : String
-    public var torusNodeEndpoints : Array<String>
-    public var torusNodeSSSEndpoints : Array<String>
-    public var torusNodeRSSEndpoints : Array<String>
-    public var torusNodeTSSEndpoints : Array<String>
-    public var torusIndexes : Array<BigUInt>
-    public var torusNodePub : Array<TorusNodePubModel>
-    public var updated = false
+    private var currentEpoch : String
+    private var torusNodeEndpoints : Array<String>
+    private var torusNodeSSSEndpoints : Array<String>
+    private var torusNodeRSSEndpoints : Array<String>
+    private var torusNodeTSSEndpoints : Array<String>
+    private var torusIndexes : Array<BigUInt>
+    private var torusNodePub : Array<TorusNodePubModel>
+    private var updated = false
     
     public enum CodingKeys: String, CodingKey {
             case currentEpoch = "currentEpoch"
