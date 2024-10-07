@@ -35,8 +35,8 @@ open class NodeDetailManager {
     
     public func getNodeDetails(verifier: String, verifierID: String) async throws -> AllNodeDetailsModel {
         switch network.torusNetwork {
-        case .legacy(let legacyNetwork):
-            if updated && !MULTI_CLUSTER_NETWORKS.contains(legacyNetwork) {
+        case .legacy(_):
+            if updated {
                 return nodeDetails
             }
         case .sapphire(_):

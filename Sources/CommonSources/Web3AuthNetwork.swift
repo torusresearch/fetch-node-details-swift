@@ -5,7 +5,6 @@ public enum Web3AuthNetwork : Equatable, Hashable {
     case TESTNET
     case CYAN
     case AQUA
-    case CELESTE
     
     public var path: String {
         return self.torusNetwork.path
@@ -66,8 +65,6 @@ public enum Web3AuthNetwork : Equatable, Hashable {
             return .legacy(.CYAN)
         case .AQUA:
             return .legacy(.AQUA)
-        case .CELESTE:
-            return .legacy(.CELESTE)
         }
     }
 }

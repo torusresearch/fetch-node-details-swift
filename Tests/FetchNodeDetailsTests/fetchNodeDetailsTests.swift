@@ -57,12 +57,6 @@ class fetchNodeDetailsTests: XCTestCase {
         let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
         XCTAssertEqual(result, SampleOutputAqua().val)
     }
-
-    func test_getNode_Celeste() async throws {
-        let fnd = NodeDetailManager(network: .CELESTE)
-        let result = try await fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us")
-        XCTAssertEqual(result, SampleOutputCeleste().val)
-    }
     
     func test_getMetadata_Mainnet() async throws {
         let fnd = NodeDetailManager(network: .MAINNET)

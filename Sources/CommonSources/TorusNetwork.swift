@@ -67,7 +67,6 @@ public enum LegacyNetwork: Equatable, Hashable {
     case TESTNET
     case CYAN
     case AQUA
-    case CELESTE
 
     public var path: String {
         switch self {
@@ -75,7 +74,7 @@ public enum LegacyNetwork: Equatable, Hashable {
             return "mainnet"
         case .TESTNET:
             return "goerli"
-        case .CYAN, .AQUA, .CELESTE:
+        case .CYAN, .AQUA:
             return "polygon-mainnet"
         }
     }
@@ -90,8 +89,6 @@ public enum LegacyNetwork: Equatable, Hashable {
             return "cyan"
         case .AQUA :
             return "aqua"
-        case .CELESTE:
-            return "celeste"
         }
     }
     
@@ -105,8 +102,6 @@ public enum LegacyNetwork: Equatable, Hashable {
             return LegacyNetworkMigrationInfo(migrationCompleted: true, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
         case .AQUA :
             return LegacyNetworkMigrationInfo(migrationCompleted: true, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
-        case .CELESTE:
-            return LegacyNetworkMigrationInfo(migrationCompleted: true, networkIdentifier: self.name, networkMigratedTo: SapphireNetwork.SAPPHIRE_MAINNET)
         }
     }
     
@@ -116,7 +111,6 @@ public enum LegacyNetwork: Equatable, Hashable {
         case .TESTNET: return "goerli"
         case .CYAN: return "polygon-mainnet"
         case .AQUA: return "polygon-mainnet"
-        case .CELESTE: return "polygon-mainnet"
         }
     }
     
@@ -126,7 +120,6 @@ public enum LegacyNetwork: Equatable, Hashable {
         case .TESTNET: return "https://signer.web3auth.io"
         case .CYAN: return "https://signer-polygon.web3auth.io"
         case .AQUA: return "https://signer-polygon.web3auth.io"
-        case .CELESTE: return "https://signer-polygon.web3auth.io"
         }
     }
     
@@ -136,7 +129,6 @@ public enum LegacyNetwork: Equatable, Hashable {
         case .TESTNET: return "https://metadata.web3auth.io"
         case .CYAN: return "https://metadata.web3auth.io"
         case .AQUA: return "https://metadata.web3auth.io"
-        case .CELESTE: return "https://metadata.web3auth.io"
         }
     }
 }
