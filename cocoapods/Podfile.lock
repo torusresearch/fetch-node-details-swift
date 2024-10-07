@@ -1,6 +1,6 @@
 PODS:
   - BigInt (5.2.0)
-  - Torus-fetchNodeDetails (6.0.3):
+  - Torus-fetchNodeDetails (7.0.0):
     - BigInt (~> 5.2.0)
 
 DEPENDENCIES:
@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BigInt: f668a80089607f521586bbe29513d708491ef2f7
-  Torus-fetchNodeDetails: 6c349f47cbca36a4b3f276fe26d03c1b39b20949
+  Torus-fetchNodeDetails: d12f3511de52bdca33ccabf35f618c296edf94c5
 
 PODFILE CHECKSUM: 33add72342a492adb43676625c404c97ced731da
 
