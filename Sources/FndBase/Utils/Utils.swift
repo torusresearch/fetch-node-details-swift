@@ -1,6 +1,6 @@
-public func fetchLocalConfig(network: TorusNetwork) throws -> AllNodeDetailsModel {
+public func fetchLocalConfig(network: Web3AuthNetwork) throws -> AllNodeDetailsModel {
     
-    switch network {
+    switch network.torusNetwork {
         case .legacy(let network ) :
         if (network.migration_map.migrationCompleted) {
             return try SapphireConfig(network: network.migration_map.networkMigratedTo )

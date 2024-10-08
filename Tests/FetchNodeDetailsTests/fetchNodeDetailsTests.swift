@@ -6,7 +6,7 @@ class fetchNodeDetailsTests: XCTestCase {
     var timeout: TimeInterval = 10
     var verifierId = "hello@tor.us"
     func test_getNode_Mainnet() async throws {
-        let fnd = NodeDetailManager(network: .legacy(.MAINNET))
+        let fnd = NodeDetailManager(network: .MAINNET)
         let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
         XCTAssertEqual(result, SampleOutputMainnet().val)
     }
@@ -23,56 +23,56 @@ class fetchNodeDetailsTests: XCTestCase {
 //    }
 
     func test_getNode_Testnet() async throws {
-        let fnd = NodeDetailManager(network: .legacy(.TESTNET))
+        let fnd = NodeDetailManager(network: .TESTNET)
         let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
         XCTAssertEqual(result, SampleOutputTestnet().val)
     }
 
     func test_getNode_SapphireDevnet() async throws {
-        let fnd = NodeDetailManager(network: .sapphire(.SAPPHIRE_DEVNET))
+        let fnd = NodeDetailManager(network: .SAPPHIRE_DEVNET)
         let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
         var config = try! SapphireConfig(network: .SAPPHIRE_DEVNET)
-        config.updated = true
+        config.setUpdated(updated: true)
         XCTAssertEqual(result, config)
         XCTAssertEqual(result, SampleOutputSAPPHIREDEVNET().val)
     }
 
     func test_getNode_SapphireMainnet() async throws {
-        let fnd = NodeDetailManager(network: .sapphire(.SAPPHIRE_MAINNET))
+        let fnd = NodeDetailManager(network: .SAPPHIRE_MAINNET)
         let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
         var config = try! SapphireConfig(network: .SAPPHIRE_MAINNET)
-        config.updated = true
+        config.setUpdated(updated: true)
         XCTAssertEqual(result, config)
         XCTAssertEqual(result, SampleOutputSAPPHIREMAINNET().val)
     }
 
     func test_getNode_Cyan() async throws {
-        let fnd = NodeDetailManager(network: .legacy(.CYAN))
+        let fnd = NodeDetailManager(network: .CYAN)
         let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
         XCTAssertEqual(result, SampleOutputCyan().val)
     }
 
     func test_getNode_Aqua() async throws {
-        let fnd = NodeDetailManager(network: .legacy(.AQUA))
+        let fnd = NodeDetailManager(network: .AQUA)
         let result = try await fnd.getNodeDetails(verifier: "google", verifierID: verifierId)
         XCTAssertEqual(result, SampleOutputAqua().val)
     }
 
     func test_getNode_Celeste() async throws {
-        let fnd = NodeDetailManager(network: .legacy(.CELESTE))
+        let fnd = NodeDetailManager(network: .CELESTE)
         let result = try await fnd.getNodeDetails(verifier: "google", verifierID: "hello@tor.us")
         XCTAssertEqual(result, SampleOutputCeleste().val)
     }
     
     func test_getMetadata_Mainnet() async throws {
-        let fnd = NodeDetailManager(network: .legacy(.MAINNET))
+        let fnd = NodeDetailManager(network: .MAINNET)
         let result = try await fnd.getMetadataUrl()
         XCTAssertEqual(result, "https://metadata.web3auth.io")
     }
     
     func test_getMetadata_SapphireMainnet() async throws {
-        let fnd = NodeDetailManager(network: .sapphire(.SAPPHIRE_MAINNET))
+        let fnd = NodeDetailManager(network: .SAPPHIRE_MAINNET)
         let result = try await fnd.getMetadataUrl()
-        XCTAssertEqual(result, SampleOutputSAPPHIREMAINNET().val.torusNodeEndpoints[0].replacingOccurrences(of: "/sss/jrpc", with: "/metadata"))
+        XCTAssertEqual(result, SampleOutputSAPPHIREMAINNET().val.getTorusNodeEndpoints()[0].replacingOccurrences(of: "/sss/jrpc", with: "/metadata"))
     }
 }
