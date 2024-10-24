@@ -9,4 +9,4 @@ let TORUS_NETWORK: [TorusNetwork: String] = [
 public typealias TORUS_NETWORK_TYPE = String
 
 
-let MULTI_CLUSTER_NETWORKS: [LegacyNetwork] = [.CELESTE]
+let MULTI_CLUSTER_NETWORKS: [LegacyNetwork] = []
