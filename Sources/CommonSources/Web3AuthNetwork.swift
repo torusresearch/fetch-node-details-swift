@@ -1,4 +1,4 @@
-public enum Web3AuthNetwork : Equatable, Hashable {
+public enum Web3AuthNetwork : Equatable, Hashable, Codable {
     case SAPPHIRE_DEVNET
     case SAPPHIRE_MAINNET
     case MAINNET
